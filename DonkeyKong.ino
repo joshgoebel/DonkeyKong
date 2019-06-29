@@ -1,14 +1,16 @@
 #include <Arduboy2.h>
 Arduboy2 arduboy;
 
+#include "src/utils/Enums.h"
 #include "src/images/Images.h"
 #include "src/map/Coordinates.h"
-#include "src/utils/Enums.h"
+#include "src/entities/Entities.h"
 
 int8_t barrel_Rot = 0;
 uint8_t barrel_Pos = 0;
 
 uint8_t playerPosition = 0;
+Barrel barrels[6];
 
 void setup() {
 
@@ -18,6 +20,17 @@ void setup() {
   arduboy.setFrameRate(60);
   arduboy.initRandomSeed();
 	arduboy.clear();
+
+  for (auto &barrel : barrels) {
+
+    if (random(0, 50) == 0) {
+
+      barrel.setPosition(random(0, 180));
+      barrel.setEnabled(true);
+
+    }
+
+  }
 
 }
 
@@ -29,6 +42,7 @@ void loop() {
 
   //Handle movements ..
   {
+    
     uint8_t movements = pgm_read_byte(&Coordinates::Player[(playerPosition * 6) + 5]);
 
     if (movements & static_cast<uint8_t>(Movements::Reverse)) {
@@ -45,12 +59,6 @@ void loop() {
     }
     else {
 
-if (arduboy.pressed(RIGHT_BUTTON)) {
-  Serial.print("Right ");
-  Serial.print(movements);
-  Serial.print(" ");
-  Serial.println(movements & static_cast<uint8_t>(Movements::Left));
-}
       if (arduboy.pressed(LEFT_BUTTON) && (movements & static_cast<uint8_t>(Movements::Left))) {
         playerPosition--;
       }
@@ -70,6 +78,7 @@ if (arduboy.pressed(RIGHT_BUTTON)) {
     }
 
   }
+
 
   uint8_t yOffset = pgm_read_byte(&Coordinates::Player[(playerPosition * 6) + 2]);
 
@@ -96,6 +105,10 @@ if (arduboy.pressed(RIGHT_BUTTON)) {
           Sprites::drawSelfMasked(x, y, Images::Girder_Small, 0);
           break;
         
+        case static_cast<uint8_t>(Components::Plate):
+          Sprites::drawSelfMasked(x, y, Images::Plate, 0);
+          break;
+        
         case static_cast<uint8_t>(Components::Ladder):
           Sprites::drawExternalMask(x, y, Images::Ladder, Images::Ladder_Mask, 0, 0);
           break;
@@ -107,33 +120,43 @@ if (arduboy.pressed(RIGHT_BUTTON)) {
   }
 
 
-  // Draw Barrel
+  // Handle Barrels
   {
-    uint8_t x = pgm_read_byte(&Coordinates::Barrel[(barrel_Pos * 3)]);
-    int8_t y = pgm_read_byte(&Coordinates::Barrel[(barrel_Pos * 3) + 1]) - yOffset;
-    Rotation rot = static_cast<Rotation>(pgm_read_byte(&Coordinates::Barrel[(barrel_Pos * 3) + 2]));
 
-    Sprites::drawExternalMask(x, y, Images::Barrel, Images::Barrel_Mask, barrel_Rot, 0);
+    // Should we launch a new barrel?
 
-    if (arduboy.everyXFrames(4)) {
+    if (random(0, 75) == 0) {
 
-      switch (rot) {
-        case Rotation::Right:
-          barrel_Rot++;
-          if (barrel_Rot == 4) barrel_Rot = 0;
+      for (auto &barrel : barrels) {
+
+        if (!barrel.isEnabled()) {
+
+          barrel.launch(random(0, 3));
           break;
 
-        case Rotation::Left:
-          barrel_Rot--;
-          if (barrel_Rot == -1) barrel_Rot = 3;
-          break;
+        }
 
       }
 
-      barrel_Pos++;
-      if (barrel_Pos == 128) barrel_Pos = 0;
+    }
+
+    for (auto &barrel : barrels) {
+
+      if (barrel.isEnabled()) {
+
+        Sprites::drawExternalMask(barrel.getXPosition(), barrel.getYPosition(yOffset), Images::BarrelImg, Images::Barrel_Mask, barrel.getRotation(), 0);
+
+        if (arduboy.everyXFrames(4)) {
+
+          barrel.updatePosition();
+          barrel.rotate();
+
+        }
+
+      }
 
     }
+
   }
 
   // Draw player
@@ -141,14 +164,10 @@ if (arduboy.pressed(RIGHT_BUTTON)) {
   {
     uint8_t x = pgm_read_byte(&Coordinates::Player[(playerPosition * 6)]);
     int8_t y = pgm_read_byte(&Coordinates::Player[(playerPosition * 6) + 1]) - yOffset;
-// Serial.print(x);
-// Serial.print(" ");
-// Serial.print(y);
-// Serial.print(" ");
-// Serial.println(y + 64);
     Sprites::drawSelfMasked(x, y, Images::Mario, 0);
 
-    arduboy.display();
-
   }
+
+  arduboy.display();
+
 }
