@@ -82,11 +82,12 @@ void Crane::update() {
             break;
 
           case CranePosition::Inclined:
-Serial.println("Inclined");
             this->hook = 2;
             this->counter = 10;
             this->state = CraneState::Swinging;
             break;
+
+          default: break;
 
         }
 
@@ -138,6 +139,8 @@ Serial.println("Inclined");
             }
 
             break;
+
+          default: break;
 
         }
 

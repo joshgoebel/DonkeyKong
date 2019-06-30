@@ -2,6 +2,21 @@
 
 #include <Arduboy2.h>
 
+
+// - High Scores ---------------------
+
+#define NAME_LENGTH 3
+#define NAME_LENGTH_PLUS_TERM (NAME_LENGTH + 1)
+
+#define HS_NAME_LEFT 36
+#define HS_SCORE_LEFT 69
+#define HS_CHAR_TOP 24
+#define HS_CHAR_V_SPACING 9
+#define HS_PRESS_A_DELAY 100
+#define NO_WINNER 255
+
+#define FLASH_FRAME_COUNT_2 56
+
 enum class LeverPosition : uint8_t {
   Off,
   On
@@ -63,9 +78,45 @@ enum class CranePosition : uint8_t {
   Declined = 7,
 };
 
-
 enum class CraneState : uint8_t {
   Dormant,
   TurningOn,
   Swinging
+};
+
+enum class GameStateType : uint8_t {
+  None,
+	SplashScreen,
+	TitleScreen,
+  GameIntroScreen,
+  PlayGameScreen,
+  HighScoreScreen
+};
+
+enum class GameMode : uint8_t {
+  Easy,
+  Hard
+};
+
+struct GameStats {
+
+  public: 
+    
+    GameStats() { };
+
+    uint16_t score = 0;
+    uint8_t numberOfLivesLeft = 3;
+
+    GameMode mode = GameMode::Easy;
+
+    bool gameOver = false;
+
+    void resetGame() {
+
+      this->numberOfLivesLeft = 3;
+      this->score = 0; 
+      this->gameOver = false;
+
+    }
+
 };

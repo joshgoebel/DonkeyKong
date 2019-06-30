@@ -4,3 +4,6 @@
 #include "Gorilla.h"
 #include "Scenery.h"
 #include "Player.h"
+#include "Extras.h"
+#include "Scoreboard.h"
+#include "Splash.h"
