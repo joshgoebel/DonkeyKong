@@ -14,7 +14,7 @@ uint8_t Gorilla::getXPosition() {
 
 int8_t Gorilla::getYPosition(uint8_t yOffset) {
 
-  return 5 - yOffset;
+  return 3 - yOffset;
 
 }
 
@@ -64,18 +64,12 @@ void Gorilla::move() {
     if (this->launchBarrel > 0) {
 
       this->launchBarrel--;
-Serial.print("Gorilla.cpp move() : launchBarrel pause : ");
-Serial.print(this->pause);
-Serial.print(", counter : ");
-Serial.println(this->launchBarrel);
 
       if (this->launchBarrel == 0) {
         
         uint8_t lauchPosition = 0;
         if (this->xPosition == GORILLA_X_POSITION_2) lauchPosition = 1;
         if (this->xPosition == GORILLA_X_POSITION_3) lauchPosition = 2;
-Serial.print("Gorilla.cpp move() : launch a barrel, pos: ");
-Serial.println(lauchPosition);
         this->barrel->launch(lauchPosition);
 
       }
@@ -157,9 +151,6 @@ void Gorilla::changeDirections() {
 
 void Gorilla::launch(Barrel *barrel) {
 
-Serial.print("Gorilla.cpp launch() : lbarrel number : ");
-Serial.println(barrel->getNumber());
-
   this->barrel = barrel;
   this->launchBarrel = 20;
 
@@ -170,7 +161,6 @@ bool Gorilla::isPaused() {
   return (this->pause > 0);
 
 }
-
 
 bool Gorilla::isReadyToLaunch() {
 

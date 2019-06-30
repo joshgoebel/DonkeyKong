@@ -1,4 +1,6 @@
 #include "Barrel.h"
+#include "Crane.h"
+#include "Girder.h"
 #include "Gorilla.h"
 #include "Scenery.h"
 #include "Player.h"

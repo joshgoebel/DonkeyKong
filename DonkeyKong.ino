@@ -6,13 +6,12 @@ Arduboy2 arduboy;
 #include "src/map/Coordinates.h"
 #include "src/entities/Entities.h"
 
-int8_t barrel_Rot = 0;
-uint8_t barrel_Pos = 0;
-
-uint8_t playerPosition = 0;
 
 Gorilla gorilla;
 Barrel barrels[6];
+Girder girders[2];
+Lever lever;
+Player player;
 
 void setup() {
 
@@ -23,16 +22,14 @@ void setup() {
   arduboy.initRandomSeed();
 	arduboy.clear();
 
-uint8_t number = 0;
   for (auto &barrel : barrels) {
-    barrel.setNumber(number++);
 
-    // if (random(0, 50) == 0) {
+    if (random(0, 2) == 0) {
 
-    //   barrel.setPosition(random(0, 180));
-    //   barrel.setEnabled(true);
+      barrel.setPosition(random(4, 180));
+      barrel.setEnabled(true);
 
-    // }
+    }
 
   }
 
@@ -47,45 +44,107 @@ void loop() {
   //Handle movements ..
   {
     
-    uint8_t movements = pgm_read_byte(&Coordinates::Player[(playerPosition * 6) + 5]);
+    if (player.canMove(Movements::Reverse)) {
 
-    if (movements & static_cast<uint8_t>(Movements::Reverse)) {
-
-      if (arduboy.pressed(LEFT_BUTTON) && (movements & static_cast<uint8_t>(Movements::Left))) {
-        playerPosition++;
+      if (arduboy.pressed(LEFT_BUTTON) && player.canMove(Movements::Left)) {
+        player.incPlayerPosition();
       }
 
-      if (arduboy.pressed(RIGHT_BUTTON) && (movements & static_cast<uint8_t>(Movements::Right))) {
-        playerPosition--;
+      if (arduboy.pressed(RIGHT_BUTTON) && player.canMove(Movements::Right)) {
+        player.decPlayerPosition();
       }
 
 
     }
     else {
 
-      if (arduboy.pressed(LEFT_BUTTON) && (movements & static_cast<uint8_t>(Movements::Left))) {
-        playerPosition--;
+      if (arduboy.pressed(LEFT_BUTTON) && player.canMove(Movements::Left)) {
+        player.decPlayerPosition();
       }
 
-      if (arduboy.pressed(RIGHT_BUTTON) && (movements & static_cast<uint8_t>(Movements::Right))) {
-        playerPosition++;
+      if (arduboy.pressed(LEFT_BUTTON) && player.canMove(Movements::Lever)) {
+        lever.setPosition(LeverPosition::On);
+      }
+
+      if (arduboy.pressed(RIGHT_BUTTON) && player.canMove(Movements::Right)) {
+        player.incPlayerPosition();
       }
 
     }
 
-    if (arduboy.pressed(DOWN_BUTTON) && (movements & static_cast<uint8_t>(Movements::Down))) {
-      playerPosition--;
+    if (arduboy.pressed(DOWN_BUTTON) && player.canMove(Movements::Down)) {
+      player.decPlayerPosition();
     }
 
-    if (arduboy.pressed(UP_BUTTON) && (movements & static_cast<uint8_t>(Movements::Up))) {
-      playerPosition++;
+    if (arduboy.pressed(UP_BUTTON) && player.canMove(Movements::Up)) {
+      player.incPlayerPosition();
     }
 
   }
 
 
-  uint8_t yOffset = pgm_read_byte(&Coordinates::Player[(playerPosition * 6) + 2]);
+  uint8_t yOffset = player.getYOffset();
 
+
+  // Handle Barrels
+  {
+
+    // Should we launch a new barrel?
+
+    if (gorilla.isReadyToLaunch() && random(0, 40) == 0) {
+
+      for (auto &barrel : barrels) {
+
+        if (!barrel.isEnabled()) {
+
+          Barrel* ptr_Barrel = &barrel;
+          gorilla.launch(ptr_Barrel);
+          break;
+
+        }
+
+      }
+
+    }
+
+  }
+
+
+  // Update girders ..
+
+  if (arduboy.everyXFrames(4)) {
+
+    for (auto &girder : girders) {
+
+      if (girder.isEnabled()) {
+
+        girder.updatePosition();
+
+      }
+
+    }
+
+  }
+
+  uint8_t activeGirderCount = getActiveGirderCount();
+  uint8_t girderMaxPosition = getGirderMaxPosition();
+
+  if ((activeGirderCount == 0 || (activeGirderCount == 1 < 2 && girderMaxPosition > 50)) && random(0, 50) == 0) {
+
+    uint8_t girderIndex = getDisabledGirderIndex();
+
+    Girder &girder = girders[girderIndex];
+    girder.setEnabled(true);
+
+  }
+
+
+  //Update lever
+
+  lever.update();
+
+
+  //----------------------------------------------------------------------
 
   // Draw Scenery ..
   {
@@ -109,12 +168,36 @@ void loop() {
           Sprites::drawSelfMasked(x, y, Images::Girder_Small, 0);
           break;
         
-        case static_cast<uint8_t>(Components::Plate):
-          Sprites::drawSelfMasked(x, y, Images::Plate, 0);
+        case static_cast<uint8_t>(Components::Plate1):
+          Sprites::drawSelfMasked(x, y, Images::Plate_1, 0);
+          break;
+        
+        case static_cast<uint8_t>(Components::Plate2):
+          Sprites::drawSelfMasked(x, y, Images::Plate_2, 0);
           break;
         
         case static_cast<uint8_t>(Components::Ladder):
           Sprites::drawExternalMask(x, y, Images::Ladder, Images::Ladder_Mask, 0, 0);
+          break;
+        
+        case static_cast<uint8_t>(Components::Lever):
+          Sprites::drawSelfMasked(x, y, Images::Lever, static_cast<uint8_t>(lever.getPosition()));
+          break;
+        
+        case static_cast<uint8_t>(Components::Cable1):
+          Sprites::drawExternalMask(x, y, Images::Cable_1, Images::Cable_1_Mask, 0, 0);
+          break;
+        
+        case static_cast<uint8_t>(Components::Cable2):
+          Sprites::drawExternalMask(x, y, Images::Cable_2, Images::Cable_2_Mask, 0, 0);
+          break;
+        
+        case static_cast<uint8_t>(Components::Crane):
+          Sprites::drawSelfMasked(x, y, Images::Crane, 0);
+          break;
+        
+        case static_cast<uint8_t>(Components::Hook):
+          Sprites::drawSelfMasked(x, y, Images::Hook, 0);
           break;
           
       }
@@ -123,30 +206,8 @@ void loop() {
 
   }
 
-
-  // Handle Barrels
+  // Draw Barrels
   {
-
-    // Should we launch a new barrel?
-
-    if (gorilla.isReadyToLaunch() && random(0, 40) == 0) {
-
-      for (auto &barrel : barrels) {
-
-        if (!barrel.isEnabled()) {
-
-          Serial.print("DonkeyKong.ino : launch a barrel, number :");
-          Serial.println(barrel.getNumber());
-
-          Barrel* ptr_Barrel = &barrel;
-          gorilla.launch(ptr_Barrel);
-          break;
-
-        }
-
-      }
-
-    }
 
     for (auto &barrel : barrels) {
 
@@ -170,17 +231,87 @@ void loop() {
   // Draw player
 
   {
-    uint8_t x = pgm_read_byte(&Coordinates::Player[(playerPosition * 6)]);
-    int8_t y = pgm_read_byte(&Coordinates::Player[(playerPosition * 6) + 1]) - yOffset;
-    Sprites::drawSelfMasked(x, y, Images::Mario, 0);
+    Sprites::drawSelfMasked(player.getXPosition(), player.getYPosition(), Images::Mario, 0);
 
   }
+
 
   // Draw gorilla
 
   gorilla.move();
   Sprites::drawSelfMasked(gorilla.getXPosition(), gorilla.getYPosition(yOffset), Images::Gorilla, static_cast<uint8_t>(gorilla.getStance()) );
 
+
+  // Draw girders ..
+
+  for (auto &girder : girders) {
+
+    if (girder.isEnabled()) {
+
+      Sprites::drawExternalMask(girder.getXPosition(), girder.getYPosition(yOffset), Images::Girder_Moving, Images::Girder_Moving_Mask, girder.getImage(), girder.getImage());
+
+    }
+
+  }
+
+
   arduboy.display();
 
+}
+
+uint8_t getActiveGirderCount() {
+
+  uint8_t girderCount = 0;
+
+  for (auto &girder : girders) {
+
+      if (girder.isEnabled()) {
+
+        girderCount++;
+
+      }
+  
+  }
+
+  return girderCount;
+
+}
+
+uint8_t getGirderMaxPosition() {
+
+  uint8_t girderPosition = 0;
+
+  for (auto &girder : girders) {
+
+      if (girder.isEnabled() && girder.getPosition() > girderPosition) {
+
+        girderPosition = girder.getPosition();
+
+      }
+  
+  }
+
+  return girderPosition;
+  
+}
+
+#define GIRDER_COUNT 2
+#define NONE_FOUND 255
+
+uint8_t getDisabledGirderIndex() {
+
+  for (uint8_t x = 0; x < GIRDER_COUNT; x++) {
+
+      Girder girder = girders[x];
+
+      if (!girder.isEnabled()) {
+
+        return x;
+
+      }
+  
+  }
+
+  return NONE_FOUND;
+  
 }

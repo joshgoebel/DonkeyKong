@@ -1,18 +1,17 @@
 #pragma once
 
 #include "../utils/Enums.h"
-#define SCENERY_COUNT 52
+
+#define SCENERY_COUNT 65
+#define SCENERY_LEVEL_2_ONLY 56
 
 namespace Coordinates {
 
   const uint8_t PROGMEM Scenery[] = {
 
-    11, 26, static_cast<uint8_t>(Components::Plate), 0,
-    36, 26, static_cast<uint8_t>(Components::Plate), 0,
-    61, 26, static_cast<uint8_t>(Components::Plate), 0,
-
-
-    0, 0, static_cast<uint8_t>(Components::Girder), 0,
+    11, 24, static_cast<uint8_t>(Components::Plate1), 0,
+    36, 24, static_cast<uint8_t>(Components::Plate1), 0,
+    61, 24, static_cast<uint8_t>(Components::Plate2), 0,
 
     // X, Y, Item, Spare
     9, 67, static_cast<uint8_t>(Components::Girder), 0,
@@ -25,11 +24,11 @@ namespace Coordinates {
 
     9, 47, static_cast<uint8_t>(Components::Ladder), 0,
 
-    21, 50, static_cast<uint8_t>(Components::Girder_OverHead), 0,
-    33, 50, static_cast<uint8_t>(Components::Girder_OverHead), 0,
-    45, 50, static_cast<uint8_t>(Components::Girder_OverHead), 0,
-    57, 50, static_cast<uint8_t>(Components::Girder_OverHead), 0,
-    69, 50, static_cast<uint8_t>(Components::Girder_OverHead), 0,
+    21, 48, static_cast<uint8_t>(Components::Girder_OverHead), 0,
+    33, 48, static_cast<uint8_t>(Components::Girder_OverHead), 0,
+    45, 48, static_cast<uint8_t>(Components::Girder_OverHead), 0,
+    57, 48, static_cast<uint8_t>(Components::Girder_OverHead), 0,
+    69, 48, static_cast<uint8_t>(Components::Girder_OverHead), 0,
 
     //Lower Half, 10, , 0,
 
@@ -37,6 +36,11 @@ namespace Coordinates {
     35, 75, static_cast<uint8_t>(Components::Girder_OverHead), 0,
     87, 80, static_cast<uint8_t>(Components::Girder_OverHead), 0,
     91, 80, static_cast<uint8_t>(Components::Girder_OverHead), 0,
+
+    87, 63, static_cast<uint8_t>(Components::Girder_OverHead), 0,
+    99, 63, static_cast<uint8_t>(Components::Girder_OverHead), 0,
+    111, 63, static_cast<uint8_t>(Components::Girder_OverHead), 0,
+    123, 63, static_cast<uint8_t>(Components::Girder_OverHead), 0,
 
 
     static_cast<uint8_t>(-5), 108, static_cast<uint8_t>(Components::Girder_OverHead), 0,
@@ -46,6 +50,7 @@ namespace Coordinates {
     50, 108, static_cast<uint8_t>(Components::Girder_OverHead), 0,
 
     79, 108, static_cast<uint8_t>(Components::Girder_OverHead), 0,
+
     0, 92, static_cast<uint8_t>(Components::Girder), 0,
     10, 93, static_cast<uint8_t>(Components::Girder), 0,
     20, 94, static_cast<uint8_t>(Components::Girder), 0,
@@ -75,6 +80,24 @@ namespace Coordinates {
     9, 74, static_cast<uint8_t>(Components::Ladder), 0,
 
     91, 106, static_cast<uint8_t>(Components::Ladder), 0,
+
+    0, 38, static_cast<uint8_t>(Components::Lever), 0,
+
+
+    0, 68, static_cast<uint8_t>(Components::Cable2), SCENERY_LEVEL_2_ONLY,
+    20, 68, static_cast<uint8_t>(Components::Cable1), SCENERY_LEVEL_2_ONLY,
+    40, 69, static_cast<uint8_t>(Components::Cable1), SCENERY_LEVEL_2_ONLY,
+    60, 70, static_cast<uint8_t>(Components::Cable1), SCENERY_LEVEL_2_ONLY,
+    80, 71, static_cast<uint8_t>(Components::Cable1), SCENERY_LEVEL_2_ONLY,
+    100, 72, static_cast<uint8_t>(Components::Cable1), SCENERY_LEVEL_2_ONLY,
+    120, 73, static_cast<uint8_t>(Components::Cable1), SCENERY_LEVEL_2_ONLY,
+
+
+    88, 0, static_cast<uint8_t>(Components::Crane), 0,
+    85, 0, static_cast<uint8_t>(Components::Hook), 0,
+
+    0, 0, static_cast<uint8_t>(Components::Girder), 0,
+
 
   };
  

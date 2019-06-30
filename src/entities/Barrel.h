@@ -14,13 +14,12 @@ class Barrel {
     // Properties ..
     uint8_t getPosition();
     uint8_t getRotation();
-    uint8_t getNumber();
     bool isEnabled();
 
     void setPosition(uint8_t position);
     void setRotation(uint8_t rotation);
     void setEnabled(bool enabled);
-    void setNumber(uint8_t number);
+
 
     // Methods ..
 
@@ -32,7 +31,6 @@ class Barrel {
 
   protected:
 
-    uint8_t number;
     uint8_t position;
     uint8_t rotation;
     bool enabled;

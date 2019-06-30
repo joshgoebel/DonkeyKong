@@ -2,6 +2,11 @@
 
 #include <Arduboy2.h>
 
+enum class LeverPosition : uint8_t {
+  Off,
+  On
+};
+
 enum class Stance : uint8_t {
   Normal,
 };
@@ -21,7 +26,13 @@ enum class Components : uint8_t {
   Girder_OverHead, 
   Girder_Small,
   Ladder,
-  Plate
+  Plate1,
+  Plate2,
+  Lever,
+  Cable1,
+  Cable2,
+  Crane,
+  Hook
 };
 
 enum class Movements : uint8_t {
@@ -30,7 +41,8 @@ enum class Movements : uint8_t {
   Left = 4,
   Right = 8,
   Jump = 16,
-  Reverse = 32
+  Lever = 32,
+  Reverse = 64
 };
 
 enum class Rotation : uint8_t {
