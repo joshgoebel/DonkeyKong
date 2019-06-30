@@ -131,7 +131,7 @@ namespace Coordinates {
     11, 45, 0, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Up) | static_cast<uint8_t>(Movements::Down),
     11, 43, 0, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Up) | static_cast<uint8_t>(Movements::Down),
     11, 41, 0, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Up) | static_cast<uint8_t>(Movements::Down),
-    11, 39, 0, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Down) | static_cast<uint8_t>(Movements::Right),
+    11, 38, 0, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Down) | static_cast<uint8_t>(Movements::Right),
 
     13, 38, 0, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
     15, 38, 0, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
@@ -141,8 +141,14 @@ namespace Coordinates {
     23, 38, 0, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
     25, 38, 0, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
     27, 38, 0, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
+    29, 38, 0, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
+    31, 38, 0, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
+    33, 38, 0, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
+    35, 38, 0, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
+    37, 38, 0, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
+    39, 38, 0, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
 
-    29, 38, 0, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left),
+    41, 38, 0, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left),
 
   };
  

@@ -6,6 +6,16 @@ enum class Stance : uint8_t {
   Normal,
 };
 
+enum class GorillaStance : uint8_t {
+  Normal,
+  Left,
+  Right,
+  ThrowingBarrel1,
+  ThrowingBarrel2,
+  ThrowingBarrel3,
+  ThrowingBarrel4,
+};
+
 enum class Components : uint8_t {
   Girder,
   Girder_OverHead, 

@@ -18,6 +18,12 @@ uint8_t Barrel::getRotation() {
 
 }
 
+uint8_t Barrel::getNumber() {
+
+  return this->number;
+
+}
+
 bool Barrel::isEnabled() {
 
   return this->enabled;
@@ -42,6 +48,11 @@ void Barrel::setEnabled(bool enabled) {
 
 }
 
+void Barrel::setNumber(uint8_t number) {
+
+  this->number = number;
+
+}
 
 // Methods ..
 
@@ -65,7 +76,7 @@ void Barrel::updatePosition() {
 
   uint8_t skip = pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMER_OF_ELEMENTS)+ 3]);
   this->position = this->position + 1 + skip;
-Serial.println(this->position);
+
   uint8_t x = pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMER_OF_ELEMENTS)]);
   uint8_t y = pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMER_OF_ELEMENTS) + 1]);
 
@@ -107,5 +118,8 @@ void Barrel::launch(uint8_t startingPosition) {
 
   this->position = startingPositions[startingPosition];
   this->enabled = true;
+
+Serial.print("Barrel.cpp launch(), barrel number ");
+Serial.println(this->number);
 
 }

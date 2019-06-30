@@ -38,8 +38,8 @@ namespace Coordinates {
     87, 80, static_cast<uint8_t>(Components::Girder_OverHead), 0,
     91, 80, static_cast<uint8_t>(Components::Girder_OverHead), 0,
 
-    //-5
-    0, 108, static_cast<uint8_t>(Components::Girder_OverHead), 0,
+
+    static_cast<uint8_t>(-5), 108, static_cast<uint8_t>(Components::Girder_OverHead), 0,
     22, 108, static_cast<uint8_t>(Components::Girder_OverHead), 0,
     34, 108, static_cast<uint8_t>(Components::Girder_OverHead), 0,
     46, 108, static_cast<uint8_t>(Components::Girder_OverHead), 0,

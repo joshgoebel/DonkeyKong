@@ -10,6 +10,8 @@ int8_t barrel_Rot = 0;
 uint8_t barrel_Pos = 0;
 
 uint8_t playerPosition = 0;
+
+Gorilla gorilla;
 Barrel barrels[6];
 
 void setup() {
@@ -21,14 +23,16 @@ void setup() {
   arduboy.initRandomSeed();
 	arduboy.clear();
 
+uint8_t number = 0;
   for (auto &barrel : barrels) {
+    barrel.setNumber(number++);
 
-    if (random(0, 50) == 0) {
+    // if (random(0, 50) == 0) {
 
-      barrel.setPosition(random(0, 180));
-      barrel.setEnabled(true);
+    //   barrel.setPosition(random(0, 180));
+    //   barrel.setEnabled(true);
 
-    }
+    // }
 
   }
 
@@ -125,13 +129,17 @@ void loop() {
 
     // Should we launch a new barrel?
 
-    if (random(0, 75) == 0) {
+    if (gorilla.isReadyToLaunch() && random(0, 40) == 0) {
 
       for (auto &barrel : barrels) {
 
         if (!barrel.isEnabled()) {
 
-          barrel.launch(random(0, 3));
+          Serial.print("DonkeyKong.ino : launch a barrel, number :");
+          Serial.println(barrel.getNumber());
+
+          Barrel* ptr_Barrel = &barrel;
+          gorilla.launch(ptr_Barrel);
           break;
 
         }
@@ -167,6 +175,11 @@ void loop() {
     Sprites::drawSelfMasked(x, y, Images::Mario, 0);
 
   }
+
+  // Draw gorilla
+
+  gorilla.move();
+  Sprites::drawSelfMasked(gorilla.getXPosition(), gorilla.getYPosition(yOffset), Images::Gorilla, static_cast<uint8_t>(gorilla.getStance()) );
 
   arduboy.display();
 

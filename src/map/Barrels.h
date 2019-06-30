@@ -3,9 +3,9 @@
 #include "../utils/Enums.h"
 
 #define BARREL_POSITION_3_START       0
-#define BARREL_POSITION_3_COUNT       31
+#define BARREL_POSITION_3_COUNT       30
 #define BARREL_POSITION_2_START       BARREL_POSITION_3_START + BARREL_POSITION_3_COUNT
-#define BARREL_POSITION_2_COUNT       31
+#define BARREL_POSITION_2_COUNT       29
 #define BARREL_POSITION_1_START       BARREL_POSITION_2_START + BARREL_POSITION_2_COUNT
 #define BARREL_NUMER_OF_ELEMENTS      4
 
@@ -16,7 +16,6 @@ namespace Coordinates {
 
     //From Position 3 ..
 
-    69, 16, static_cast<uint8_t>(Rotation::None), 0,	
     69, 18, static_cast<uint8_t>(Rotation::None), 0,	
     69, 20, static_cast<uint8_t>(Rotation::None), 0,	
     69, 22, static_cast<uint8_t>(Rotation::None), 0,	
@@ -58,8 +57,6 @@ namespace Coordinates {
 
     // From Position 2 ..
 
-    44, 15, static_cast<uint8_t>(Rotation::None), 0,	
-    44, 17, static_cast<uint8_t>(Rotation::None), 0,	
     44, 19, static_cast<uint8_t>(Rotation::None), 0,	
     44, 21, static_cast<uint8_t>(Rotation::None), 0,	
 
@@ -101,8 +98,6 @@ namespace Coordinates {
 
     // From Position 1 ..
 
-    19, 15, static_cast<uint8_t>(Rotation::None), 0,	
-    19, 17, static_cast<uint8_t>(Rotation::None), 0,	
     19, 19, static_cast<uint8_t>(Rotation::None), 0,	
     19, 21, static_cast<uint8_t>(Rotation::None), 0,
         	
