@@ -93,11 +93,10 @@ namespace Coordinates {
     120, 73, static_cast<uint8_t>(Components::Cable1), SCENERY_LEVEL_2_ONLY,
 
 
-    88, 0, static_cast<uint8_t>(Components::Crane), 0,
+    88, 10, static_cast<uint8_t>(Components::Crane), 0,
     85, 0, static_cast<uint8_t>(Components::Hook), 0,
 
     0, 0, static_cast<uint8_t>(Components::Girder), 0,
-
 
   };
  

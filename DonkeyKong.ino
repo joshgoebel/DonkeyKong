@@ -12,6 +12,7 @@ Barrel barrels[6];
 Girder girders[2];
 Lever lever;
 Player player;
+Crane crane;
 
 void setup() {
 
@@ -64,6 +65,7 @@ void loop() {
 
       if (arduboy.pressed(LEFT_BUTTON) && player.canMove(Movements::Lever)) {
         lever.setPosition(LeverPosition::On);
+        crane.turnOn();
       }
 
       if (arduboy.pressed(RIGHT_BUTTON) && player.canMove(Movements::Right)) {
@@ -84,6 +86,10 @@ void loop() {
 
 
   uint8_t yOffset = player.getYOffset();
+
+
+  // Handle crane
+  crane.update();
 
 
   // Handle Barrels
@@ -193,7 +199,7 @@ void loop() {
           break;
         
         case static_cast<uint8_t>(Components::Crane):
-          Sprites::drawSelfMasked(x, y, Images::Crane, 0);
+          Sprites::drawSelfMasked(x, y, Images::Crane, crane.getImage());
           break;
         
         case static_cast<uint8_t>(Components::Hook):

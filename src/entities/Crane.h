@@ -12,22 +12,27 @@ class Crane {
  
     // Properties ..
 
-    LeverPosition getPosition();
+    CranePosition getPosition();
     uint8_t getCounter();
 
-    void setPosition(LeverPosition position);
+    void setPosition(CranePosition position);
     void setCounter(uint8_t counter);
 
 
     // Methods
 
+    void turnOn();
     void update();
+    uint8_t getImage();
 
 
   protected:
 
-    LeverPosition position = LeverPosition::Off;
+    CranePosition position = CranePosition::Declined;
+    uint8_t hook = 2;
+    CraneState state = CraneState::Dormant;
     uint8_t counter = 0;
+    Movements hookDirection = Movements::Right;
 
 };
 

@@ -50,3 +50,22 @@ enum class Rotation : uint8_t {
   Right,
   None
 };
+
+enum class CranePosition : uint8_t {
+  Upright = 0,
+  Inclined = 1,
+  Inclined_01 = 0,
+  Inclined_02 = 1,
+  Inclined_03 = 2,
+  Inclined_04 = 3,
+  Inclined_05 = 4,
+  Flat = 6,
+  Declined = 7,
+};
+
+
+enum class CraneState : uint8_t {
+  Dormant,
+  TurningOn,
+  Swinging
+};
