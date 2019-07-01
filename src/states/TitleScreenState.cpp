@@ -30,7 +30,7 @@ void TitleScreenState::activate(StateMachine & machine) {
   auto scoreIndex = static_cast<size_t>(random(getSize(Sounds::Scores)));
   auto score = static_cast<const uint16_t *>(pgm_read_ptr(&Sounds::Scores[scoreIndex]));
 
-  sound.tones(score);
+  //sound.tones(score);
 
 }
 

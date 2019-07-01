@@ -3,6 +3,7 @@
 #include <Arduboy2.h>
 #include "../Utils/Enums.h"
 #include "../map/Coordinates.h"
+#include "Crane.h"
 
 class Lever {
 
@@ -17,6 +18,7 @@ class Lever {
 
     void setPosition(LeverPosition position);
     void setCounter(uint8_t counter);
+    void setCrane(Crane *crane);
 
 
     // Methods
@@ -27,6 +29,7 @@ class Lever {
   protected:
 
     LeverPosition position = LeverPosition::Off;
+    Crane *crane;
     uint8_t counter = 0;
 
 };

@@ -47,7 +47,9 @@ enum class Components : uint8_t {
   Cable1,
   Cable2,
   Crane,
-  Hook
+  Hook,
+  Fire,
+  Fire_Foreground
 };
 
 enum class Movements : uint8_t {
@@ -81,6 +83,7 @@ enum class CranePosition : uint8_t {
 enum class CraneState : uint8_t {
   Dormant,
   TurningOn,
+  TurningOff,
   Swinging
 };
 

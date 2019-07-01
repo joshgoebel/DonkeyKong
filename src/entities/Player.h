@@ -30,6 +30,7 @@ class Player {
     void incPlayerPosition();
     void decPlayerPosition();
     bool canMove(Movements movement);
+    void initLife();
 
   protected:
 

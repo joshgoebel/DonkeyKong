@@ -3,4 +3,5 @@
 #include "Gorilla.h"
 #include "Girder.h"
 #include "Lever.h"
+#include "Fire.h"
 #include "Player.h"

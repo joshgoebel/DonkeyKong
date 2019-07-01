@@ -14,11 +14,13 @@ class PlayGameState : public BaseState { //GameState<GameContext, GameStateType>
     Gorilla gorilla;
     Barrel barrels[6];
     Girder girders[2];
-    Lever lever;
     Player player;
     Crane crane;
-    bool playing = false;
+    Lever lever;
+    Fire fire;
     
+    bool playing = false;
+
   public:
 
     void activate(StateMachine & machine) override;
@@ -30,5 +32,6 @@ class PlayGameState : public BaseState { //GameState<GameContext, GameStateType>
     uint8_t getActiveGirderCount();
     uint8_t getGirderMaxPosition();
     uint8_t getDisabledGirderIndex();
+    uint8_t drawScenery(StateMachine & machine, uint8_t paintMode);
 
 };

@@ -35,6 +35,11 @@ void Lever::setCounter(uint8_t counter) {
 
 }
 
+void Lever::setCrane(Crane *crane) {
+
+  this->crane = crane;
+
+}
 
 void Lever::update() {
 
@@ -46,6 +51,7 @@ void Lever::update() {
     case 1:
       this->counter = 0;
       this->position = LeverPosition::Off;
+      this->crane->turnOff();
       break;
 
     default:

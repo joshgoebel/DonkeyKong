@@ -92,3 +92,9 @@ bool Player::canMove(Movements movement) {
   return (this->movements & static_cast<uint8_t>(movement));
 
 }
+
+void Player::initLife() {
+
+  this->setPosition(0);
+
+}

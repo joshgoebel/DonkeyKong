@@ -22,17 +22,21 @@ class Crane {
     // Methods
 
     void turnOn();
+    void turnOff();
     void update();
     uint8_t getImage();
 
+  private:
+
+    void swingHook();
 
   protected:
 
     CranePosition position = CranePosition::Declined;
-    uint8_t hook = 2;
     CraneState state = CraneState::Dormant;
-    uint8_t counter = 0;
     Movements hookDirection = Movements::Right;
+    uint8_t hook = 2;
+    uint8_t counter = 0;
 
 };
 

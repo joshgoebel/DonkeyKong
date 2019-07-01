@@ -5,7 +5,6 @@
 Gorilla::Gorilla() { 
 }
 
-
 uint8_t Gorilla::getXPosition() {
 
   return this->xPosition;
@@ -54,7 +53,6 @@ GorillaStance Gorilla::getStance() {
 
 }
 
-
 void Gorilla::move() {
 
   if (this->pause > 0) {
@@ -95,7 +93,7 @@ void Gorilla::move() {
           case GORILLA_X_POSITION_1:
           case GORILLA_X_POSITION_2:
           case GORILLA_X_POSITION_3:
-            this->pause = random(50, 150);
+            this->pause = random(100, 255);
             break;
 
           default:            

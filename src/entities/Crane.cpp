@@ -53,6 +53,14 @@ void Crane::turnOn() {
 
 }
 
+
+void Crane::turnOff() {
+
+  this->state = CraneState::TurningOff;
+  this->counter = 20;
+
+}
+
 void Crane::update() {
 
   switch (this->state) {
@@ -95,6 +103,45 @@ void Crane::update() {
 
       break;
 
+    case CraneState::TurningOff:
+
+      if (this->counter > 0) {
+
+        this->counter--;
+
+        if (this->position == CranePosition::Inclined && this->hook != 2) {
+          this->swingHook();
+        }
+
+      }
+      else {
+
+        switch (this->position) {
+
+          case CranePosition::Inclined:
+            this->position = CranePosition::Flat;
+            this->counter = 20;
+            break;
+
+          case CranePosition::Flat:
+            this->position = CranePosition::Declined;
+            this->counter = 20;
+            break;
+
+          case CranePosition::Declined:
+            this->hook = 2;
+            this->counter = 10;
+            this->state = CraneState::Dormant;
+            break;
+
+          default: break;
+
+        }
+
+      }
+
+      break;
+
     case CraneState::Swinging:
 
       if (this->counter > 0) {
@@ -104,47 +151,52 @@ void Crane::update() {
       }
       else {
 
-        switch (this->hookDirection) {
-
-          case Movements::Left: 
-
-            switch (this->hook) {
-              
-              case 0:
-                this->hook = 1;
-                this->hookDirection = Movements::Right;
-                break;
-
-              case 1 ... 4:
-                this->hook--;
-                break;
-
-            }
-
-            break;
-
-          case Movements::Right: 
-
-            switch (this->hook) {
-              
-              case 0 ... 3:
-                this->hook++;
-                break;
-
-              case 4:
-                this->hook = 3;
-                this->hookDirection = Movements::Left;
-                break;
-
-            }
-
-            break;
-
-          default: break;
-
-        }
-
+        this->swingHook();
         this->counter = 10;
+
+      }
+
+      break;
+
+    default: break;
+
+  }
+
+}
+
+void Crane::swingHook() {
+
+  switch (this->hookDirection) {
+
+    case Movements::Left: 
+
+      switch (this->hook) {
+        
+        case 0:
+          this->hook = 1;
+          this->hookDirection = Movements::Right;
+          break;
+
+        case 1 ... 4:
+          this->hook--;
+          break;
+
+      }
+
+      break;
+
+    case Movements::Right: 
+
+      switch (this->hook) {
+        
+        case 0 ... 3:
+          this->hook++;
+          break;
+
+        case 4:
+          this->hook = 3;
+          this->hookDirection = Movements::Left;
+          break;
 
       }
 
