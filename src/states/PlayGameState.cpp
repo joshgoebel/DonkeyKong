@@ -56,43 +56,56 @@ void PlayGameState::update(StateMachine & machine) {
 
     //Handle player movements ..
 
-    if (this->playing) {
+    if (this->playing && arduboy.everyXFrames(2)) {
       
-      if (this->player.canMove(Movements::Reverse)) {
+      if (!this->player.isJumping()) {
 
-        if ((pressed & LEFT_BUTTON) && this->player.canMove(Movements::Left)) {
-          this->player.incPlayerPosition();
+        if (this->player.canMove(Movements::Reverse)) {
+
+          if ((pressed & LEFT_BUTTON) && this->player.canMove(Movements::Left)) {
+            this->player.incPlayerPosition();
+          }
+
+          if ((pressed & RIGHT_BUTTON) && this->player.canMove(Movements::Right)) {
+            this->player.decPlayerPosition();
+          }
+
+
+        }
+        else {
+
+          if ((pressed & LEFT_BUTTON) && this->player.canMove(Movements::Left)) {
+            this->player.decPlayerPosition();
+          }
+
+          if ((pressed & LEFT_BUTTON) && this->player.canMove(Movements::Lever)) {
+            this->lever.setPosition(LeverPosition::On);
+            this->crane.turnOn();
+          }
+
+          if ((pressed & RIGHT_BUTTON) && this->player.canMove(Movements::Right)) {
+            this->player.incPlayerPosition();
+          }
+
         }
 
-        if ((pressed & RIGHT_BUTTON) && this->player.canMove(Movements::Right)) {
+        if ((pressed & DOWN_BUTTON) && this->player.canMove(Movements::Down)) {
           this->player.decPlayerPosition();
         }
 
+        if ((pressed & UP_BUTTON) && this->player.canMove(Movements::Up)) {
+          this->player.incPlayerPosition();
+        }
+
+        if ((pressed & A_BUTTON) && this->player.canMove(Movements::Jump)) {
+          this->player.startJump();
+        }
 
       }
       else {
 
-        if ((pressed & LEFT_BUTTON) && this->player.canMove(Movements::Left)) {
-          this->player.decPlayerPosition();
-        }
+        this->player.updateJump();
 
-        if ((pressed & LEFT_BUTTON) && this->player.canMove(Movements::Lever)) {
-          this->lever.setPosition(LeverPosition::On);
-          this->crane.turnOn();
-        }
-
-        if ((pressed & RIGHT_BUTTON) && this->player.canMove(Movements::Right)) {
-          this->player.incPlayerPosition();
-        }
-
-      }
-
-      if ((pressed & DOWN_BUTTON) && this->player.canMove(Movements::Down)) {
-        this->player.decPlayerPosition();
-      }
-
-      if ((pressed & UP_BUTTON) && this->player.canMove(Movements::Up)) {
-        this->player.incPlayerPosition();
       }
 
     }
@@ -217,6 +230,10 @@ void PlayGameState::update(StateMachine & machine) {
     BaseState::handleCommonButtons(machine);
   }
 
+
+Serial.print(this->player.getXPosition());
+Serial.print(" ");
+Serial.println(this->player.getYPosition());
 }
 
 

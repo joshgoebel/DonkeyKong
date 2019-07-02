@@ -91,7 +91,7 @@ void TitleScreenState::render(StateMachine & machine) {
 
   BaseState::renderCommonScenery(machine);
 
-  Sprites::drawExternalMask(26, 9, Images::Title, Images::Title_Mask, 0, 0);
+  Sprites::drawOverwrite(0, 0, Images::Title, 0);
 
   if (this->pressACounter == PRESS_A_DELAY) {
 

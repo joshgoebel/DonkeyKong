@@ -3,6 +3,25 @@
 #include "../utils/Enums.h"
 #include "../map/Coordinates.h"
 
+#define JUMP_POSITIONS 45
+const uint8_t PROGMEM jumpPositions[JUMP_POSITIONS] = { 
+0, 2, 4, 6,
+8, 9, 10, 10,
+11, 11, 12, 12, 
+
+12, 13, 13, 13, 
+13, 13, 13, 13, 
+13, 13, 13, 13, 
+
+13, 13, 13, 13, 
+13, 13, 13, 13, 
+13, 12, 12, 12, 
+
+11, 11, 10, 9, 
+8, 6, 4, 2, 
+0
+};
+
 Player::Player() { 
 
   this->movements = pgm_read_byte(&Coordinates::Player[(this->position * 6) + 5]);
@@ -30,7 +49,7 @@ uint8_t Player::getXPosition() {
 
 int8_t Player::getYPosition() {
 
-  int8_t y = pgm_read_byte(&Coordinates::Player[(this->position * 6) + 1]) - this->yOffset;
+  int8_t y = pgm_read_byte(&Coordinates::Player[(this->position * 6) + 1]) - this->yOffset - pgm_read_byte(&jumpPositions[this->jumpPosition]);
   return y;
 
 }
@@ -90,6 +109,29 @@ void Player::decPlayerPosition() {
 bool Player::canMove(Movements movement) {
 
   return (this->movements & static_cast<uint8_t>(movement));
+
+}
+
+void Player::updateJump() {
+
+  if (this->jumpPosition < JUMP_POSITIONS) {
+    this->jumpPosition++;
+  }
+  else {
+    this->jumpPosition = 0;
+  }
+
+}
+
+void Player::startJump() {
+
+  this->jumpPosition = 1;
+
+}
+
+bool Player::isJumping() {
+
+  return this->jumpPosition > 0;
 
 }
 

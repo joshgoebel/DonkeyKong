@@ -31,7 +31,7 @@ void Game::setup(void) {
 	arduboy.systemButtons();
 	arduboy.audio.begin();
 	arduboy.initRandomSeed();
-	arduboy.setFrameRate(75);
+	arduboy.setFrameRate(80);
 
 
 	EEPROM_Utils::initialiseEEPROM();
@@ -44,7 +44,7 @@ void Game::setup(void) {
 void Game::loop(void) {
 
 	auto &arduboy = this->context.arduboy;
-	if (!arduboy.nextFrameDEV()) return;
+	if (!arduboy.nextFrame()) return;
 
 	arduboy.pollButtons();
 
