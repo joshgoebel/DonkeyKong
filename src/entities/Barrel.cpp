@@ -86,11 +86,11 @@ void Barrel::rotate() {
 
     case Rotation::Right:
       this->rotation++;
-      if (this->rotation == 4) this->rotation = 0;
+      if (this->rotation == 3) this->rotation = 0;
       break;
 
     case Rotation::Left:
-      if (this->rotation == 0) this->rotation = 4;
+      if (this->rotation == 0) this->rotation = 3;
       this->rotation--;
       break;
 
