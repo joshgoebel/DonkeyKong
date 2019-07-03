@@ -34,6 +34,7 @@ class Player {
     void updateJump();
     void startJump();
     bool isJumping();
+    uint8_t getImage();
 
   protected:
 
@@ -41,6 +42,11 @@ class Player {
     uint8_t jumpPosition;
     uint8_t movements;
     uint8_t yOffset;
+
+    uint8_t prevXPosition;
+    uint8_t currXPosition;
+    uint8_t runCounter;
+    Movements runMovement = Movements::Right;
 
 };
 

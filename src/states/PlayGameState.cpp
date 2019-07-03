@@ -141,7 +141,7 @@ void PlayGameState::update(StateMachine & machine) {
 
       }
 
-      if (arduboy.everyXFrames(8)) {
+      if (arduboy.everyXFrames(6)) {
 
         for (auto &barrel : this->barrels) {
 
@@ -206,9 +206,11 @@ void PlayGameState::update(StateMachine & machine) {
     this->gorilla.move();
 
 
-    // Update fire
+    // Update fire and spaghetti ..
+
     if (arduboy.everyXFrames(12)) {
       this->fire.update();
+      this->spaghetti.update();
     }
 
   }
@@ -231,9 +233,9 @@ void PlayGameState::update(StateMachine & machine) {
   }
 
 
-Serial.print(this->player.getXPosition());
-Serial.print(" ");
-Serial.println(this->player.getYPosition());
+// Serial.print(this->player.getXPosition());
+// Serial.print(" ");
+// Serial.println(this->player.getYPosition());
 }
 
 
@@ -273,7 +275,7 @@ void PlayGameState::render(StateMachine & machine) {
   // Draw player
 
   {
-    Sprites::drawSelfMasked(this->player.getXPosition(), this->player.getYPosition(), Images::Mario, 0);
+    Sprites::drawExternalMask(this->player.getXPosition(), this->player.getYPosition(), Images::Mario, Images::Mario_Mask, this->player.getImage(), this->player.getImage());
 
   }
 
@@ -380,6 +382,10 @@ uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
           
           case static_cast<uint8_t>(Components::Fire):
             Sprites::drawSelfMasked(x, y, Images::Fire, this->fire.getCounter());
+            break;
+          
+          case static_cast<uint8_t>(Components::Spaghetti):
+            Sprites::drawSelfMasked(x, y, Images::Spaghetti, this->spaghetti.getCounter());
             break;
           
           case static_cast<uint8_t>(Components::Fire_Foreground):

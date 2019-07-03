@@ -27,7 +27,7 @@ GorillaStance Gorilla::getStance() {
 
       if (this->launchBarrel > 0) {
 
-        return static_cast<GorillaStance>( static_cast<uint8_t>(GorillaStance::ThrowingBarrel1) + (3 - (this->launchBarrel / 5)) );
+        return static_cast<GorillaStance>( static_cast<uint8_t>(GorillaStance::ThrowingBarrel1) + (3 - (this->launchBarrel / 10)) );
 
       }
       else {
@@ -150,7 +150,7 @@ void Gorilla::changeDirections() {
 void Gorilla::launch(Barrel *barrel) {
 
   this->barrel = barrel;
-  this->launchBarrel = 20;
+  this->launchBarrel = 40;
 
 }
 

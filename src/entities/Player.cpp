@@ -24,8 +24,8 @@ const uint8_t PROGMEM jumpPositions[JUMP_POSITIONS] = {
 
 Player::Player() { 
 
-  this->movements = pgm_read_byte(&Coordinates::Player[(this->position * 6) + 5]);
-  this->yOffset = pgm_read_byte(&Coordinates::Player[(this->position * 6) + 2]);
+  this->movements = pgm_read_byte(&Coordinates::Player[(this->position * 5) + 4]);
+  this->yOffset = pgm_read_byte(&Coordinates::Player[(this->position * 5) + 2]);
 
 }
 
@@ -43,13 +43,15 @@ uint8_t Player::getJumpPosition() {
 
 uint8_t Player::getXPosition() {
 
-  return pgm_read_byte(&Coordinates::Player[(this->position * 6)]);
+  this->prevXPosition = this->currXPosition;
+  this->currXPosition = pgm_read_byte(&Coordinates::Player[(this->position * 5)]);
+  return this->currXPosition;
 
 }
 
 int8_t Player::getYPosition() {
 
-  int8_t y = pgm_read_byte(&Coordinates::Player[(this->position * 6) + 1]) - this->yOffset - pgm_read_byte(&jumpPositions[this->jumpPosition]);
+  int8_t y = pgm_read_byte(&Coordinates::Player[(this->position * 5) + 1]) - this->yOffset - pgm_read_byte(&jumpPositions[this->jumpPosition]);
   return y;
 
 }
@@ -93,16 +95,16 @@ void Player::setYOffset(uint8_t yOffset) {
 void Player::incPlayerPosition() {
 
   this->position++;
-  this->movements = pgm_read_byte(&Coordinates::Player[(this->position * 6) + 5]);
-  this->yOffset = pgm_read_byte(&Coordinates::Player[(this->position * 6) + 2]);
+  this->movements = pgm_read_byte(&Coordinates::Player[(this->position * 5) + 4]);
+  this->yOffset = pgm_read_byte(&Coordinates::Player[(this->position * 5) + 2]);
 
 }
 
 void Player::decPlayerPosition() {
 
   this->position--;
-  this->movements = pgm_read_byte(&Coordinates::Player[(this->position * 6) + 5]);
-  this->yOffset = pgm_read_byte(&Coordinates::Player[(this->position * 6) + 2]);
+  this->movements = pgm_read_byte(&Coordinates::Player[(this->position * 5) + 4]);
+  this->yOffset = pgm_read_byte(&Coordinates::Player[(this->position * 5) + 2]);
 
 }
 
@@ -138,5 +140,78 @@ bool Player::isJumping() {
 void Player::initLife() {
 
   this->setPosition(0);
+
+}
+
+uint8_t Player::getImage() {
+
+  Stance stance = static_cast<Stance>(pgm_read_byte(&Coordinates::Player[(this->position * 5) + 3]));
+  
+  if (this->jumpPosition == 0) {
+
+    switch  (stance) {
+
+      case Stance::Normal:
+      case Stance::Normal_RHS:
+
+        if (this->currXPosition == this->prevXPosition) {
+
+          if (this->runMovement == Movements::Left) {
+            return static_cast<uint8_t>(Stance::Normal);
+          }
+          else {
+            return static_cast<uint8_t>(Stance::Normal_RHS);
+          }
+
+        }
+
+        if (this->currXPosition > this->prevXPosition) {
+
+          this->runCounter++;
+          this->runMovement = Movements::Right;
+          if (this->runCounter == 16) this->runCounter = 0;
+          return static_cast<uint8_t>(Stance::Normal) + ((this->runCounter / 4) * 2) + 3;
+
+        }
+
+        if (this->currXPosition < this->prevXPosition) {
+
+          this->runCounter++;
+          this->runMovement = Movements::Left;
+          if (this->runCounter == 16) this->runCounter = 0;
+          return static_cast<uint8_t>(Stance::Normal) + ((this->runCounter / 4) * 2) + 2;
+
+        }
+
+        break;
+
+      case Stance::Ladder_01:
+      case Stance::Ladder_02:
+
+        return static_cast<uint8_t>(stance);
+
+      default:
+
+        return static_cast<uint8_t>(Stance::Normal);
+
+    }
+
+  }
+  else {
+
+    if (this->currXPosition == this->prevXPosition) {
+
+      if (this->runMovement == Movements::Left) {
+        return static_cast<uint8_t>(Stance::Jump);
+      }
+      else {
+        return static_cast<uint8_t>(Stance::Jump_RHS);
+      }
+
+    }
+
+  }
+
+  return static_cast<uint8_t>(Stance::Normal);
 
 }

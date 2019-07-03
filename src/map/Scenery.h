@@ -2,7 +2,7 @@
 
 #include "../utils/Enums.h"
 
-#define SCENERY_COUNT 67
+#define SCENERY_COUNT 68
 #define SCENERY_LEVEL_2_ONLY 1
 #define SCENERY_PAINT_LAST 2
 #define SCENERY_PAINT_FIRST 4
@@ -10,6 +10,9 @@
 namespace Coordinates {
 
   const uint8_t PROGMEM Scenery[] = {
+
+    0, 26, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,
+    0, 5, static_cast<uint8_t>(Components::Spaghetti), SCENERY_PAINT_FIRST,
 
     11, 24, static_cast<uint8_t>(Components::Plate1), SCENERY_PAINT_FIRST,
     36, 24, static_cast<uint8_t>(Components::Plate1), SCENERY_PAINT_FIRST,

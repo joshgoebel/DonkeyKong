@@ -18,6 +18,7 @@ class PlayGameState : public BaseState { //GameState<GameContext, GameStateType>
     Crane crane;
     Lever lever;
     Fire fire;
+    Spaghetti spaghetti;
     
     bool playing = false;
 

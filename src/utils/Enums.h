@@ -23,7 +23,20 @@ enum class LeverPosition : uint8_t {
 };
 
 enum class Stance : uint8_t {
-  Normal,
+  Normal,                     // 0
+  Normal_RHS,                 // 1
+  Running_01,                 // 2
+  Running_01_RHS,             // 3
+  Running_02,                 // 4
+  Running_02_RHS,             // 5
+  Running_03,                 // 6
+  Running_03_RHS,             // 7
+  Running_04,                 // 8
+  Running_04_RHS,             // 9
+  Jump,                       // 8
+  Jump_RHS,                   // 9
+  Ladder_01,                  // 12
+  Ladder_02,                  // 13
 };
 
 enum class GorillaStance : uint8_t {
@@ -49,7 +62,8 @@ enum class Components : uint8_t {
   Crane,
   Hook,
   Fire,
-  Fire_Foreground
+  Fire_Foreground,
+  Spaghetti
 };
 
 enum class Movements : uint8_t {

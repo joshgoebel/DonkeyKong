@@ -31,7 +31,7 @@ void Game::setup(void) {
 	arduboy.systemButtons();
 	arduboy.audio.begin();
 	arduboy.initRandomSeed();
-	arduboy.setFrameRate(80);
+	arduboy.setFrameRate(70);
 
 
 	EEPROM_Utils::initialiseEEPROM();
