@@ -28,6 +28,7 @@ class Barrel {
     void updatePosition();
     void rotate();
     void launch(uint8_t startingPosition);
+    Rect getRect(uint8_t yOffset);
 
   protected:
 

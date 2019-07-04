@@ -14,11 +14,6 @@ void PlayGameState::activate(StateMachine & machine) {
   auto & arduboy = machine.getContext().arduboy;
   auto & sound = machine.getContext().sound;  
 
-
-  //           Crane* ptr_Barrel = &this->crane;
-
-  // this->lever.setCrane(ptr_Barrel);
-
   this->lever.setCrane(&crane);
 
   for (auto &barrel : this->barrels) {
@@ -51,7 +46,7 @@ void PlayGameState::update(StateMachine & machine) {
 	auto pressed = arduboy.pressedButtons();
   auto justPressed = arduboy.justPressedButtons();
 
-  if (!BaseState::getPaused()) {
+  if (!BaseState::getPaused() && !this->player.isDead()) {
 
 
     //Handle player movements ..
@@ -110,6 +105,8 @@ void PlayGameState::update(StateMachine & machine) {
 
     }
 
+    uint8_t yOffset = this->player.getYOffset();
+
 
     // Handle crane
 
@@ -124,6 +121,58 @@ void PlayGameState::update(StateMachine & machine) {
     {
 
       // Should we launch a new barrel?
+
+// can we?
+//0, 31 - 59   ,0 - 30
+/* 
+      bool launch = true;
+      uint8_t gorillaPosition = this->gorilla.isInPosition();
+
+      if (gorillaPosition != NOT_IN_A_POSITION) {
+      
+        for (auto &barrel : this->barrels) {
+
+          if (barrel.isEnabled()) {
+
+            switch (barrel.getPosition()) {
+
+              case BARREL_POSITION_3_START ... BARREL_POSITION_3_START + BARREL_POSITION_3_COUNT - 1: // 3
+
+                switch (gorillaPosition) {
+
+                  case 0:
+                    if (barrel.getPosition() - BARREL_POSITION_3_COUNT - BARREL_POSITION_2_COUNT < 11) launch = false;
+                    break;
+
+                  case 1:
+                    if (barrel.getPosition() < 11) launch = false;
+                    break;
+
+                  case 2:
+                    if (barrel.getPosition() < 11) launch = false;
+                    break;
+                  
+                }
+
+                break;
+
+              case BARREL_POSITION_2_START ... BARREL_POSITION_2_START + BARREL_POSITION_2_COUNT - 1: // 2
+                break;
+
+              case BARREL_POSITION_1_START ... BARREL_POSITION_1_START + BARREL_POSITION_1_COUNT - 1: // 1
+                break;
+
+            }
+
+          }
+
+        }
+
+      }
+      else {
+        launch = false;
+      }
+*/
 
       if (this->gorilla.isReadyToLaunch() && random(0, 40) == 0) {
 
@@ -147,12 +196,47 @@ void PlayGameState::update(StateMachine & machine) {
 
           if (barrel.isEnabled()) {
 
+Serial.print(barrel.getPosition());
+Serial.print(", ");
+
+            if (this->playing && this->player.isJumping()) {
+
+              int8_t barrelX = barrel.getXPosition();
+              int16_t barrelY = static_cast<uint16_t>(barrel.getYPosition(yOffset));
+              uint8_t playerX = this->player.getXPosition();
+              int16_t playerY = static_cast<int16_t>(this->player.getYPosition());
+
+              if ((barrelX == playerX) && (playerY - barrelY <= 8)) {
+
+                gameStats.score++;
+
+              }
+
+            }
+
+            Rect playerRect = this->player.getRect();
+            Rect barrelRect = barrel.getRect(yOffset);
+
+            if (this->playing && arduboy.collide(this->player.getRect(), barrel.getRect(yOffset)) ) {
+
+#ifndef BARRELS
+              this->player.setDead(true);
+              this->playing = false;
+              this->deadCounter = 100;
+              gameStats.numberOfLivesLeft--;
+              Serial.println("hit barrel");
+#endif
+            }
+
             barrel.updatePosition();
             barrel.rotate();
 
           }
 
         }
+
+Serial.println("");
+
 
       }
 
@@ -170,6 +254,14 @@ void PlayGameState::update(StateMachine & machine) {
           if (girder.isEnabled()) {
 
             girder.updatePosition();
+
+            if (this->playing && arduboy.collide(this->player.getRect(), girder.getRect(yOffset)) ) {
+              this->player.setDead(true);
+              this->playing = false;
+              this->deadCounter = 100;
+              gameStats.numberOfLivesLeft--;
+              Serial.println("hit girder");
+            }
 
           }
 
@@ -215,6 +307,34 @@ void PlayGameState::update(StateMachine & machine) {
 
   }
 
+
+  // Dead counter
+
+  if (gameStats.numberOfLivesLeft == 0) {
+
+    gameStats.gameOver = true;
+
+  }
+
+  switch (this->deadCounter) {
+
+    case 2 ... 255:
+      this->deadCounter--;
+      break;
+
+    case 1:
+      this->player.setPosition(0);
+      this->player.setDead(false);
+      this->player.setJumpPosition(0);
+      this->deadCounter--;
+      break;
+
+    default:
+      break;
+
+  }
+
+
   // Handle other buttons ..
 
   if (!this->playing && !gameStats.gameOver) {
@@ -238,84 +358,6 @@ void PlayGameState::update(StateMachine & machine) {
 // Serial.println(this->player.getYPosition());
 }
 
-
-
-// ----------------------------------------------------------------------------
-//  Render the state .. 
-//
-void PlayGameState::render(StateMachine & machine) {
-
-	auto & arduboy = machine.getContext().arduboy;
-  auto & gameStats = machine.getContext().gameStats;
-  
-  uint8_t yOffset = this->player.getYOffset();
-
-  BaseState::renderCommonScenery(machine);
-
-
-  // Draw Scenery ..
-  
-  this->drawScenery(machine, SCENERY_PAINT_FIRST);
-
-  // Draw Barrels
-  {
-
-    for (auto &barrel : this->barrels) {
-
-      if (barrel.isEnabled()) {
-
-        Sprites::drawExternalMask(barrel.getXPosition(), barrel.getYPosition(yOffset), Images::BarrelImg, Images::Barrel_Mask, barrel.getRotation(), 0);
-
-      }
-
-    }
-
-  }
-
-  // Draw player
-
-  {
-    Sprites::drawExternalMask(this->player.getXPosition(), this->player.getYPosition(), Images::Mario, Images::Mario_Mask, this->player.getImage(), this->player.getImage());
-
-  }
-
-
-  Sprites::drawSelfMasked(this->gorilla.getXPosition(), this->gorilla.getYPosition(yOffset), Images::Gorilla, static_cast<uint8_t>(this->gorilla.getStance()) );
-
-
-  // Draw girders ..
-
-  if (gameStats.mode == GameMode::Hard) {
-
-    for (auto &girder : this->girders) {
-
-      if (girder.isEnabled()) {
-
-        Sprites::drawExternalMask(girder.getXPosition(), girder.getYPosition(yOffset), Images::Girder_Moving, Images::Girder_Moving_Mask, girder.getImage(), girder.getImage());
-
-      }
-
-    }
-
-  }
-
-  this->drawScenery(machine, SCENERY_PAINT_LAST);
-
-  if (!this->playing && !gameStats.gameOver) {
-
-    Sprites::drawExternalMask(27, 20, Images::PlayerFrame, Images::PlayerFrame_Mask, 0, 0);
-    Sprites::drawSelfMasked(79, 23, Images::Player_Number, gameStats.numberOfLivesLeft - 1);
-
-  }
-  else {
-
-    BaseState::renderGameOverOrPause(machine);
-
-  }
-
-  arduboy.display(true);
-
-}
 
 uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
 
@@ -459,4 +501,91 @@ uint8_t PlayGameState::getDisabledGirderIndex() {
 
   return NONE_FOUND;
   
+}
+
+
+
+
+// ----------------------------------------------------------------------------
+//  Render the state .. 
+//
+void PlayGameState::render(StateMachine & machine) {
+
+	auto & arduboy = machine.getContext().arduboy;
+  auto & gameStats = machine.getContext().gameStats;
+  
+  const uint8_t yOffset = this->player.getYOffset();
+  const bool flash = arduboy.getFrameCountHalf(FLASH_FRAME_COUNT);
+
+  BaseState::renderCommonScenery(machine);
+
+
+  // Draw Scenery ..
+  
+  this->drawScenery(machine, SCENERY_PAINT_FIRST);
+
+  // Draw Barrels
+  {
+
+    for (auto &barrel : this->barrels) {
+
+      if (barrel.isEnabled()) {
+
+        Sprites::drawExternalMask(barrel.getXPosition(), barrel.getYPosition(yOffset), Images::BarrelImg, Images::Barrel_Mask, barrel.getRotation(), 0);
+
+      }
+
+    }
+
+  }
+
+  // Draw player
+
+  if (this->playing || flash) {
+
+    Sprites::drawExternalMask(this->player.getXPosition(), this->player.getYPosition(), Images::Mario, Images::Mario_Mask, this->player.getImage(), this->player.getImage());
+
+  }
+
+
+  Sprites::drawSelfMasked(this->gorilla.getXPosition(), this->gorilla.getYPosition(yOffset), Images::Gorilla, static_cast<uint8_t>(this->gorilla.getStance()) );
+
+
+  // Draw girders ..
+
+  if (gameStats.mode == GameMode::Hard) {
+
+    for (auto &girder : this->girders) {
+
+      if (girder.isEnabled()) {
+
+        Sprites::drawExternalMask(girder.getXPosition(), girder.getYPosition(yOffset), Images::Girder_Moving, Images::Girder_Moving_Mask, girder.getImage(), girder.getImage());
+
+      }
+
+    }
+
+  }
+
+  this->drawScenery(machine, SCENERY_PAINT_LAST);
+
+  if (!this->playing && !gameStats.gameOver && this->deadCounter == 0) {
+
+    Sprites::drawExternalMask(27, 20, Images::PlayerFrame, Images::PlayerFrame_Mask, 0, 0);
+    Sprites::drawSelfMasked(79, 23, Images::Player_Number, gameStats.numberOfLivesLeft - 1);
+
+  }
+  else {
+
+    BaseState::renderGameOverOrPause(machine);
+
+  }
+
+
+  // Render score ..
+
+  BaseState::renderScore(machine, false, 0);
+
+  arduboy.display(true);
+
 }

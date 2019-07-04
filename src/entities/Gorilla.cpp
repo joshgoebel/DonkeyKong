@@ -165,3 +165,23 @@ bool Gorilla::isReadyToLaunch() {
   return (this->pause > 25 && this->launchBarrel == 0);
 
 }
+
+uint8_t Gorilla::isInPosition() {
+
+  switch (this->xPosition) {
+
+    case GORILLA_X_POSITION_1:
+      return 0;
+
+    case GORILLA_X_POSITION_2:
+      return 1;
+      
+    case GORILLA_X_POSITION_3:
+      return 2;
+
+    default: 
+      return NOT_IN_A_POSITION;
+
+  }
+
+}

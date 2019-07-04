@@ -25,7 +25,8 @@ class Girder {
     // Methods
 
     void updatePosition();
-
+    Rect getRect(uint8_t yOffset);
+    
   protected:
 
     bool enabled = false;

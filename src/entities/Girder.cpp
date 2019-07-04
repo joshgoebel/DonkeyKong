@@ -63,5 +63,13 @@ void Girder::updatePosition() {
     this->position = 0;
 
   }
+}
+
+Rect Girder::getRect(uint8_t yOffset) {
+
+  int8_t x = pgm_read_byte(&Coordinates::Girder[(this->position * 3)]);
+  uint8_t y = pgm_read_byte(&Coordinates::Girder[(this->position * 3) + 1]) - yOffset;
+
+  return Rect{x + 1, y + 4, 20, 4 };
 
 }

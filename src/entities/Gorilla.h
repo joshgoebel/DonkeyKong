@@ -28,6 +28,7 @@ class Gorilla {
     void launch(Barrel *barrel);
     bool isPaused();
     bool isReadyToLaunch();
+    uint8_t isInPosition();
 
   private:
 

@@ -109,3 +109,12 @@ void Barrel::launch(uint8_t startingPosition) {
   this->enabled = true;
 
 }
+
+Rect Barrel::getRect(uint8_t yOffset) {
+
+  int8_t x = pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMER_OF_ELEMENTS)]);
+  int8_t y = pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMER_OF_ELEMENTS) + 1]) - yOffset;
+
+  return Rect{x + 1, y + 1, 7, 7 };
+
+}

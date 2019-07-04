@@ -34,5 +34,6 @@ class PlayGameState : public BaseState { //GameState<GameContext, GameStateType>
     uint8_t getGirderMaxPosition();
     uint8_t getDisabledGirderIndex();
     uint8_t drawScenery(StateMachine & machine, uint8_t paintMode);
+    uint8_t deadCounter;
 
 };

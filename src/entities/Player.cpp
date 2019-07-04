@@ -3,7 +3,7 @@
 #include "../utils/Enums.h"
 #include "../map/Coordinates.h"
 
-#define JUMP_POSITIONS 45
+#define JUMP_POSITIONS 41
 const uint8_t PROGMEM jumpPositions[JUMP_POSITIONS] = { 
 0, 2, 4, 6,
 8, 9, 10, 10,
@@ -13,7 +13,6 @@ const uint8_t PROGMEM jumpPositions[JUMP_POSITIONS] = {
 13, 13, 13, 13, 
 13, 13, 13, 13, 
 
-13, 13, 13, 13, 
 13, 13, 13, 13, 
 13, 12, 12, 12, 
 
@@ -68,9 +67,17 @@ uint8_t Player::getYOffset() {
 
 }
 
+bool Player::isDead() {
+
+  return this->dead;
+
+}
+
 void Player::setPosition(uint8_t position) {
 
   this->position = position;
+  this->movements = pgm_read_byte(&Coordinates::Player[(this->position * 5) + 4]);
+  this->yOffset = pgm_read_byte(&Coordinates::Player[(this->position * 5) + 2]);
 
 }
 
@@ -92,6 +99,11 @@ void Player::setYOffset(uint8_t yOffset) {
 
 }
 
+void Player::setDead(bool dead) {
+
+  this->dead = dead;
+
+}
 void Player::incPlayerPosition() {
 
   this->position++;
@@ -213,5 +225,14 @@ uint8_t Player::getImage() {
   }
 
   return static_cast<uint8_t>(Stance::Normal);
+
+}
+
+
+Rect Player::getRect() {
+
+  uint8_t x = pgm_read_byte(&Coordinates::Player[(this->position * 5)]);
+  int8_t y = pgm_read_byte(&Coordinates::Player[(this->position * 5) + 1]) - this->yOffset - pgm_read_byte(&jumpPositions[this->jumpPosition]);
+  return Rect{x, y, 7, 11 };
 
 }

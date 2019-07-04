@@ -11,7 +11,7 @@
 // For pgm_read_ptr
 #include <avr/pgmspace.h>
 
-constexpr const static uint8_t PRESS_A_DELAY = 200;
+constexpr const static uint8_t PRESS_A_DELAY = 120;
 constexpr const static uint8_t UPLOAD_DELAY = 16;
 
 
@@ -95,7 +95,7 @@ void TitleScreenState::render(StateMachine & machine) {
 
   if (this->pressACounter == PRESS_A_DELAY) {
 
-    Sprites::drawExternalMask(35, 42, Images::PressAandB, Images::PressAandB_Mask, 0, 0);
+    Sprites::drawOverwrite(75, 38, Images::PressAandB, 0);
 
   }
 

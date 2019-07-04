@@ -18,12 +18,13 @@ class Player {
     int8_t getYPosition();
     uint8_t getMovements();
     uint8_t getYOffset();
+    bool isDead();
 
     void setPosition(uint8_t position);
     void setJumpPosition(uint8_t jumpPosition);
     void setMovements(uint8_t movements);
     void setYOffset(uint8_t yOffset);
-
+    void setDead(bool dead);
 
     // Methods
 
@@ -35,6 +36,7 @@ class Player {
     void startJump();
     bool isJumping();
     uint8_t getImage();
+    Rect getRect();
 
   protected:
 
@@ -47,6 +49,8 @@ class Player {
     uint8_t currXPosition;
     uint8_t runCounter;
     Movements runMovement = Movements::Right;
+
+    bool dead = false;
 
 };
 

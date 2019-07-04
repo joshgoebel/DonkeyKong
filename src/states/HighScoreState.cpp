@@ -177,7 +177,7 @@ void HighScoreState::render(StateMachine & machine) {
 	auto & arduboy = machine.getContext().arduboy;
 	auto & entries = (this->selectedMode == GameMode::Easy) ? this->easyEntries : this->hardEntries;
 
-	const bool flash = arduboy.getFrameCountHalf(FLASH_FRAME_COUNT_2);
+	const bool flash = arduboy.getFrameCountHalf(FLASH_FRAME_COUNT);
 
   BaseState::renderCommonScenery(machine);
 

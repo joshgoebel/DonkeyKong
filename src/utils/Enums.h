@@ -2,6 +2,11 @@
 
 #include <Arduboy2.h>
 
+#define _BARRELS
+
+
+#define NOT_IN_A_POSITION 255
+
 
 // - High Scores ---------------------
 
@@ -15,7 +20,8 @@
 #define HS_PRESS_A_DELAY 100
 #define NO_WINNER 255
 
-#define FLASH_FRAME_COUNT_2 56
+
+#define FLASH_FRAME_COUNT 40
 
 enum class LeverPosition : uint8_t {
   Off,
