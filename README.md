@@ -1,4 +1,4 @@
 # KONG
 A Remake of the Game &amp; Watch game DONKEY KONG
 
-<img src="/assets/Kong_TitleScreen.png" data-canonical-src="/assets/Kong_TitleScreen.png" width="256" height="128" />
+<img src="/assets/NewKong_TitleScreen copy.png.png" data-canonical-src="/assets/NewKong_TitleScreen copy.png" width="256" height="128" />
