@@ -14,9 +14,11 @@ class Crane {
 
     CranePosition getPosition();
     uint8_t getCounter();
+    bool getLiftPlayer();
 
     void setPosition(CranePosition position);
     void setCounter(uint8_t counter);
+    void setLiftPlayer(bool liftPlayer);
 
 
     // Methods
@@ -37,6 +39,7 @@ class Crane {
     Movements hookDirection = Movements::Right;
     uint8_t hook = 2;
     uint8_t counter = 0;
+    bool liftPlayer;
 
 };
 

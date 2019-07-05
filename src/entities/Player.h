@@ -19,12 +19,15 @@ class Player {
     uint8_t getMovements();
     uint8_t getYOffset();
     bool isDead();
+    bool isLeaping();
 
     void setPosition(uint8_t position);
     void setJumpPosition(uint8_t jumpPosition);
     void setMovements(uint8_t movements);
     void setYOffset(uint8_t yOffset);
     void setDead(bool dead);
+    void setLeaping(bool dead);
+
 
     // Methods
 
@@ -37,6 +40,7 @@ class Player {
     bool isJumping();
     uint8_t getImage();
     Rect getRect();
+    void reset();
 
   protected:
 
@@ -51,6 +55,7 @@ class Player {
     Movements runMovement = Movements::Right;
 
     bool dead = false;
+    bool leaping = false;
 
 };
 

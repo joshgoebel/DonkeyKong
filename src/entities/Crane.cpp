@@ -7,13 +7,20 @@ Crane::Crane() { }
 
 CranePosition Crane::getPosition() {
 
-  return this->position;
+  uint8_t cranePos = static_cast<uint8_t>(this->position) + (this->position == CranePosition::Inclined ? this->hook : 0);
+  return static_cast<CranePosition>(cranePos);
 
 }
 
 uint8_t Crane::getCounter() {
 
   return this->counter;
+
+}
+
+bool Crane::getLiftPlayer() {
+
+  return this->liftPlayer;
 
 }
 
@@ -29,11 +36,19 @@ void Crane::setCounter(uint8_t counter) {
 
 }
 
+void Crane::setLiftPlayer(bool liftPlayer) {
+
+  this->liftPlayer = liftPlayer;
+
+}
+
 uint8_t Crane::getImage() {
 
   switch (this->position) {
 
-    case CranePosition::Upright:
+    case CranePosition::Upright_01:
+    case CranePosition::Upright_02:
+    case CranePosition::Upright_03:
     case CranePosition::Flat:
     case CranePosition::Declined: 
       return static_cast<uint8_t>(this->position);

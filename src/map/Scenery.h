@@ -2,7 +2,7 @@
 
 #include "../utils/Enums.h"
 
-#define SCENERY_COUNT 68
+#define SCENERY_COUNT 69
 #define SCENERY_LEVEL_2_ONLY 1
 #define SCENERY_PAINT_LAST 2
 #define SCENERY_PAINT_FIRST 4
@@ -86,7 +86,8 @@ namespace Coordinates {
 
     91, 106, static_cast<uint8_t>(Components::Ladder), SCENERY_PAINT_FIRST,
 
-    0, 38, static_cast<uint8_t>(Components::Lever), SCENERY_PAINT_FIRST,
+    static_cast<uint8_t>(-4), 48, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,
+    0, 37, static_cast<uint8_t>(Components::Lever), SCENERY_PAINT_FIRST,
 
 
     0, 68, static_cast<uint8_t>(Components::Cable2), SCENERY_PAINT_FIRST | SCENERY_LEVEL_2_ONLY,

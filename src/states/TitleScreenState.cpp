@@ -11,7 +11,8 @@
 // For pgm_read_ptr
 #include <avr/pgmspace.h>
 
-constexpr const static uint8_t PRESS_A_DELAY = 120;
+constexpr const static uint8_t BARREL_DELAY = 30;
+constexpr const static uint8_t PRESS_A_DELAY = 130;
 constexpr const static uint8_t UPLOAD_DELAY = 16;
 
 
@@ -30,6 +31,8 @@ void TitleScreenState::activate(StateMachine & machine) {
   auto scoreIndex = static_cast<size_t>(random(getSize(Sounds::Scores)));
   auto score = static_cast<const uint16_t *>(pgm_read_ptr(&Sounds::Scores[scoreIndex]));
 
+  this->barrelPos = 4;
+  this->barrelRot = 0;
   //sound.tones(score);
 
 }
@@ -63,6 +66,19 @@ void TitleScreenState::update(StateMachine & machine) {
 	}
 
 
+  // Handle barrels ..
+
+  if (this->pressACounter > BARREL_DELAY && arduboy.everyXFrames(2)) {
+
+    if (barrelPos < 38) {
+      barrelPos++;
+      barrelRot++;
+      if (barrelRot == 3) barrelRot = 0;
+    }
+
+  }
+
+
 	// Handle other input ..
 
 	if (justPressed & A_BUTTON || justPressed & B_BUTTON) {
@@ -91,11 +107,13 @@ void TitleScreenState::render(StateMachine & machine) {
 
   BaseState::renderCommonScenery(machine);
 
-  Sprites::drawOverwrite(0, 0, Images::Title, 0);
+  Sprites::drawOverwrite(12, 6, Images::Title, 0);
+  Sprites::drawExternalMask(51 - this->barrelPos, 41, Images::BarrelImg, Images::Barrel_Mask, this->barrelRot, 0);
+  Sprites::drawExternalMask(51 + this->barrelPos, 41, Images::BarrelImg, Images::Barrel_Mask, this->barrelRot, 0);
 
   if (this->pressACounter == PRESS_A_DELAY) {
 
-    Sprites::drawOverwrite(75, 38, Images::PressAandB, 0);
+    Sprites::drawExternalMask(22, 46, Images::PressAandB, Images::PressAandB_Mask, 0, 0);
 
   }
 

@@ -73,6 +73,12 @@ bool Player::isDead() {
 
 }
 
+bool Player::isLeaping() {
+
+  return this->leaping;
+
+}
+
 void Player::setPosition(uint8_t position) {
 
   this->position = position;
@@ -104,6 +110,13 @@ void Player::setDead(bool dead) {
   this->dead = dead;
 
 }
+
+void Player::setLeaping(bool leaping) {
+
+  this->leaping = leaping;
+
+}
+
 void Player::incPlayerPosition() {
 
   this->position++;
@@ -197,14 +210,9 @@ uint8_t Player::getImage() {
 
         break;
 
-      case Stance::Ladder_01:
-      case Stance::Ladder_02:
-
-        return static_cast<uint8_t>(stance);
-
       default:
 
-        return static_cast<uint8_t>(Stance::Normal);
+        return static_cast<uint8_t>(stance);
 
     }
 
@@ -234,5 +242,14 @@ Rect Player::getRect() {
   uint8_t x = pgm_read_byte(&Coordinates::Player[(this->position * 5)]);
   int8_t y = pgm_read_byte(&Coordinates::Player[(this->position * 5) + 1]) - this->yOffset - pgm_read_byte(&jumpPositions[this->jumpPosition]);
   return Rect{x, y, 7, 11 };
+
+}
+
+void Player::reset() {
+
+  this->setPosition(0);
+  this->setJumpPosition(0);
+  this->dead = false;
+  this->leaping = false;
 
 }

@@ -2,7 +2,7 @@
 
 #include <Arduboy2.h>
 
-#define _BARRELS
+#define BARRELS
 
 
 #define NOT_IN_A_POSITION 255
@@ -41,8 +41,15 @@ enum class Stance : uint8_t {
   Running_04_RHS,             // 9
   Jump,                       // 8
   Jump_RHS,                   // 9
-  Ladder_01,                  // 12
-  Ladder_02,                  // 13
+  Ladder_01,                  // 10
+  Ladder_02,                  // 11
+  OnCrane,                    // 12
+  OnCrane_RHS,                // 13
+  Dead_01,                    // 14
+  Dead_02,                    // 15
+  Dead_03,                    // 16
+  OnCrane_EmptyHand,          // 17
+  OnCrane_HoldingHook,        // 18
 };
 
 enum class GorillaStance : uint8_t {
@@ -79,7 +86,8 @@ enum class Movements : uint8_t {
   Right = 8,
   Jump = 16,
   Lever = 32,
-  Reverse = 64
+  Reverse = 64,
+  JumpToCrane = 128
 };
 
 enum class Rotation : uint8_t {
@@ -89,15 +97,17 @@ enum class Rotation : uint8_t {
 };
 
 enum class CranePosition : uint8_t {
-  Upright = 0,
-  Inclined = 1,
+  Upright_01 = 0,
+  Upright_02 = 1,
+  Upright_03 = 2,
+  Inclined = 3,
   Inclined_01 = 0,
   Inclined_02 = 1,
   Inclined_03 = 2,
   Inclined_04 = 3,
   Inclined_05 = 4,
-  Flat = 6,
-  Declined = 7,
+  Flat = 8,
+  Declined = 9,
 };
 
 enum class CraneState : uint8_t {

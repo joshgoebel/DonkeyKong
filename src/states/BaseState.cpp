@@ -9,14 +9,14 @@ void BaseState::renderScore(StateMachine & machine, bool renderHealth, int16_t h
   auto & gameStats = machine.getContext().gameStats;
   auto & arduboy = machine.getContext().arduboy;
 
-  Sprites::drawExternalMask(102, 1, Images::Scoreboard, Images::Scoreboard_Mask, 0, 0);
+  Sprites::drawExternalMask(102, 0, Images::Scoreboard, Images::Scoreboard_Mask, 0, 0);
 
   uint8_t digits[4] = {};
   extractDigits(digits, gameStats.score);
 
   for (uint8_t j = 4; j > 0; --j) {
 
-    Sprites::drawSelfMasked(125 - (j*5), 4, Images::Scoreboard_Numbers, digits[j - 1]);
+    Sprites::drawSelfMasked(125 - (j*5), 3, Images::Scoreboard_Numbers, digits[j - 1]);
 
   }
 
