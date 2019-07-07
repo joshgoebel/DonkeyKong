@@ -4,7 +4,7 @@
 #include "../utils/Utils.h"
 #include "../utils/Enums.h"
 
-void BaseState::renderScore(StateMachine & machine, bool renderHealth, int16_t health) {
+void BaseState::renderScore(StateMachine & machine, int16_t health) {
   	
   auto & gameStats = machine.getContext().gameStats;
   auto & arduboy = machine.getContext().arduboy;

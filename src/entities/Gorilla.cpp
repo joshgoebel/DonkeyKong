@@ -35,6 +35,12 @@ uint8_t Gorilla::getFallingIndex() {
 
 }
 
+uint8_t Gorilla::getLaunchBarrelDelay() {
+
+  return this->launchBarrelDelay;
+
+}
+
 GorillaStance Gorilla::getStance() {
 
   switch (this->fallingIndex) {
@@ -72,6 +78,9 @@ GorillaStance Gorilla::getStance() {
 
             case Movements::Right:
               return GorillaStance::Right;
+
+            default:
+              return GorillaStance::Left;
 
           }
 
@@ -112,24 +121,36 @@ void Gorilla::move() {
   }
   else {
 
-    if (this->pause > 0) {
+    if (this->launchBarrelDelay > 0) {
 
-      this->pause--;
+      this->launchBarrelDelay--;
 
-      if (this->launchBarrel > 0) {
+      if (this->launchBarrelDelay == 0) {
+        this->launchBarrel = 40;
+      }
 
-        this->launchBarrel--;
+    }
+    else if (this->launchBarrel > 0) {
 
-        if (this->launchBarrel == 0) {
-          
-          uint8_t lauchPosition = 0;
-          if (this->xPosition == GORILLA_X_POSITION_2) lauchPosition = 1;
-          if (this->xPosition == GORILLA_X_POSITION_3) lauchPosition = 2;
-          this->barrel->launch(lauchPosition);
+      this->launchBarrel--;
 
-        }
+      if (this->launchBarrel == 0) {
+        
+        uint8_t lauchPosition = 0;
+        if (this->xPosition == GORILLA_X_POSITION_2) lauchPosition = 1;
+        if (this->xPosition == GORILLA_X_POSITION_3) lauchPosition = 2;
+        this->barrel->launch(lauchPosition);
 
       }
+
+    }
+
+
+    // Pause in the current position or move?
+
+    if (this->pauseAtPosition > 0) {
+
+      this->pauseAtPosition--;
 
     }
     else {
@@ -150,7 +171,7 @@ void Gorilla::move() {
             case GORILLA_X_POSITION_1:
             case GORILLA_X_POSITION_2:
             case GORILLA_X_POSITION_3:
-              this->pause = random(100, 255);
+              this->pauseAtPosition = random(70, 200);
               break;
 
             default:            
@@ -206,22 +227,23 @@ void Gorilla::changeDirections() {
   
 }
 
-void Gorilla::launch(Barrel *barrel) {
+void Gorilla::launch(Barrel *barrel, uint8_t launchBarrelDelay) {
 
   this->barrel = barrel;
-  this->launchBarrel = 40;
+  this->launchBarrel = 0;
+  this->launchBarrelDelay = launchBarrelDelay;
 
 }
 
 bool Gorilla::isPaused() {
 
-  return (this->pause > 0);
+  return (this->pauseAtPosition > 0);
 
 }
 
-bool Gorilla::isReadyToLaunch() {
+uint8_t Gorilla::getPause() {
 
-  return (this->pause > 25 && this->launchBarrel == 0);
+  return this->pauseAtPosition;
 
 }
 
@@ -259,10 +281,17 @@ void Gorilla::incFallingIndex() {
 
 void Gorilla::reset() {
 
-    this->pause = 40;
+    this->pauseAtPosition = 0;
     this->launchBarrel = 0;
+    this->launchBarrelDelay = 0;
     this->xPosition = GORILLA_X_POSITION_1;
     this->moveCentre = false;
     this->fallingIndex = 0;
+
+}
+
+bool Gorilla::readyToLaunchNewBarrel() {
+  
+  return (this->isInPosition() != NOT_IN_A_POSITION && this->pauseAtPosition > 60 && this->launchBarrelDelay == 0 && this->launchBarrel == 0);
 
 }

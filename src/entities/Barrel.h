@@ -14,10 +14,12 @@ class Barrel {
     // Properties ..
     uint8_t getPosition();
     uint8_t getRotation();
+    uint8_t getEnabledCountdown();
     bool isEnabled();
 
     void setPosition(uint8_t position);
     void setRotation(uint8_t rotation);
+    void setEnabledCountdown(uint8_t enabledCountdown);
     void setEnabled(bool enabled);
 
 
@@ -29,12 +31,15 @@ class Barrel {
     void rotate();
     void launch(uint8_t startingPosition);
     Rect getRect(uint8_t yOffset);
+    void decEnabledCountdown();
+    bool isEnabledOrPending();
 
   protected:
 
     uint8_t position;
     uint8_t rotation;
     bool enabled;
+    uint8_t enabledCountdown;
     Rotation rotationDirection;
 
 };

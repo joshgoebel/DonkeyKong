@@ -18,10 +18,11 @@ class Gorilla {
     // Properties ..
 
     uint8_t getXPosition();
+    uint8_t getFallingIndex();
+    uint8_t getLaunchBarrelDelay();
     int8_t getYPosition(uint8_t yOffset);
     bool getMoveToCentre();
     GorillaStance getStance();
-    uint8_t getFallingIndex();
 
 
     void setFallingIndex(uint8_t fallingIndex);
@@ -30,13 +31,14 @@ class Gorilla {
     // Methods ..
 
     void move();
-    void launch(Barrel *barrel);
+    void launch(Barrel *barrel, uint8_t launchBarrelDelay);
     bool isPaused();
-    bool isReadyToLaunch();
+    uint8_t getPause();
     uint8_t isInPosition();
     void moveToCentre();
     void reset();
     void incFallingIndex();
+    bool readyToLaunchNewBarrel();
 
 
   private:
@@ -46,8 +48,9 @@ class Gorilla {
 
   protected:
 
-    uint8_t pause = 40;
+    uint8_t pauseAtPosition = 40;
     uint8_t launchBarrel = 0;
+    uint8_t launchBarrelDelay = 0;
     uint8_t xPosition = GORILLA_X_POSITION_1;
     uint8_t fallingIndex = 0;
     Movements movement;

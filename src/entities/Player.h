@@ -36,7 +36,6 @@ class Player {
     void incPlayerPosition();
     void decPlayerPosition();
     bool canMove(Movements movement);
-    void initLife();
     void updateJump();
     void startJump();
     bool isJumping();

@@ -26,6 +26,10 @@ void Lever::setPosition(LeverPosition position) {
   if (position == LeverPosition::On) {
     this->counter = LEVER_ON;
   }
+  else {
+    this->counter = 0;
+    this->crane->turnOff();
+  }
 
 }
 

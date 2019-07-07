@@ -196,6 +196,7 @@ namespace Coordinates {
 
     #define PLAYER_CRANE_LIFT_02 PLAYER_CRANE_LIFT_01 + static_cast<uint16_t>(4)
     95, 23, 0, static_cast<uint8_t>(Stance::OnCrane_HoldingHook), 0,
+    #define PLAYER_CRANE_POINTS PLAYER_CRANE_LIFT_02 + static_cast<uint16_t>(1)
     95, 23, 0, static_cast<uint8_t>(Stance::OnCrane_HoldingHook), 0,
 
     #define PLAYER_CRANE_LIFT_03 PLAYER_CRANE_LIFT_02 + static_cast<uint16_t>(2)
@@ -378,6 +379,7 @@ namespace Coordinates {
     5, 14, 0, static_cast<uint8_t>(Stance::Running_04), 0,
     3, 14, 0, static_cast<uint8_t>(Stance::Running_01), 0,
     3, 14, 0, static_cast<uint8_t>(Stance::Ladder_01), 0,
+    #define PLAYER_VICTORY_RUN_POINTS PLAYER_VICTORY_RUN_START + static_cast<uint16_t>(56)
 
     3, 14, 0, static_cast<uint8_t>(Stance::Ladder_01), 0,
     3, 14, 0, static_cast<uint8_t>(Stance::Ladder_02), 0,

@@ -4,6 +4,7 @@
 #include "../map/Coordinates.h"
 
 #define JUMP_POSITIONS 41
+
 const uint8_t PROGMEM jumpPositions[JUMP_POSITIONS] = { 
 0, 2, 4, 6,
 8, 9, 10, 10,
@@ -15,8 +16,8 @@ const uint8_t PROGMEM jumpPositions[JUMP_POSITIONS] = {
 
 13, 13, 13, 13, 
 13, 12, 12, 12, 
-
 11, 11, 10, 9, 
+
 8, 6, 4, 2, 
 0
 };
@@ -54,6 +55,7 @@ int8_t Player::getXPosition(bool updatePrevPosition) {
 int8_t Player::getYPosition() {
 
   int8_t y = pgm_read_byte(&Coordinates::Player[(this->position * 5) + 1]) - this->yOffset - pgm_read_byte(&jumpPositions[this->jumpPosition]);
+  //Serial.println(y);
   return y;
 
 }
@@ -156,7 +158,7 @@ bool Player::canMove(Movements movement) {
 
 void Player::updateJump() {
 
-  if (this->jumpPosition < JUMP_POSITIONS) {
+  if (this->jumpPosition < JUMP_POSITIONS - 1) {
     this->jumpPosition++;
   }
   else {
@@ -174,12 +176,6 @@ void Player::startJump() {
 bool Player::isJumping() {
 
   return this->jumpPosition > 0;
-
-}
-
-void Player::initLife() {
-
-  this->setPosition(0);
 
 }
 
@@ -267,8 +263,8 @@ void Player::reset() {
   this->dead = false;
   this->leaping = false;
   this->falling = false;
-  this->runMovement = Movements::Left;
-  this->currXPosition = 0;
-  this->prevXPosition = 0;
+  this->runMovement = Movements::Right;
+  this->currXPosition = static_cast<int8_t>(pgm_read_byte(&Coordinates::Player[(this->position * 5)]));;
+  this->prevXPosition = static_cast<int8_t>(pgm_read_byte(&Coordinates::Player[(this->position * 5)]));;
 
 }

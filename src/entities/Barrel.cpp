@@ -18,9 +18,21 @@ uint8_t Barrel::getRotation() {
 
 }
 
+uint8_t Barrel::getEnabledCountdown() {
+
+  return this->enabledCountdown;
+
+}
+
 bool Barrel::isEnabled() {
 
   return this->enabled;
+
+}
+
+bool Barrel::isEnabledOrPending() {
+
+  return this->enabled || (this->enabledCountdown > 0);
 
 }
 
@@ -36,9 +48,16 @@ void Barrel::setRotation(uint8_t rotation) {
 
 }
 
+void Barrel::setEnabledCountdown(uint8_t enabledCountdown) {
+
+  this->enabledCountdown = enabledCountdown;
+
+}
+
 void Barrel::setEnabled(bool enabled) {
 
   this->enabled = enabled;
+  if (!enabled) this->enabledCountdown = 0;
 
 }
 
@@ -107,6 +126,16 @@ void Barrel::launch(uint8_t startingPosition) {
 
   this->position = startingPositions[startingPosition];
   this->enabled = true;
+
+}
+
+void Barrel::decEnabledCountdown() {
+
+  if (this->enabledCountdown > 0) {
+    
+    this->enabledCountdown--;
+
+  }
 
 }
 

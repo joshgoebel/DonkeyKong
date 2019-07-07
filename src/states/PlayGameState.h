@@ -38,7 +38,12 @@ class PlayGameState : public BaseState { //GameState<GameContext, GameStateType>
     uint8_t drawScenery(StateMachine & machine, uint8_t paintMode);
     void killPlayer(StateMachine & machine);
     void incPlateCounters();
+
+    void resetLevel();
+    void resetGorillaAndPlates();
     
-    uint8_t deadCounter;
+    uint16_t introDelay;
+    uint8_t barrelOffset = 11;
+    bool showLivesLeft = true;
 
 };
