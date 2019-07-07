@@ -46,7 +46,7 @@ namespace Coordinates {
     85, 114, 66, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
     87, 113, 65, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
     89, 113, 65, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-    91, 113, 65, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
+    91, 113, 65, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right) | static_cast<uint8_t>(Movements::Up),  // Soft corner up
 
     // Bottom of first ladder ..
     93, 113, 65, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Up) | static_cast<uint8_t>(Movements::Left),
@@ -62,7 +62,7 @@ namespace Coordinates {
     93, 93, 45, static_cast<uint8_t>(Stance::Ladder_01), static_cast<uint8_t>(Movements::Up) | static_cast<uint8_t>(Movements::Down),
     93, 91, 43, static_cast<uint8_t>(Stance::Ladder_02), static_cast<uint8_t>(Movements::Up) | static_cast<uint8_t>(Movements::Down),
     93, 89, 41, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Reverse) | static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Down),
-    91, 89, 41, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Reverse) | static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
+    91, 89, 41, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Reverse) | static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right) | static_cast<uint8_t>(Movements::Down), // Soft corner down
     89, 88, 40, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Reverse) | static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
     87, 88, 40, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Reverse) | static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
     85, 88, 40, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Reverse) | static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
@@ -107,7 +107,7 @@ namespace Coordinates {
     19, 81, 33, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Reverse) | static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
     17, 81, 33, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Reverse) | static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
     15, 81, 33, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Reverse) | static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-    13, 81, 33, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Reverse) | static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
+    13, 81, 33, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Reverse) | static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right) | static_cast<uint8_t>(Movements::Up),  // soft corner up
 
     11, 81, 33, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Reverse) | static_cast<uint8_t>(Movements::Right) | static_cast<uint8_t>(Movements::Up),
     11, 79, 31, static_cast<uint8_t>(Stance::Ladder_01), static_cast<uint8_t>(Movements::Up) | static_cast<uint8_t>(Movements::Down),
@@ -134,7 +134,7 @@ namespace Coordinates {
     11, 39, 0, static_cast<uint8_t>(Stance::Ladder_01), static_cast<uint8_t>(Movements::Up) | static_cast<uint8_t>(Movements::Down),
     11, 36, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Down) | static_cast<uint8_t>(Movements::Right) | static_cast<uint8_t>(Movements::Lever), // Top of upper ladder
 
-    13, 36, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
+    13, 36, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right) | static_cast<uint8_t>(Movements::Down),  // Soft Corner down
     15, 36, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
     17, 36, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
     19, 36, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
