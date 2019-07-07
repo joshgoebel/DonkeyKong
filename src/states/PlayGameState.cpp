@@ -15,6 +15,13 @@ void PlayGameState::activate(StateMachine & machine) {
   auto & sound = machine.getContext().sound;  
 
   this->lever.setCrane(&crane);
+  this->player.reset();
+
+  for (uint8_t x = 0; x < 3; x++) {
+
+    plates[x].setPlateNumber(x);
+
+  }
 
   for (auto &barrel : this->barrels) {
 
@@ -47,20 +54,24 @@ void PlayGameState::update(StateMachine & machine) {
   auto justPressed = arduboy.justPressedButtons();
 
   if (!BaseState::getPaused() && !this->player.isDead()) {
-
+Serial.print("Player pos :");
+Serial.print(this->player.getPosition());
+Serial.print(" x");
+Serial.print(this->player.getXPosition(false));
+Serial.print(",y ");
+Serial.print(this->player.getYPosition());
+Serial.print(" Crane :");
+Serial.print(static_cast<uint8_t>(this->crane.getPosition())); 
+Serial.print(" s :");
+Serial.print(PLAYER_CRANE_END); 
+Serial.print(" e :");
+Serial.println(PLAYER_DIE_START); 
 
     //Handle player movements ..
 
     if (this->playing && arduboy.everyXFrames(2)) {
-Serial.print("Player pos :");
-Serial.print(this->player.getPosition());
-Serial.print(" x");
-Serial.print(this->player.getXPosition());
-Serial.print(",y ");
-Serial.print(this->player.getYPosition());
-Serial.print(" Crane :");
-Serial.println(static_cast<uint8_t>(this->crane.getPosition())); 
-      if (!this->player.isJumping() && !this->player.isLeaping()) {
+
+      if (!this->player.isJumping() && !this->player.isLeaping() && !this->player.isFalling()) {
 
         if (this->player.canMove(Movements::Reverse)) {
 
@@ -76,21 +87,32 @@ Serial.println(static_cast<uint8_t>(this->crane.getPosition()));
         }
         else {
 
-          if (player.canMove(Movements::JumpToCrane)) {
-            Serial.print("JumpToCrane ");
-            Serial.println(this->player.getPosition());
-          }
-          if ((pressed & RIGHT_BUTTON) && (pressed & A_BUTTON) && this->player.canMove(Movements::JumpToCrane)) {
-            Serial.print("do it! ");
-            Serial.println(this->player.getPosition());
+          if (pressed & RIGHT_BUTTON) {
+          
+            if ((pressed & A_BUTTON) && this->player.canMove(Movements::JumpToCrane)) {
+              this->player.setLeaping(true);
+              this->player.incPlayerPosition();
+              pressed = 0;
+
+            }
+            else {
+
+              if (this->player.canMove(Movements::Right)) {
+
+                if (this->player.getPosition() == END_OF_TOP_LEVEL) {
+                  this->player.setFalling(true);
+                  this->player.setPosition(PLAYER_RUNOFF_START);
+                }
+                else {
+                  this->player.incPlayerPosition();
+                }
+              
+              }
+
+            }
+
           }
 
-          if ((pressed & RIGHT_BUTTON) && (pressed & A_BUTTON) && this->player.canMove(Movements::JumpToCrane)) {
-            this->player.setLeaping(true);
-            this->player.incPlayerPosition();
-            pressed = 0;
-            Serial.println("leaping");
-          }
 
           if ((pressed & LEFT_BUTTON) && this->player.canMove(Movements::Left)) {
             this->player.decPlayerPosition();
@@ -99,10 +121,6 @@ Serial.println(static_cast<uint8_t>(this->crane.getPosition()));
           if ((pressed & LEFT_BUTTON) && this->player.canMove(Movements::Lever)) {
             this->lever.setPosition(LeverPosition::On);
             this->crane.turnOn();
-          }
-
-          if ((pressed & RIGHT_BUTTON) && this->player.canMove(Movements::Right)) {
-            this->player.incPlayerPosition();
           }
 
         }
@@ -120,40 +138,60 @@ Serial.println(static_cast<uint8_t>(this->crane.getPosition()));
         }
 
       }
+      // Player is jumping, falling or leaping ..
       else {
 
         if (this->player.isJumping()) {
           this->player.updateJump();
         }
 
+        if (this->player.isFalling() && arduboy.everyXFrames(4)) {
+
+          switch (this->player.getPosition()) {
+
+            case PLAYER_RUNOFF_END - 1:
+              this->killPlayer(machine);
+              break;
+
+            default:  
+              this->player.incPlayerPosition();
+              break;
+
+          }
+
+        }
+
         if (this->player.isLeaping() && arduboy.everyXFrames(4)) {
 
-          const uint8_t cranePosLeft = static_cast<uint8_t>(CranePosition::Inclined);
-          const uint8_t cranePosRight = static_cast<uint8_t>(CranePosition::Inclined) + static_cast<uint8_t>(CranePosition::Inclined_02);
+          const uint8_t cranePosLeft = static_cast<uint8_t>(CranePosition::Inclined_01);
+          const uint8_t cranePosRight = static_cast<uint8_t>(CranePosition::Inclined_02);
+          const uint16_t playerPos = this->player.getPosition();
 
           uint8_t cranePos = static_cast<uint8_t>(this->crane.getPosition());
 
-          switch (this->player.getPosition()) {
+          // Start plate action after a period of time ..
+          if (playerPos >= PLAYER_CRANE_LIFT_01 && playerPos < PLAYER_CRANE_END) {
+            this->incPlateCounters();
+          }
+
+          switch (playerPos) {
 
             case LEAP_DECISION_POINT - 1: 
               if (cranePos > cranePosLeft && cranePos <= cranePosRight) {
                 this->crane.setLiftPlayer(true);
                 this->player.incPlayerPosition();
-                Serial.println("this->crane.setLiftPlayer(true);");
               }
               this->player.incPlayerPosition();
               break;
 
             case LEAP_DECISION_POINT:
               if (false) {//cranePos == cranePosLeft || cranePos > cranePosRight) {
+//SJH              if (cranePos == cranePosLeft || cranePos > cranePosRight) {
                 this->player.setPosition(PLAYER_DIE_START);
-                Serial.println("this->player.setPosition( die );");
               }
               else {
-                this->crane.setPosition(CranePosition::Inclined);
+                this->crane.setPosition(CranePosition::Inclined_02);
                 this->crane.setLiftPlayer(true);
-                this->player.incPlayerPosition();
-                Serial.println("this->crane.setLiftPlayer(true);");
                 this->player.incPlayerPosition();
               }
               break;
@@ -161,11 +199,13 @@ Serial.println(static_cast<uint8_t>(this->crane.getPosition()));
             case PLAYER_CRANE_LIFT_01 - 1:
               this->player.incPlayerPosition();
               this->crane.setPosition(CranePosition::Upright_01);
+              this->gorilla.moveToCentre();
               break;
 
             case PLAYER_CRANE_LIFT_02 - 1:
               this->player.incPlayerPosition();
               this->crane.setPosition(CranePosition::Upright_02);
+              this->hook.decCounter();
               break;
 
             case PLAYER_CRANE_LIFT_03 - 1:
@@ -173,7 +213,35 @@ Serial.println(static_cast<uint8_t>(this->crane.getPosition()));
               this->crane.setPosition(CranePosition::Upright_03);
               break;
 
+            case PLAYER_CRANE_LIFT_04 - 1:
+              this->player.incPlayerPosition();
+              this->crane.setPosition(CranePosition::Inclined_03);
+              break;
+
+            case PLAYER_CRANE_LIFT_05 - 1:
+              this->player.incPlayerPosition();
+              this->crane.setPosition(CranePosition::Flat);
+              break;
+
+            case PLAYER_VICTORY_RUN_DECISION - 1:
+              if (this->hook.getCounter() == 0) {
+                this->player.setPosition(PLAYER_VICTORY_RUN_START);
+              }
+              else {
+                this->player.incPlayerPosition();
+              }
+              break;
+
+            case PLAYER_CRANE_LIFT_06 - 1:
+              this->player.incPlayerPosition();
+              this->crane.setPosition(CranePosition::Declined);
+              break;
+
             case PLAYER_CRANE_END:
+              break;
+
+            case PLAYER_VICTORY_RUN_END - 1:
+            Serial.println("PLAYER_VICTORY_RUN_END");
               break;
 
             case PLAYER_DIE_END: // end of death sequence.
@@ -285,14 +353,11 @@ Serial.println(static_cast<uint8_t>(this->crane.getPosition()));
 
           if (barrel.isEnabled()) {
 
-// Serial.print(barrel.getPosition());
-// Serial.print(", ");
-
             if (this->playing && this->player.isJumping()) {
 
               int8_t barrelX = barrel.getXPosition();
               int16_t barrelY = static_cast<uint16_t>(barrel.getYPosition(yOffset));
-              uint8_t playerX = this->player.getXPosition();
+              uint8_t playerX = this->player.getXPosition(false);
               int16_t playerY = static_cast<int16_t>(this->player.getYPosition());
 
               if ((barrelX == playerX) && (playerY - barrelY <= 8)) {
@@ -310,8 +375,6 @@ Serial.println(static_cast<uint8_t>(this->crane.getPosition()));
 
 #ifndef BARRELS
               this->killPlayer(machine);
-
-//              Serial.println("hit barrel");
 #endif
             }
 
@@ -321,9 +384,6 @@ Serial.println(static_cast<uint8_t>(this->crane.getPosition()));
           }
 
         }
-
-//Serial.println("");
-
 
       }
 
@@ -344,8 +404,6 @@ Serial.println(static_cast<uint8_t>(this->crane.getPosition()));
 
             if (this->playing && arduboy.collide(this->player.getRect(), girder.getRect(yOffset)) ) {
               this->killPlayer(machine);
-
-//              Serial.println("hit girder");
             }
 
           }
@@ -438,12 +496,21 @@ Serial.println(static_cast<uint8_t>(this->crane.getPosition()));
     BaseState::handleCommonButtons(machine);
   }
 
-
-// Serial.print(this->player.getXPosition());
-// Serial.print(" ");
-// Serial.println(this->player.getYPosition());
 }
 
+
+void PlayGameState::incPlateCounters() {
+
+  if (this->hook.getCounter() == 0) {
+
+    this->plates[0].incCounter();
+    this->plates[1].incCounter();
+    this->plates[2].incCounter();
+    this->gorilla.incFallingIndex();
+
+  }
+
+}
 
 uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
 
@@ -477,11 +544,32 @@ uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
             break;
           
           case static_cast<uint8_t>(Components::Plate1):
-            Sprites::drawSelfMasked(x, y, Images::Plate_1, 0);
+            {
+              const int8_t xOffset = this-> plates[0].getXOffset();
+              const uint8_t yOffset = this-> plates[0].getYOffset();
+              const uint8_t image = this-> plates[0].getImage();
+              Sprites::drawSelfMasked(x + xOffset, y + yOffset, Images::Plate, image);
+
+            }
             break;
           
           case static_cast<uint8_t>(Components::Plate2):
-            Sprites::drawSelfMasked(x, y, Images::Plate_2, 0);
+            {
+              const int8_t xOffset = this-> plates[1].getXOffset();
+              const uint8_t yOffset = this-> plates[1].getYOffset();
+              const uint8_t image = this-> plates[1].getImage();
+              Sprites::drawSelfMasked(x - xOffset, y + yOffset, Images::Plate, image);
+
+            }
+            break;
+          
+          case static_cast<uint8_t>(Components::Plate3):
+            {
+              const int8_t xOffset = this-> plates[2].getXOffset();
+              const uint8_t yOffset = this-> plates[2].getYOffset();
+              const uint8_t image = this-> plates[2].getImage();
+              Sprites::drawSelfMasked(x + xOffset, y + yOffset, Images::Plate, image);
+            }
             break;
           
           case static_cast<uint8_t>(Components::Ladder):
@@ -505,7 +593,7 @@ uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
             break;
           
           case static_cast<uint8_t>(Components::Hook):
-            Sprites::drawSelfMasked(x, y, Images::Hook, 0);
+            Sprites::drawSelfMasked(x, y, Images::Hook, this->hook.getCounter());
             break;
           
           case static_cast<uint8_t>(Components::Fire):
@@ -612,12 +700,11 @@ void PlayGameState::render(StateMachine & machine) {
   const uint8_t yOffset = this->player.getYOffset();
   const bool flash = arduboy.getFrameCountHalf(FLASH_FRAME_COUNT);
 
-  BaseState::renderCommonScenery(machine);
-
 
   // Draw Scenery ..
   
   this->drawScenery(machine, SCENERY_PAINT_FIRST);
+
 
   // Draw Barrels
   {
@@ -643,33 +730,25 @@ void PlayGameState::render(StateMachine & machine) {
     switch (image) {
 
       case static_cast<uint8_t>(Stance::Normal) ... static_cast<uint8_t>(Stance::OnCrane_RHS):
-        Sprites::drawExternalMask(this->player.getXPosition(), this->player.getYPosition(), Images::Mario, Images::Mario_Mask, image, image);
+        Sprites::drawExternalMask(this->player.getXPosition(true), this->player.getYPosition(), Images::Mario, Images::Mario_Mask, image, image);
         break;
 
       case static_cast<uint8_t>(Stance::Dead_01) ... static_cast<uint8_t>(Stance::Dead_03):
         image = image - static_cast<uint8_t>(Stance::Dead_01);
-        Sprites::drawSelfMasked(this->player.getXPosition(), this->player.getYPosition(), Images::Mario_Dying, image);
+        Sprites::drawSelfMasked(this->player.getXPosition(true), this->player.getYPosition(), Images::Mario_Dying, image);
         break;
 
       case static_cast<uint8_t>(Stance::OnCrane_EmptyHand) ... static_cast<uint8_t>(Stance::OnCrane_HoldingHook):
-      Serial.println("sdfsdfsfsdfsdf");
         image = image - static_cast<uint8_t>(Stance::OnCrane_EmptyHand);
-        Sprites::drawSelfMasked(this->player.getXPosition(), this->player.getYPosition(), Images::Mario_Leaping, image);
+        Sprites::drawSelfMasked(this->player.getXPosition(true), this->player.getYPosition(), Images::Mario_Leaping, image);
         break;
 
     }
-    // if (image >= static_cast<uint8_t>(Stance::Dead_01)) {
-
-
-    // }
-    // else {
-
-    //   Sprites::drawExternalMask(this->player.getXPosition(), this->player.getYPosition(), Images::Mario, Images::Mario_Mask, image, image);
-
-    // }
 
   }
 
+
+  // Draw gorilla ..
 
   Sprites::drawSelfMasked(this->gorilla.getXPosition(), this->gorilla.getYPosition(yOffset), Images::Gorilla, static_cast<uint8_t>(this->gorilla.getStance()) );
 

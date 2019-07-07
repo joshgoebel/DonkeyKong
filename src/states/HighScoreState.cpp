@@ -179,8 +179,6 @@ void HighScoreState::render(StateMachine & machine) {
 
 	const bool flash = arduboy.getFrameCountHalf(FLASH_FRAME_COUNT);
 
-  BaseState::renderCommonScenery(machine);
-
   Sprites::drawExternalMask(29, 18, Images::HighscorePanel, Images::HighscorePanel_Mask, 0, 0);
   Sprites::drawExternalMask(22, 3, Images::HighscoreText, Images::HighscoreText_Mask, 0, 0);
 

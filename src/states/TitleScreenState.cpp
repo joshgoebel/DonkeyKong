@@ -32,7 +32,9 @@ void TitleScreenState::activate(StateMachine & machine) {
   auto score = static_cast<const uint16_t *>(pgm_read_ptr(&Sounds::Scores[scoreIndex]));
 
   this->barrelPos = 4;
-  this->barrelRot = 0;
+  this->barrelRot_LHS = 0;
+  this->barrelRot_RHS = 0;
+  this->pressACounter = 0;
   //sound.tones(score);
 
 }
@@ -70,10 +72,19 @@ void TitleScreenState::update(StateMachine & machine) {
 
   if (this->pressACounter > BARREL_DELAY && arduboy.everyXFrames(2)) {
 
-    if (barrelPos < 38) {
-      barrelPos++;
-      barrelRot++;
-      if (barrelRot == 3) barrelRot = 0;
+    if (this->barrelPos < 38) {
+
+      this->barrelPos++;
+
+      if (arduboy.everyXFrames(4)) {
+
+        this->barrelRot_RHS++;
+        if (this->barrelRot_RHS == 3) this->barrelRot_RHS = 0;
+
+        if (this->barrelRot_LHS == 0) this->barrelRot_LHS = 3;
+        this->barrelRot_LHS--;
+
+      }
     }
 
   }
@@ -105,11 +116,9 @@ void TitleScreenState::render(StateMachine & machine) {
 
   auto & arduboy = machine.getContext().arduboy;
 
-  BaseState::renderCommonScenery(machine);
-
   Sprites::drawOverwrite(12, 6, Images::Title, 0);
-  Sprites::drawExternalMask(51 - this->barrelPos, 41, Images::BarrelImg, Images::Barrel_Mask, this->barrelRot, 0);
-  Sprites::drawExternalMask(51 + this->barrelPos, 41, Images::BarrelImg, Images::Barrel_Mask, this->barrelRot, 0);
+  Sprites::drawExternalMask(51 - this->barrelPos, 41, Images::BarrelImg, Images::Barrel_Mask, this->barrelRot_LHS, 0);
+  Sprites::drawExternalMask(51 + this->barrelPos, 41, Images::BarrelImg, Images::Barrel_Mask, this->barrelRot_RHS, 0);
 
   if (this->pressACounter == PRESS_A_DELAY) {
 

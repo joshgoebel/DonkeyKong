@@ -1,9 +1,10 @@
 #pragma once
 
-#include <Arduboy2.h>
+#include "Arduboy2Ext.h"
 
 #define BARRELS
-
+#define _NO_USB
+#define DEBUG
 
 #define NOT_IN_A_POSITION 255
 
@@ -60,6 +61,8 @@ enum class GorillaStance : uint8_t {
   ThrowingBarrel2,
   ThrowingBarrel3,
   ThrowingBarrel4,
+  Dead1,
+  Dead2
 };
 
 enum class Components : uint8_t {
@@ -69,6 +72,7 @@ enum class Components : uint8_t {
   Ladder,
   Plate1,
   Plate2,
+  Plate3,
   Lever,
   Cable1,
   Cable2,
@@ -100,12 +104,11 @@ enum class CranePosition : uint8_t {
   Upright_01 = 0,
   Upright_02 = 1,
   Upright_03 = 2,
-  Inclined = 3,
-  Inclined_01 = 0,
-  Inclined_02 = 1,
-  Inclined_03 = 2,
-  Inclined_04 = 3,
-  Inclined_05 = 4,
+  Inclined_01 = 3,
+  Inclined_02 = 4,
+  Inclined_03 = 5,
+  Inclined_04 = 6,
+  Inclined_05 = 7,
   Flat = 8,
   Declined = 9,
 };

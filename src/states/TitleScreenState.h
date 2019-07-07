@@ -13,7 +13,8 @@ class TitleScreenState : public BaseState {
     uint8_t restart = 0;
     uint8_t pressACounter = 0;
     uint8_t barrelPos = 0;
-    uint8_t barrelRot = 0;
+    uint8_t barrelRot_LHS = 0;
+    uint8_t barrelRot_RHS = 0;
     
 
   public:	

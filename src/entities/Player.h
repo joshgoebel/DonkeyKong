@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Arduboy2.h>
+#include "../utils/Arduboy2Ext.h"
 #include "../Utils/Enums.h"
 #include "../map/Coordinates.h"
 
@@ -12,21 +12,23 @@ class Player {
  
     // Properties ..
 
-    uint8_t getPosition();
+    uint16_t getPosition();
     uint8_t getJumpPosition();
-    uint8_t getXPosition();
+    int8_t getXPosition(bool updatePrevPosition);
     int8_t getYPosition();
     uint8_t getMovements();
     uint8_t getYOffset();
     bool isDead();
     bool isLeaping();
+    bool isFalling();
 
-    void setPosition(uint8_t position);
+    void setPosition(uint16_t position);
     void setJumpPosition(uint8_t jumpPosition);
     void setMovements(uint8_t movements);
     void setYOffset(uint8_t yOffset);
     void setDead(bool dead);
     void setLeaping(bool dead);
+    void setFalling(bool falling);
 
 
     // Methods
@@ -44,18 +46,19 @@ class Player {
 
   protected:
 
-    uint8_t position;
+    uint16_t position;
     uint8_t jumpPosition;
     uint8_t movements;
     uint8_t yOffset;
 
-    uint8_t prevXPosition;
-    uint8_t currXPosition;
+    int8_t prevXPosition;
+    int8_t currXPosition;
     uint8_t runCounter;
     Movements runMovement = Movements::Right;
 
     bool dead = false;
     bool leaping = false;
+    bool falling = false;
 
 };
 

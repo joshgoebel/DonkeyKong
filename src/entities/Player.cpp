@@ -28,7 +28,7 @@ Player::Player() {
 
 }
 
-uint8_t Player::getPosition() {
+uint16_t Player::getPosition() {
 
   return this->position;
 
@@ -40,10 +40,13 @@ uint8_t Player::getJumpPosition() {
 
 }
 
-uint8_t Player::getXPosition() {
+int8_t Player::getXPosition(bool updatePrevPosition) {
 
-  this->prevXPosition = this->currXPosition;
-  this->currXPosition = pgm_read_byte(&Coordinates::Player[(this->position * 5)]);
+  if (updatePrevPosition) {
+    this->prevXPosition = this->currXPosition;
+  }
+
+  this->currXPosition = static_cast<int8_t>(pgm_read_byte(&Coordinates::Player[(this->position * 5)]));
   return this->currXPosition;
 
 }
@@ -79,7 +82,13 @@ bool Player::isLeaping() {
 
 }
 
-void Player::setPosition(uint8_t position) {
+bool Player::isFalling() {
+
+  return this->falling;
+
+}
+
+void Player::setPosition(uint16_t position) {
 
   this->position = position;
   this->movements = pgm_read_byte(&Coordinates::Player[(this->position * 5) + 4]);
@@ -114,6 +123,12 @@ void Player::setDead(bool dead) {
 void Player::setLeaping(bool leaping) {
 
   this->leaping = leaping;
+
+}
+
+void Player::setFalling(bool falling) {
+
+  this->falling = falling;
 
 }
 
@@ -251,5 +266,9 @@ void Player::reset() {
   this->setJumpPosition(0);
   this->dead = false;
   this->leaping = false;
+  this->falling = false;
+  this->runMovement = Movements::Left;
+  this->currXPosition = 0;
+  this->prevXPosition = 0;
 
 }

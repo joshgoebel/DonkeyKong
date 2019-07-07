@@ -19,6 +19,8 @@ class PlayGameState : public BaseState { //GameState<GameContext, GameStateType>
     Lever lever;
     Fire fire;
     Spaghetti spaghetti;
+    Hook hook;
+    Plate plates[3];
     
     bool playing = false;
 
@@ -35,7 +37,8 @@ class PlayGameState : public BaseState { //GameState<GameContext, GameStateType>
     uint8_t getDisabledGirderIndex();
     uint8_t drawScenery(StateMachine & machine, uint8_t paintMode);
     void killPlayer(StateMachine & machine);
-
+    void incPlateCounters();
+    
     uint8_t deadCounter;
 
 };

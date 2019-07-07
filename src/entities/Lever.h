@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Arduboy2.h>
+#include "../utils/Arduboy2Ext.h"
 #include "../Utils/Enums.h"
 #include "../map/Coordinates.h"
 #include "Crane.h"

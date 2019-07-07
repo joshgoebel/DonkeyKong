@@ -14,9 +14,9 @@ namespace Coordinates {
     0, 25, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,
     0, 5, static_cast<uint8_t>(Components::Spaghetti), SCENERY_PAINT_FIRST,
 
-    11, 24, static_cast<uint8_t>(Components::Plate1), SCENERY_PAINT_FIRST,
-    36, 24, static_cast<uint8_t>(Components::Plate1), SCENERY_PAINT_FIRST,
-    61, 24, static_cast<uint8_t>(Components::Plate2), SCENERY_PAINT_FIRST,
+    12, 24, static_cast<uint8_t>(Components::Plate1), SCENERY_PAINT_FIRST,
+    36, 24, static_cast<uint8_t>(Components::Plate2), SCENERY_PAINT_FIRST,
+    60, 24, static_cast<uint8_t>(Components::Plate3), SCENERY_PAINT_FIRST,
 
     // X, Y, Item, Spare
     9, 67, static_cast<uint8_t>(Components::Girder), SCENERY_PAINT_FIRST,
@@ -29,11 +29,11 @@ namespace Coordinates {
 
     9, 47, static_cast<uint8_t>(Components::Ladder), SCENERY_PAINT_FIRST,
 
-    21, 48, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,
-    33, 48, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,
-    45, 48, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,
-    57, 48, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,
-    69, 48, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,
+    21, 47, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,
+    33, 47, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,
+    45, 47, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,
+    57, 47, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,
+    69, 47, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,
 
     //Lower Half, 10, , 0,
 
@@ -86,8 +86,8 @@ namespace Coordinates {
 
     91, 106, static_cast<uint8_t>(Components::Ladder), SCENERY_PAINT_FIRST,
 
-    static_cast<uint8_t>(-4), 48, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,
-    0, 37, static_cast<uint8_t>(Components::Lever), SCENERY_PAINT_FIRST,
+    static_cast<uint8_t>(-4), 47, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,
+    0, 36, static_cast<uint8_t>(Components::Lever), SCENERY_PAINT_FIRST,
 
 
     0, 68, static_cast<uint8_t>(Components::Cable2), SCENERY_PAINT_FIRST | SCENERY_LEVEL_2_ONLY,

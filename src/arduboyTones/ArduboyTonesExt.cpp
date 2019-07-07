@@ -264,7 +264,7 @@ void ArduboyTonesExt::nextTone()
 uint16_t ArduboyTonesExt::getNext()
 {
   if (inProgmem) {
-    return pgm_read_word(tonesIndex++);
+    return pgm_read_byte(tonesIndex++);
   }
   return *tonesIndex++;
 }

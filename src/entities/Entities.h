@@ -6,3 +6,5 @@
 #include "Fire.h"
 #include "Player.h"
 #include "Spaghetti.h"
+#include "Hook.h"
+#include "Plate.h"

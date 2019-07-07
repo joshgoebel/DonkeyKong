@@ -23,14 +23,6 @@ void BaseState::renderScore(StateMachine & machine, bool renderHealth, int16_t h
 }
 
 
-void BaseState::renderCommonScenery(StateMachine & machine) {
-
-  auto & gameStats = machine.getContext().gameStats;
-	auto & arduboy = machine.getContext().arduboy;
-
-}
-
-
 bool BaseState::getPaused() {
 
   return this->paused;

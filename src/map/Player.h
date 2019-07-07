@@ -165,67 +165,246 @@ namespace Coordinates {
     67, 36, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
     69, 36, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
     71, 36, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-    73, 36, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
+    73, 36, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right) | static_cast<uint8_t>(Movements::JumpToCrane),
     75, 36, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right) | static_cast<uint8_t>(Movements::JumpToCrane),
- //148 above
+    #define END_OF_TOP_LEVEL static_cast<uint16_t>(148)
+    //148 above
 
     // Jump properly ..
 
-/* 149 */    77, 33, 0, static_cast<uint8_t>(Stance::Jump_RHS), static_cast<uint8_t>(Movements::Left),
-/* 150 */    79, 31, 0, static_cast<uint8_t>(Stance::Jump_RHS), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/* 151 */    81, 30, 0, static_cast<uint8_t>(Stance::Jump_RHS), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/* 152 */    83, 29, 0, static_cast<uint8_t>(Stance::Jump_RHS), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-#define LEAP_DECISION_POINT 152
+    77, 33, 0, static_cast<uint8_t>(Stance::Jump_RHS), static_cast<uint8_t>(Movements::Left),
+    79, 31, 0, static_cast<uint8_t>(Stance::Jump_RHS), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
+    81, 30, 0, static_cast<uint8_t>(Stance::Jump_RHS), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
+    83, 29, 0, static_cast<uint8_t>(Stance::Jump_RHS), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
+    #define LEAP_DECISION_POINT END_OF_TOP_LEVEL + static_cast<uint16_t>(4)
 
-#define PLAYER_CRANE_START 153
-/* 153 */    85, 29, 0, static_cast<uint8_t>(Stance::OnCrane_RHS), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/* 154 */    85, 29, 0, static_cast<uint8_t>(Stance::OnCrane_RHS), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/* 155 */    85, 29, 0, static_cast<uint8_t>(Stance::OnCrane_RHS), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
+    #define PLAYER_CRANE_START LEAP_DECISION_POINT + static_cast<uint16_t>(1)
+    85, 29, 0, static_cast<uint8_t>(Stance::OnCrane_RHS), 0,
+    85, 29, 0, static_cast<uint8_t>(Stance::OnCrane_RHS), 0,
+    85, 29, 0, static_cast<uint8_t>(Stance::OnCrane_RHS), 0,
 
-/* 156 */    85, 29, 0, static_cast<uint8_t>(Stance::OnCrane_RHS), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/* 157 */    85, 29, 0, static_cast<uint8_t>(Stance::OnCrane_RHS), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/* 158 */    85, 29, 0, static_cast<uint8_t>(Stance::OnCrane_RHS), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/* 159 */    85, 29, 0, static_cast<uint8_t>(Stance::OnCrane_RHS), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
+    85, 29, 0, static_cast<uint8_t>(Stance::OnCrane_RHS), 0,
+    85, 29, 0, static_cast<uint8_t>(Stance::OnCrane_RHS), 0,
+    85, 29, 0, static_cast<uint8_t>(Stance::OnCrane_RHS), 0,
+    85, 29, 0, static_cast<uint8_t>(Stance::OnCrane_RHS), 0,
 
-#define PLAYER_CRANE_LIFT_01 160
-/* 160 */    95, 21, 0, static_cast<uint8_t>(Stance::OnCrane_RHS), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/* 161 */    95, 21, 0, static_cast<uint8_t>(Stance::OnCrane_RHS), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/* 162 */    93, 21, 0, static_cast<uint8_t>(Stance::OnCrane_EmptyHand), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/* 163 */    93, 21, 0, static_cast<uint8_t>(Stance::OnCrane_EmptyHand), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
+    #define PLAYER_CRANE_LIFT_01 PLAYER_CRANE_START + static_cast<uint16_t>(7)
+    95, 21, 0, static_cast<uint8_t>(Stance::OnCrane_RHS), 0,
+    95, 21, 0, static_cast<uint8_t>(Stance::OnCrane_RHS), 0,
+    91, 21, 0, static_cast<uint8_t>(Stance::OnCrane_EmptyHand), 0,
+    91, 21, 0, static_cast<uint8_t>(Stance::OnCrane_EmptyHand), 0,
 
-#define PLAYER_CRANE_LIFT_02 164
-/* 164 */    95, 23, 0, static_cast<uint8_t>(Stance::OnCrane_HoldingHook), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/* 165 */    95, 23, 0, static_cast<uint8_t>(Stance::OnCrane_HoldingHook), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
+    #define PLAYER_CRANE_LIFT_02 PLAYER_CRANE_LIFT_01 + static_cast<uint16_t>(4)
+    95, 23, 0, static_cast<uint8_t>(Stance::OnCrane_HoldingHook), 0,
+    95, 23, 0, static_cast<uint8_t>(Stance::OnCrane_HoldingHook), 0,
 
-#define PLAYER_CRANE_LIFT_03 166
-/* 166 */    99, 25, 0, static_cast<uint8_t>(Stance::OnCrane_HoldingHook), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/* 167 */    99, 25, 0, static_cast<uint8_t>(Stance::OnCrane_HoldingHook), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/* 168 */    99, 25, 0, static_cast<uint8_t>(Stance::OnCrane_HoldingHook), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-#define PLAYER_CRANE_END 168
+    #define PLAYER_CRANE_LIFT_03 PLAYER_CRANE_LIFT_02 + static_cast<uint16_t>(2)
+    100, 25, 0, static_cast<uint8_t>(Stance::OnCrane_HoldingHook), 0,
+    100, 25, 0, static_cast<uint8_t>(Stance::OnCrane_HoldingHook), 0,
+    100, 25, 0, static_cast<uint8_t>(Stance::OnCrane_HoldingHook), 0,
+
+    #define PLAYER_CRANE_LIFT_04 PLAYER_CRANE_LIFT_03 + static_cast<uint16_t>(3)
+    88, 29, 1, static_cast<uint8_t>(Stance::OnCrane_HoldingHook), 0,
+    88, 29, 2, static_cast<uint8_t>(Stance::OnCrane_HoldingHook), 0,
+    88, 29, 3, static_cast<uint8_t>(Stance::OnCrane_HoldingHook), 0,
+
+    #define PLAYER_CRANE_LIFT_05 PLAYER_CRANE_LIFT_04 + static_cast<uint16_t>(3)
+    // Crane Flat
+    84, 42, 4, static_cast<uint8_t>(Stance::OnCrane_HoldingHook), 0,
+    84, 42, 5, static_cast<uint8_t>(Stance::OnCrane_HoldingHook), 0,
+    84, 42, 6, static_cast<uint8_t>(Stance::OnCrane_HoldingHook), 0,
+
+    #define PLAYER_CRANE_LIFT_06 PLAYER_CRANE_LIFT_05 + static_cast<uint16_t>(3)
+    // Crane Declined
+    88, 50, 7, static_cast<uint8_t>(Stance::OnCrane_HoldingHook), 0,
+    88, 50, 8, static_cast<uint8_t>(Stance::OnCrane_HoldingHook), 0,
+    88, 50, 9, static_cast<uint8_t>(Stance::OnCrane_HoldingHook), 0,
+    89, 52, 9, static_cast<uint8_t>(Stance::Normal), 0,
+
+    89, 52, 9, static_cast<uint8_t>(Stance::Normal_RHS), 0,
+    91, 52, 9, static_cast<uint8_t>(Stance::Running_01_RHS), 0,
+    93, 52, 9, static_cast<uint8_t>(Stance::Running_02_RHS), 0,
+    95, 52, 9, static_cast<uint8_t>(Stance::Running_03_RHS), 0,
+
+    97, 52, 9, static_cast<uint8_t>(Stance::Running_04_RHS), 0,
+    99, 52, 9, static_cast<uint8_t>(Stance::Running_01_RHS), 0,
+    #define PLAYER_VICTORY_RUN_DECISION PLAYER_CRANE_LIFT_06 + static_cast<uint16_t>(9)
+
+    101, 52, 9, static_cast<uint8_t>(Stance::Running_02_RHS), 0,
+    103, 52, 9, static_cast<uint8_t>(Stance::Running_03_RHS), 0,
+    105, 52, 9, static_cast<uint8_t>(Stance::Running_04_RHS), 0,
+    107, 52, 9, static_cast<uint8_t>(Stance::Running_01_RHS), 0,
+
+    109, 52, 9, static_cast<uint8_t>(Stance::Running_02_RHS), 0,
+    111, 52, 9, static_cast<uint8_t>(Stance::Running_03_RHS), 0,
+    113, 52, 9, static_cast<uint8_t>(Stance::Running_04_RHS), 0,
+    115, 52, 9, static_cast<uint8_t>(Stance::Running_01_RHS), 0,
+
+    117, 52, 9, static_cast<uint8_t>(Stance::Running_02_RHS), 0,
+    119, 52, 9, static_cast<uint8_t>(Stance::Running_03_RHS), 0,
+    121, 52, 9, static_cast<uint8_t>(Stance::Running_04_RHS), 0,
+    123, 52, 9, static_cast<uint8_t>(Stance::Running_01_RHS), 0,
+
+    125, 52, 9, static_cast<uint8_t>(Stance::Running_02_RHS), 0,
+    127, 52, 9, static_cast<uint8_t>(Stance::Running_03_RHS), 0,
+    129, 52, 9, static_cast<uint8_t>(Stance::Running_03_RHS), 0,
+
+    #define PLAYER_CRANE_END PLAYER_VICTORY_RUN_DECISION + static_cast<uint16_t>(15)
 
 
-// Die Sequence
-#define PLAYER_DIE_START 167
-/* 167 */    85, 30, 0, static_cast<uint8_t>(Stance::Jump_RHS), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/*     */    87, 31, 1, static_cast<uint8_t>(Stance::Jump_RHS), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/*     */    91, 33, 3, static_cast<uint8_t>(Stance::Jump_RHS), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/*     */    93, 35, 5, static_cast<uint8_t>(Stance::Jump_RHS), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/*     */    95, 38, 8, static_cast<uint8_t>(Stance::Jump_RHS), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/*     */    97, 41, 11, static_cast<uint8_t>(Stance::Jump_RHS), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/*     */    99, 44, 14, static_cast<uint8_t>(Stance::Jump_RHS), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/*     */    101, 48, 18, static_cast<uint8_t>(Stance::Jump_RHS), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/*     */    103, 51, 21, static_cast<uint8_t>(Stance::Dead_01), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/*     */    105, 51, 21, static_cast<uint8_t>(Stance::Dead_02), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/*     */    105, 51, 21, static_cast<uint8_t>(Stance::Dead_03), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/*     */    105, 51, 21, static_cast<uint8_t>(Stance::Dead_03), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/*     */    105, 51, 21, static_cast<uint8_t>(Stance::Dead_03), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/*     */    105, 51, 21, static_cast<uint8_t>(Stance::Dead_03), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/*     */    105, 51, 21, static_cast<uint8_t>(Stance::Dead_03), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/*     */    105, 51, 21, static_cast<uint8_t>(Stance::Dead_03), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/*     */    105, 51, 21, static_cast<uint8_t>(Stance::Dead_03), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-/*     */    105, 51, 21, static_cast<uint8_t>(Stance::Dead_03), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
-#define PLAYER_DIE_END PLAYER_DIE_START + 17
+    // Die Sequence
+    #define PLAYER_DIE_START PLAYER_CRANE_END + static_cast<uint16_t>(1)
+    85, 30, 0, static_cast<uint8_t>(Stance::Jump_RHS), 0,
+    87, 31, 1, static_cast<uint8_t>(Stance::Jump_RHS), 0,
+    91, 33, 3, static_cast<uint8_t>(Stance::Jump_RHS), 0,
+    93, 35, 5, static_cast<uint8_t>(Stance::Jump_RHS), 0,
 
+    95, 38, 8, static_cast<uint8_t>(Stance::Jump_RHS), 0,
+    97, 41, 11, static_cast<uint8_t>(Stance::Jump_RHS), 0,
+    99, 44, 14, static_cast<uint8_t>(Stance::Jump_RHS), 0,
+    101, 48, 18, static_cast<uint8_t>(Stance::Jump_RHS), 0,
+
+    103, 51, 21, static_cast<uint8_t>(Stance::Dead_01), 0,
+    105, 51, 21, static_cast<uint8_t>(Stance::Dead_02), 0,
+    105, 51, 21, static_cast<uint8_t>(Stance::Dead_03), 0,
+    105, 51, 21, static_cast<uint8_t>(Stance::Dead_03), 0,
+
+    105, 51, 21, static_cast<uint8_t>(Stance::Dead_03), 0,
+    105, 51, 21, static_cast<uint8_t>(Stance::Dead_03), 0,
+    105, 51, 21, static_cast<uint8_t>(Stance::Dead_03), 0,
+    105, 51, 21, static_cast<uint8_t>(Stance::Dead_03), 0,
+
+    105, 51, 21, static_cast<uint8_t>(Stance::Dead_03), 0,
+    105, 51, 21, static_cast<uint8_t>(Stance::Dead_03), 0,
+    #define PLAYER_DIE_END PLAYER_DIE_START + static_cast<uint16_t>(17)
+
+    #define PLAYER_RUNOFF_START PLAYER_DIE_END + static_cast<uint16_t>(1)
+    77, 36, 0, static_cast<uint8_t>(Stance::Jump_RHS), 0,
+    79, 36, 0, static_cast<uint8_t>(Stance::Jump_RHS), 0,
+    81, 36, 0, static_cast<uint8_t>(Stance::Jump_RHS), 0,
+    83, 37, 0, static_cast<uint8_t>(Stance::Jump_RHS), 0,
+
+    85, 37, 0, static_cast<uint8_t>(Stance::Jump_RHS), 0,
+    87, 37, 1, static_cast<uint8_t>(Stance::Jump_RHS), 0,
+    91, 38, 3, static_cast<uint8_t>(Stance::Jump_RHS), 0,
+    93, 38, 5, static_cast<uint8_t>(Stance::Jump_RHS), 0,
+
+    95, 39, 8, static_cast<uint8_t>(Stance::Jump_RHS), 0,
+    97, 40, 11, static_cast<uint8_t>(Stance::Jump_RHS), 0,
+    99, 41, 14, static_cast<uint8_t>(Stance::Jump_RHS), 0,
+    101, 43, 18, static_cast<uint8_t>(Stance::Jump_RHS), 0,
+
+    103, 46, 21, static_cast<uint8_t>(Stance::Dead_01), 0,
+    105, 51, 21, static_cast<uint8_t>(Stance::Dead_02), 0,
+    105, 51, 21, static_cast<uint8_t>(Stance::Dead_03), 0,
+    105, 51, 21, static_cast<uint8_t>(Stance::Dead_03), 0,
+
+    105, 51, 21, static_cast<uint8_t>(Stance::Dead_03), 0,
+    105, 51, 21, static_cast<uint8_t>(Stance::Dead_03), 0,
+    105, 51, 21, static_cast<uint8_t>(Stance::Dead_03), 0,
+    105, 51, 21, static_cast<uint8_t>(Stance::Dead_03), 0,
+
+    105, 51, 21, static_cast<uint8_t>(Stance::Dead_03), 0,
+    105, 51, 21, static_cast<uint8_t>(Stance::Dead_03), 0,    
+    #define PLAYER_RUNOFF_END PLAYER_RUNOFF_START + static_cast<uint16_t>(21)
+
+    #define PLAYER_VICTORY_RUN_START PLAYER_RUNOFF_END + static_cast<uint16_t>(1)
+    199, 52, 9, static_cast<uint8_t>(Stance::Normal_RHS), 0,
+    99, 52, 9, static_cast<uint8_t>(Stance::Normal_RHS), 0,
+    99, 52, 9, static_cast<uint8_t>(Stance::Normal), 0,
+    99, 52, 9, static_cast<uint8_t>(Stance::Normal), 0,
+
+    97, 51, 9, static_cast<uint8_t>(Stance::Running_01), 0,
+    95, 49, 9, static_cast<uint8_t>(Stance::Running_02), 0,
+    93, 46, 9, static_cast<uint8_t>(Stance::Running_03), 0,
+    91, 44, 9, static_cast<uint8_t>(Stance::Running_04), 0,
+
+    89, 42, 9, static_cast<uint8_t>(Stance::Running_01), 0,
+    87, 40, 9, static_cast<uint8_t>(Stance::Running_02), 0,
+    85, 38, 9, static_cast<uint8_t>(Stance::Running_03), 0,
+    83, 36, 9, static_cast<uint8_t>(Stance::Running_04), 0,
+
+    81, 34, 9, static_cast<uint8_t>(Stance::Running_01), 0,
+    79, 33, 9, static_cast<uint8_t>(Stance::Running_02), 0,
+    77, 34, 9, static_cast<uint8_t>(Stance::Running_03), 0,
+    75, 36, 9, static_cast<uint8_t>(Stance::Running_04), 0,
+
+    73, 36, 9, static_cast<uint8_t>(Stance::Running_01), 0,
+    71, 36, 9, static_cast<uint8_t>(Stance::Running_02), 0,
+    69, 36, 9, static_cast<uint8_t>(Stance::Running_03), 0,
+    67, 36, 9, static_cast<uint8_t>(Stance::Running_04), 0, //20
+
+    65, 36, 9, static_cast<uint8_t>(Stance::Running_01), 0,
+    63, 36, 9, static_cast<uint8_t>(Stance::Running_02), 0,
+    61, 36, 9, static_cast<uint8_t>(Stance::Running_03), 0,
+    59, 36, 9, static_cast<uint8_t>(Stance::Running_04), 0,
+
+    57, 36, 9, static_cast<uint8_t>(Stance::Running_01), 0,
+    55, 36, 9, static_cast<uint8_t>(Stance::Running_02), 0,
+    53, 36, 9, static_cast<uint8_t>(Stance::Running_03), 0,
+    51, 36, 9, static_cast<uint8_t>(Stance::Running_04), 0,
+
+    49, 36, 9, static_cast<uint8_t>(Stance::Running_01), 0,
+    47, 36, 9, static_cast<uint8_t>(Stance::Running_02), 0,
+    45, 36, 9, static_cast<uint8_t>(Stance::Running_03), 0,
+    43, 36, 9, static_cast<uint8_t>(Stance::Running_04), 0,
+
+    41, 36, 9, static_cast<uint8_t>(Stance::Running_01), 0,
+    39, 36, 9, static_cast<uint8_t>(Stance::Running_02), 0,
+    37, 36, 9, static_cast<uint8_t>(Stance::Running_03), 0,
+    35, 36, 9, static_cast<uint8_t>(Stance::Running_04), 0,
+
+    33, 36, 9, static_cast<uint8_t>(Stance::Running_01), 0,
+    31, 36, 9, static_cast<uint8_t>(Stance::Running_02), 0,
+    29, 36, 9, static_cast<uint8_t>(Stance::Running_03), 0,
+    27, 34, 9, static_cast<uint8_t>(Stance::Running_04), 0, //20
+
+    25, 32, 9, static_cast<uint8_t>(Stance::Running_01), 0,
+    23, 30, 8, static_cast<uint8_t>(Stance::Running_02), 0,
+    21, 28, 7, static_cast<uint8_t>(Stance::Running_03), 0,
+    19, 26, 6, static_cast<uint8_t>(Stance::Running_04), 0,
+
+    17, 24, 5, static_cast<uint8_t>(Stance::Jump), 0,
+    15, 22, 4, static_cast<uint8_t>(Stance::Jump), 0,
+    15, 20, 3, static_cast<uint8_t>(Stance::Jump), 0,
+    15, 19, 2, static_cast<uint8_t>(Stance::Jump), 0,
+
+    15, 17, 1, static_cast<uint8_t>(Stance::Jump), 0,
+    13, 15, 0, static_cast<uint8_t>(Stance::Jump), 0,
+    11, 14, 0, static_cast<uint8_t>(Stance::Running_01), 0,
+    9, 14, 0, static_cast<uint8_t>(Stance::Running_02), 0,
+
+    7, 14, 0, static_cast<uint8_t>(Stance::Running_03), 0,
+    5, 14, 0, static_cast<uint8_t>(Stance::Running_04), 0,
+    3, 14, 0, static_cast<uint8_t>(Stance::Running_01), 0,
+    3, 14, 0, static_cast<uint8_t>(Stance::Ladder_01), 0,
+
+    3, 14, 0, static_cast<uint8_t>(Stance::Ladder_01), 0,
+    3, 14, 0, static_cast<uint8_t>(Stance::Ladder_02), 0,
+    3, 14, 0, static_cast<uint8_t>(Stance::Ladder_02), 0,
+    3, 14, 0, static_cast<uint8_t>(Stance::Ladder_01), 0, //20
+
+    3, 14, 0, static_cast<uint8_t>(Stance::Ladder_01), 0,
+    3, 14, 0, static_cast<uint8_t>(Stance::Ladder_02), 0,
+    3, 14, 0, static_cast<uint8_t>(Stance::Ladder_02), 0,
+    3, 14, 0, static_cast<uint8_t>(Stance::Ladder_01), 0,
+
+    3, 14, 0, static_cast<uint8_t>(Stance::Ladder_01), 0,
+    3, 14, 0, static_cast<uint8_t>(Stance::Ladder_02), 0,
+    3, 14, 0, static_cast<uint8_t>(Stance::Ladder_02), 0,
+    3, 14, 0, static_cast<uint8_t>(Stance::Ladder_01), 0,
+
+    3, 14, 0, static_cast<uint8_t>(Stance::Running_01), 0,
+    1, 14, 0, static_cast<uint8_t>(Stance::Running_02), 0,
+    static_cast<uint8_t>(-1), 14, 0, static_cast<uint8_t>(Stance::Running_03), 0,
+    static_cast<uint8_t>(-3), 14, 0, static_cast<uint8_t>(Stance::Running_04), 0,
+
+    static_cast<uint8_t>(-5), 14, 0, static_cast<uint8_t>(Stance::Running_01), 0,
+    static_cast<uint8_t>(-7), 14, 0, static_cast<uint8_t>(Stance::Running_02), 0,
+    static_cast<uint8_t>(-9), 14, 0, static_cast<uint8_t>(Stance::Running_03), 0,
+    static_cast<uint8_t>(-11), 14, 0, static_cast<uint8_t>(Stance::Running_04), 0,
+
+    #define PLAYER_VICTORY_RUN_END PLAYER_VICTORY_RUN_START + static_cast<uint16_t>(75) 
 
     121, 36, 0, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left),
 

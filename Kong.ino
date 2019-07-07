@@ -2,7 +2,7 @@
 
 #include "src/utils/Arduboy2Ext.h"
 
-#ifdef DEBUG_NO_USB
+#ifdef NO_USB
 ARDUBOY_NO_USB 
 #endif
 
