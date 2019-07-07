@@ -2,7 +2,7 @@
 
 #include "../utils/Enums.h"
 
-#define SCENERY_COUNT 69
+#define SCENERY_COUNT 73
 #define SCENERY_LEVEL_2_ONLY 1
 #define SCENERY_PAINT_LAST 2
 #define SCENERY_PAINT_FIRST 4
@@ -40,7 +40,14 @@ namespace Coordinates {
     23, 75, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,
     35, 75, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,
     87, 80, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,
-    91, 80, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,
+    95, 80, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,
+
+  99, 73, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,
+  111, 73, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,
+  123, 73, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,
+
+    106, 80, static_cast<uint8_t>(Components::EasyHard), SCENERY_PAINT_FIRST,
+
 
     87, 63, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,
     99, 63, static_cast<uint8_t>(Components::Girder_OverHead), SCENERY_PAINT_FIRST,

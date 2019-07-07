@@ -82,6 +82,7 @@ enum class Components : uint8_t {
   Hook,
   Fire,
   Fire_Foreground,
+  EasyHard,
   Spaghetti
 };
 

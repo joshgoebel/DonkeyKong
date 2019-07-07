@@ -112,6 +112,10 @@ uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
           case static_cast<uint8_t>(Components::Fire_Foreground):
             Sprites::drawExternalMask(x, y, Images::Fire_Foreground, Images::Fire_Foreground_Mask, 0, 0);
             break;
+          
+          case static_cast<uint8_t>(Components::EasyHard):
+            Sprites::drawExternalMask(x, y, Images::Mode, Images::Mode_Mask, static_cast<uint8_t>(gameStats.mode), 0);
+            break;
             
         }
 
