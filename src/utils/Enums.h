@@ -6,7 +6,7 @@
 #define _DEBUG
 
 // Replace BAREELS with _BARRELS to include colllision detection ..
-#define BARRELS
+#define _BARRELS
 
 #define NOT_IN_A_POSITION 255
 
