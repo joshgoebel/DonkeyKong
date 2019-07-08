@@ -264,6 +264,6 @@ void PlayGameState::resetGorillaAndPlates() {
 
   // Reset hook ..
 
-  this->hook.setCounter(1); //SJH
+  this->hook.setCounter(4); //SJH
 
 }
