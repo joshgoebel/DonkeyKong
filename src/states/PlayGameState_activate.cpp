@@ -29,25 +29,25 @@ void PlayGameState::activate(StateMachine & machine) {
   }
 
   for (uint8_t x = 0; x < this->numberOfBarrelsInPlay; x++) {
-  
+
     auto &barrel = this->barrels[x];
 
-    for (uint8_t x = 0; x < this->numberOfBarrelsInPlay; x++) {
-
-      bool notValid = false;
+      bool valid = false;
       uint8_t randomPos = 0;
 
-      while (!notValid) {
+      while (!valid) {
 
-        notValid = true;
-        randomPos = random(55, 150);
+      valid = true;
+      randomPos = random(60, 185);
 
-        for (uint8_t y = 0; y < this->numberOfBarrelsInPlay; y++) {
+      for (uint8_t y = 0; y < this->numberOfBarrelsInPlay; y++) {
+
+        if (x!=y) {
 
           auto &barrel2 = this->barrels[y];
 
-          if (x != y && absT(randomPos - barrel2.getPosition()) < INITIAL_BARREL_OFFSET) {
-            notValid = false;
+          if (absT(randomPos - barrel2.getPosition()) < INITIAL_BARREL_OFFSET) {
+            valid = false;
             break;
           }
 
@@ -55,10 +55,10 @@ void PlayGameState::activate(StateMachine & machine) {
 
       }
 
-      barrel.setPosition(randomPos);
-      barrel.setEnabled(true);
-
     }
+
+    barrel.setPosition(randomPos);
+    barrel.setEnabled(true);
 
   }
 

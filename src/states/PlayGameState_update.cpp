@@ -339,17 +339,16 @@ void PlayGameState::update(StateMachine & machine) {
 
       // Are we able to launch a barrel?
 
-  // Serial.print("..launch good to go! ");
-  //       for (uint8_t x=0; x<5; x++) {
-  //         auto &barrel = this->barrels[x];
-  //         Serial.print(barrel.getXPosition());
-  //         Serial.print(",");
-  //         Serial.print(barrel.getYPosition(0));
-  //         Serial.print(",");
-  //         Serial.print(barrel.getPosition());
-  //         Serial.print(" == ");
-  //       }
-  // Serial.println(".");
+//  for (uint8_t x=0; x<5; x++) {
+//           auto &barrel = this->barrels[x];
+//           // Serial.print(barrel.getXPosition());
+//           // Serial.print(",");
+//           // Serial.print(barrel.getYPosition(0));
+//           // Serial.print(",");
+//           Serial.print(barrel.getPosition());
+//           Serial.print("=");
+//         }
+//   Serial.println(".");
 
 
       if (launch) {
@@ -520,9 +519,11 @@ void PlayGameState::update(StateMachine & machine) {
 
     case 100:
       this->showLivesLeft = true;
-      this->player.setPosition(0);
-      this->removeLowerBarrels();
-      if (this->hook.getCounter() == 0) this->resetGorillaAndPlates();
+      if (gameStats.numberOfLivesLeft > 0) {
+        this->player.setPosition(0);
+        this->removeLowerBarrels();
+        if (this->hook.getCounter() == 0) this->resetGorillaAndPlates();
+      }
       this->introDelay--;
       break;
 
@@ -531,8 +532,10 @@ void PlayGameState::update(StateMachine & machine) {
       break;
 
     case 1:
+      if (gameStats.numberOfLivesLeft > 0) {
       this->player.reset();
       this->playing = true;
+      }
       this->introDelay = 0;
       this->showLivesLeft = false;
       this->spaghetti.setVisible(true);

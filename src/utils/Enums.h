@@ -17,7 +17,7 @@
 #define FRAME_RATE_MAX 80
 
 #define NOT_IN_A_POSITION 255
-#define INITIAL_BARREL_OFFSET 16
+#define INITIAL_BARREL_OFFSET 15
 
 
 // - High Scores ---------------------
@@ -156,7 +156,7 @@ struct GameStats {
     GameStats() { };
 
     uint16_t score = 0;
-    uint8_t numberOfLivesLeft = 3;
+    uint8_t numberOfLivesLeft = 1; // 3; //SJH
 
     GameMode mode = GameMode::Easy;
 
@@ -164,7 +164,7 @@ struct GameStats {
 
     void resetGame() {
 
-      this->numberOfLivesLeft = 3;
+      this->numberOfLivesLeft = 1; // 3; //SJH
       this->score = 0; 
       this->gameOver = false;
 
