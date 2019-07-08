@@ -40,7 +40,7 @@ void PlayGameState::activate(StateMachine & machine) {
       while (!notValid) {
 
         notValid = true;
-        randomPos = random(80, 190);
+        randomPos = random(80, 150);
 
         for (uint8_t y = 0; y < this->numberOfBarrelsInPlay; y++) {
 

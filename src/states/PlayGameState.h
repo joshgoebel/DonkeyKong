@@ -41,6 +41,7 @@ class PlayGameState : public BaseState { //GameState<GameContext, GameStateType>
 
     void resetLevel(uint8_t introDelay = 200);
     void resetGorillaAndPlates();
+    void removeLowerBarrels();
     
     uint8_t introDelay;
     uint8_t preventJumpDelay;   // Used to prevent a jump if the A button is pressed to start game.

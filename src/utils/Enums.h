@@ -2,11 +2,11 @@
 
 #include "Arduboy2Ext.h"
 
-#define _NO_USB
-#define DEBUG
+#define NO_USB
+#define _DEBUG
 
 // Replace BAREELS with _BARRELS to include colllision detection ..
-#define BARRELS
+#define _BARRELS
 
 
 // - Game play stuff ---------------------

@@ -95,6 +95,7 @@ void Player::setPosition(uint16_t position) {
   this->position = position;
   this->movements = pgm_read_byte(&Coordinates::Player[(this->position * 5) + 4]);
   this->yOffset = pgm_read_byte(&Coordinates::Player[(this->position * 5) + 2]);
+  this->jumpPosition = 0;
 
 }
 

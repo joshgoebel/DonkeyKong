@@ -521,6 +521,7 @@ void PlayGameState::update(StateMachine & machine) {
     case 100:
       this->showLivesLeft = true;
       this->player.setPosition(0);
+      this->removeLowerBarrels();
       if (this->hook.getCounter() == 0) this->resetGorillaAndPlates();
       this->introDelay--;
       break;

@@ -226,6 +226,10 @@ void PlayGameState::resetLevel(uint8_t introDelay) {
   this->showLivesLeft = false;
   this->playing = false;
 
+}
+
+void PlayGameState::removeLowerBarrels() {
+
 
   // Remove any barrels in the home leg of the game ..
 
