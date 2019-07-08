@@ -17,6 +17,7 @@
 #define FRAME_RATE_MAX 80
 
 #define NOT_IN_A_POSITION 255
+#define INITIAL_BARREL_OFFSET 16
 
 
 // - High Scores ---------------------

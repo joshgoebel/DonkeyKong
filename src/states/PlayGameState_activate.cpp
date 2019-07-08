@@ -40,13 +40,13 @@ void PlayGameState::activate(StateMachine & machine) {
       while (!notValid) {
 
         notValid = true;
-        randomPos = random(80, 150);
+        randomPos = random(55, 150);
 
         for (uint8_t y = 0; y < this->numberOfBarrelsInPlay; y++) {
 
           auto &barrel2 = this->barrels[y];
 
-          if (x != y && absT(randomPos - barrel2.getPosition()) < this->barrelOffset) {
+          if (x != y && absT(randomPos - barrel2.getPosition()) < INITIAL_BARREL_OFFSET) {
             notValid = false;
             break;
           }
