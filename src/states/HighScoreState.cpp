@@ -11,6 +11,7 @@ void HighScoreState::activate(StateMachine & machine) {
 	auto & arduboy = machine.getContext().arduboy;
 	auto & gameStats = machine.getContext().gameStats;
 
+  arduboy.setFrameRate(FRAME_RATE_MIN);
   this->charIdx = 0;
   this->clearScores = 0;
   this->pressACounter = HS_PRESS_A_DELAY;

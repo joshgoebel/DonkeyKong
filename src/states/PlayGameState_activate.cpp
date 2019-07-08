@@ -17,10 +17,10 @@ void PlayGameState::activate(StateMachine & machine) {
 
   this->lever.setCrane(&crane);
   this->player.reset();
-  // this->introDelay = 200;
-  // bool showLivesLeft = false;
 
-  this->resetLevel();
+  this->frameRate = FRAME_RATE_MIN;
+  this->numberOfBarrelsInPlay = NUMBER_OF_BARRELS_MIN;
+  this->resetLevel(125);
   this->resetGorillaAndPlates();
 
   for (auto &barrel : this->barrels) {
@@ -28,11 +28,11 @@ void PlayGameState::activate(StateMachine & machine) {
     barrel.setEnabled(false);
   }
 
-  for (uint8_t x = 0; x < 5; x++) {
+  for (uint8_t x = 0; x < this->numberOfBarrelsInPlay; x++) {
   
     auto &barrel = this->barrels[x];
 
-    for (uint8_t x = 0; x < 5; x++) {
+    for (uint8_t x = 0; x < this->numberOfBarrelsInPlay; x++) {
 
       bool notValid = false;
       uint8_t randomPos = 0;
@@ -42,7 +42,7 @@ void PlayGameState::activate(StateMachine & machine) {
         notValid = true;
         randomPos = random(80, 190);
 
-        for (uint8_t y = 0; y < 5; y++) {
+        for (uint8_t y = 0; y < this->numberOfBarrelsInPlay; y++) {
 
           auto &barrel2 = this->barrels[y];
 

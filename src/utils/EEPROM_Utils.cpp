@@ -7,13 +7,13 @@
 /* ----------------------------------------------------------------------------
  *   Is the EEPROM initialised?
  *
- *   Looks for the characters 'T' and 'B' in the first two bytes of the EEPROM
+ *   Looks for the characters 'D' and 'K' in the first two bytes of the EEPROM
  *   memory range starting from byte EEPROM_STORAGE_SPACE_START.  If not found,
  *   it resets the settings ..
  */
 
-constexpr uint8_t letter1 = 'T';
-constexpr uint8_t letter2 = 'B';
+constexpr uint8_t letter1 = 'D';
+constexpr uint8_t letter2 = 'K';
 
 namespace EEPROM_Utils {
 

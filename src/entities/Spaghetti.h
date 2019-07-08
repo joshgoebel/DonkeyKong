@@ -13,8 +13,10 @@ class Spaghetti {
     // Properties ..
 
     uint8_t getCounter();
+    bool isVisible();
 
     void setCounter(uint8_t counter);
+    void setVisible(bool visible);
 
 
     // Methods
@@ -25,6 +27,7 @@ class Spaghetti {
   protected:
 
     uint8_t counter = 0;
+    bool visible = true;
 
 };
 

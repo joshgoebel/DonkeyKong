@@ -24,11 +24,8 @@ void PlayGameState::update(StateMachine & machine) {
 // Serial.print(",y ");
 // Serial.print(this->player.getYPosition());
 // Serial.print(" Crane :");
-// Serial.print(static_cast<uint8_t>(this->crane.getPosition())); 
-// Serial.print(" s :");
-// Serial.print(PLAYER_CRANE_END); 
-// Serial.print(" e :");
-// Serial.println(PLAYER_DIE_START); 
+// Serial.println(static_cast<uint8_t>(this->crane.getPosition())); 
+
 
     //Handle player movements ..
 
@@ -104,7 +101,7 @@ void PlayGameState::update(StateMachine & machine) {
           this->player.incPlayerPosition();
         }
 
-        if ((pressed & A_BUTTON) && this->player.canMove(Movements::Jump)) {
+        if (this->preventJumpDelay == 0 && (pressed & A_BUTTON) && this->player.canMove(Movements::Jump)) {
           this->player.startJump();
         }
 
@@ -142,7 +139,7 @@ void PlayGameState::update(StateMachine & machine) {
         else if (this->player.isLeaping() && arduboy.everyXFrames(4)) {
 
           const uint8_t cranePosLeft = static_cast<uint8_t>(CranePosition::Inclined_01);
-          const uint8_t cranePosRight = (gameStats.mode == GameMode::Hard ? static_cast<uint8_t>(CranePosition::Inclined_02) : static_cast<uint8_t>(CranePosition::Inclined_03));
+          const uint8_t cranePosRight = (gameStats.mode == GameMode::Hard ? static_cast<uint8_t>(CranePosition::Inclined_01) : static_cast<uint8_t>(CranePosition::Inclined_02));
           const uint16_t playerPos = this->player.getPosition();
 
           uint8_t cranePos = static_cast<uint8_t>(this->crane.getPosition());
@@ -230,9 +227,24 @@ void PlayGameState::update(StateMachine & machine) {
               this->resetLevel();             
               break;
 
+            case PLAYER_VICTORY_RUN_EAT_SPAGHETTI - 1:
+              this->spaghetti.setVisible(false);
+              this->player.incPlayerPosition();
+              break;
+
             case PLAYER_VICTORY_RUN_POINTS - 1:
               gameStats.score = gameStats.score + 50;
               this->player.incPlayerPosition();
+
+              // Make the game that little bit harder ..
+
+              if (this->numberOfBarrelsInPlay < NUMBER_OF_BARRELS_MAX) {
+                this->numberOfBarrelsInPlay++;
+              }
+              if (this->frameRate < FRAME_RATE_MAX) {
+                arduboy.setFrameRate(++this->frameRate);
+              }
+             
               break;
 
             case PLAYER_VICTORY_RUN_END - 1:
@@ -326,6 +338,19 @@ void PlayGameState::update(StateMachine & machine) {
 
 
       // Are we able to launch a barrel?
+
+  // Serial.print("..launch good to go! ");
+  //       for (uint8_t x=0; x<5; x++) {
+  //         auto &barrel = this->barrels[x];
+  //         Serial.print(barrel.getXPosition());
+  //         Serial.print(",");
+  //         Serial.print(barrel.getYPosition(0));
+  //         Serial.print(",");
+  //         Serial.print(barrel.getPosition());
+  //         Serial.print(" == ");
+  //       }
+  // Serial.println(".");
+
 
       if (launch) {
   // Serial.print("..launch good to go! ");
@@ -509,6 +534,7 @@ void PlayGameState::update(StateMachine & machine) {
       this->playing = true;
       this->introDelay = 0;
       this->showLivesLeft = false;
+      this->spaghetti.setVisible(true);
       break;
 
     default:
@@ -518,6 +544,8 @@ void PlayGameState::update(StateMachine & machine) {
 
 
   // Handle other buttons ..
+
+  if (this->preventJumpDelay > 0) this->preventJumpDelay--;
 
   if (!this->playing && !gameStats.gameOver) {
 
@@ -529,6 +557,10 @@ void PlayGameState::update(StateMachine & machine) {
       this->introDelay = 0;
       this->player.reset();
       this->lever.setPosition(LeverPosition::Off);
+
+      if (justPressed & A_BUTTON) {
+        this->preventJumpDelay = 20;
+      }
 
     }
 

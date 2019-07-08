@@ -6,7 +6,7 @@ namespace Coordinates {
 
   const uint8_t PROGMEM Player[] = {
 
-    11, 121, 74, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Right) | static_cast<uint8_t>(Movements::Jump),
+    11, 121, 74, static_cast<uint8_t>(Stance::Normal_RHS), static_cast<uint8_t>(Movements::Right) | static_cast<uint8_t>(Movements::Jump),
     13, 121, 74, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right) | static_cast<uint8_t>(Movements::Jump),
     15, 121, 74, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
     17, 120, 73, static_cast<uint8_t>(Stance::Normal), static_cast<uint8_t>(Movements::Left) | static_cast<uint8_t>(Movements::Right),
@@ -395,6 +395,7 @@ namespace Coordinates {
     3, 14, 0, static_cast<uint8_t>(Stance::Ladder_02), 0,
     3, 14, 0, static_cast<uint8_t>(Stance::Ladder_02), 0,
     3, 14, 0, static_cast<uint8_t>(Stance::Ladder_01), 0,
+    #define PLAYER_VICTORY_RUN_EAT_SPAGHETTI PLAYER_VICTORY_RUN_START + static_cast<uint16_t>(68)
 
     3, 14, 0, static_cast<uint8_t>(Stance::Running_01), 0,
     1, 14, 0, static_cast<uint8_t>(Stance::Running_02), 0,

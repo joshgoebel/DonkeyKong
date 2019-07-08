@@ -106,7 +106,9 @@ uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
             break;
           
           case static_cast<uint8_t>(Components::Spaghetti):
-            Sprites::drawSelfMasked(x, y, Images::Spaghetti, this->spaghetti.getCounter());
+            if (this->spaghetti.isVisible()) {
+              Sprites::drawSelfMasked(x, y, Images::Spaghetti, this->spaghetti.getCounter());
+            }
             break;
           
           case static_cast<uint8_t>(Components::Fire_Foreground):
@@ -115,6 +117,24 @@ uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
           
           case static_cast<uint8_t>(Components::EasyHard):
             Sprites::drawExternalMask(x, y, Images::Mode, Images::Mode_Mask, static_cast<uint8_t>(gameStats.mode), 0);
+            break;
+          
+          case static_cast<uint8_t>(Components::LivesLeft1):
+            if (gameStats.numberOfLivesLeft >= 1) {
+              Sprites::drawSelfMasked(x, y, Images::LivesLeft, 0);
+            }
+            break;
+          
+          case static_cast<uint8_t>(Components::LivesLeft2):
+            if (gameStats.numberOfLivesLeft >= 2) {
+              Sprites::drawSelfMasked(x, y, Images::LivesLeft, 0);
+            }
+            break;
+          
+          case static_cast<uint8_t>(Components::LivesLeft3):
+            if (gameStats.numberOfLivesLeft >= 3) {
+              Sprites::drawSelfMasked(x, y, Images::LivesLeft, 0);
+            }
             break;
             
         }
@@ -199,13 +219,26 @@ void PlayGameState::killPlayer(StateMachine & machine) {
 
 }
 
-void PlayGameState::resetLevel() {
+void PlayGameState::resetLevel(uint8_t introDelay) {
 
-  this->introDelay = 200;
+  this->introDelay = introDelay;
   this->lever.setPosition(LeverPosition::Off);
   this->showLivesLeft = false;
   this->playing = false;
 
+
+  // Remove any barrels in the home leg of the game ..
+
+  for (auto &barrel : this->barrels) {
+
+    if (barrel.getPosition() > 170) {
+      
+      barrel.setPosition(0);
+      barrel.setEnabled(false);
+
+    }
+
+  }
 
 }
 
@@ -227,6 +260,6 @@ void PlayGameState::resetGorillaAndPlates() {
 
   // Reset hook ..
 
-  this->hook.setCounter(4);
+  this->hook.setCounter(1); //SJH
 
 }

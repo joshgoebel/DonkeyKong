@@ -6,7 +6,7 @@
 
 namespace EEPROM_Utils {
 
-  constexpr size_t eepromStart = 171;
+  constexpr size_t eepromStart = 453;
   constexpr size_t eepromStart_C1 = (eepromStart + 0);
   constexpr size_t eepromStart_C2 = (eepromStart + 1);
   constexpr size_t saveEntriesStart = (eepromStart + 2);

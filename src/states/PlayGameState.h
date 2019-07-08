@@ -12,7 +12,7 @@ class PlayGameState : public BaseState { //GameState<GameContext, GameStateType>
   private:
  
     Gorilla gorilla;
-    Barrel barrels[6];
+    Barrel barrels[NUMBER_OF_BARRELS_MAX];
     Girder girders[2];
     Player player;
     Crane crane;
@@ -39,11 +39,13 @@ class PlayGameState : public BaseState { //GameState<GameContext, GameStateType>
     void killPlayer(StateMachine & machine);
     void incPlateCounters();
 
-    void resetLevel();
+    void resetLevel(uint8_t introDelay = 200);
     void resetGorillaAndPlates();
     
-    uint16_t introDelay;
+    uint8_t introDelay;
+    uint8_t preventJumpDelay;   // Used to prevent a jump if the A button is pressed to start game.
     uint8_t barrelOffset = 11;
+    uint8_t numberOfBarrelsInPlay = 5;
+    uint8_t frameRate = FRAME_RATE_MIN;
     bool showLivesLeft = true;
-
 };

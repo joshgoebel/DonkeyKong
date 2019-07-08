@@ -2,7 +2,7 @@
 
 #include "../utils/Enums.h"
 
-#define SCENERY_COUNT 73
+#define SCENERY_COUNT 76
 #define SCENERY_LEVEL_2_ONLY 1
 #define SCENERY_PAINT_LAST 2
 #define SCENERY_PAINT_FIRST 4
@@ -110,6 +110,9 @@ namespace Coordinates {
     85, 0, static_cast<uint8_t>(Components::Hook), SCENERY_PAINT_FIRST,
     0, 122, static_cast<uint8_t>(Components::Fire), SCENERY_PAINT_FIRST,
     0, 122, static_cast<uint8_t>(Components::Fire_Foreground), SCENERY_PAINT_LAST,
+    121, 133, static_cast<uint8_t>(Components::LivesLeft1), SCENERY_PAINT_LAST,
+    114, 133, static_cast<uint8_t>(Components::LivesLeft2), SCENERY_PAINT_LAST,
+    107, 133, static_cast<uint8_t>(Components::LivesLeft3), SCENERY_PAINT_LAST,
 
     0, 0, static_cast<uint8_t>(Components::Girder), SCENERY_PAINT_FIRST,
 

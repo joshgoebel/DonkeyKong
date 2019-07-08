@@ -188,7 +188,6 @@ uint8_t Player::getImage() {
     switch  (stance) {
 
       case Stance::Normal:
-      case Stance::Normal_RHS:
 
         if (this->currXPosition == this->prevXPosition) {
 
@@ -263,8 +262,8 @@ void Player::reset() {
   this->dead = false;
   this->leaping = false;
   this->falling = false;
+  this->currXPosition = static_cast<int8_t>(pgm_read_byte(&Coordinates::Player[(this->position * 5)]));
+  this->prevXPosition = -1;//static_cast<int8_t>(pgm_read_byte(&Coordinates::Player[(this->position * 5)]));
   this->runMovement = Movements::Right;
-  this->currXPosition = static_cast<int8_t>(pgm_read_byte(&Coordinates::Player[(this->position * 5)]));;
-  this->prevXPosition = static_cast<int8_t>(pgm_read_byte(&Coordinates::Player[(this->position * 5)]));;
 
 }

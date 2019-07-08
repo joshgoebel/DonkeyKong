@@ -4,7 +4,7 @@
 
 Hook::Hook() { 
 
-  this->counter = 4;//SJH
+  this->counter = 4;
 
 }
 

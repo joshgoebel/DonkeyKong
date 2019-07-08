@@ -13,9 +13,21 @@ uint8_t Spaghetti::getCounter() {
 
 }
 
+bool Spaghetti::isVisible() {
+
+  return this->visible;
+
+}
+
 void Spaghetti::setCounter(uint8_t counter) {
 
   this->counter = counter;
+
+}
+
+void Spaghetti::setVisible(bool visible) {
+
+  this->visible = visible;
 
 }
 
