@@ -49,28 +49,6 @@ uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
             Sprites::drawSelfMasked(x, y, Images::Girder_Small, 0);
             break;
           
-          // case static_cast<uint8_t>(Components::Plate1) ... static_cast<uint8_t>(Components::Plate3):
-          //   {
-          //     const uint8_t idx = image - static_cast<uint8_t>(Components::Plate1);
-          //     const int8_t xOffset = this-> plates[idx].getXOffset();
-          //     const uint8_t yOffset = this-> plates[idx].getYOffset();
-          //     const uint8_t image = this-> plates[idx].getImage();
-          //     Sprites::drawSelfMasked(x + xOffset, y + yOffset, Images::Plate, image);
-
-          //   }
-          //   break;
-          
-          // case static_cast<uint8_t>(Components::Plate1) ... static_cast<uint8_t>(Components::Plate3):
-          //   {
-          //     const uint8_t idx = image - static_cast<uint8_t>(Components::Plate1);
-          //     const int8_t xOffset = this-> plates[idx].getXOffset();
-          //     const uint8_t yOffset = this-> plates[idx].getYOffset();
-          //     const uint8_t image = this-> plates[idx].getImage();
-          //     Sprites::drawSelfMasked(x + xOffset, y + yOffset, Images::Plate, image);
-
-          //   }
-          //   break;
-          
           case static_cast<uint8_t>(Components::Plate1):
             {
               const int8_t xOffset = this-> plates[0].getXOffset();
@@ -275,6 +253,6 @@ void PlayGameState::resetGorillaAndPlates() {
 
   // Reset hook ..
 
-  this->hook.setCounter(4); //SJH
+  this->hook.setCounter(1); //SJH
 
 }

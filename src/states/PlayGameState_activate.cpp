@@ -24,10 +24,8 @@ void PlayGameState::activate(StateMachine & machine) {
   this->resetGorillaAndPlates();
 
   for (auto &barrel : this->barrels) {
-
     barrel.setPosition(0);
     barrel.setEnabled(false);
-    
   }
 
   for (uint8_t x = 0; x < this->numberOfBarrelsInPlay; x++) {
