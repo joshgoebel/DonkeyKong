@@ -114,6 +114,12 @@ enum class Rotation : uint8_t {
   None = 4
 };
 
+enum class GirderRotation : uint8_t {
+  Left,
+  Right,
+  None
+};
+
 enum class CranePosition : uint8_t {
   Upright_01 = 0,
   Upright_02 = 1,
