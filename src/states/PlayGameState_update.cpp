@@ -286,7 +286,7 @@ void PlayGameState::update(StateMachine & machine) {
 
       if (launch) {
 
-//  for (uint8_t x=0; x<5; x++) {
+//  for (uint8_t x=0; x<this->numberOfBarrelsInPlay; x++) {
 //           auto &barrel = this->barrels[x];
 //           // Serial.print(barrel.getXPosition());
 //           // Serial.print(",");
@@ -302,39 +302,40 @@ void PlayGameState::update(StateMachine & machine) {
           
           if (barrel.isEnabled()) {
 
-            switch (gorillaPosition) {
+            if (barrel.getPosition() < 78) { launch = false;}
+  //           switch (gorillaPosition) {
 
-              case 0:
+  //             case 0:
 
-                if ((barrel.getPosition() < this->barrelOffset) ||
-                    (barrel.getPosition() >= BARREL_POSITION_2_START + BARREL_POSITION_2_COUNT - BARREL_POSITION_1_COUNT + this->barrelOffset && barrel.getPosition() <= BARREL_POSITION_2_END) ||
-                    (barrel.getPosition() >= BARREL_POSITION_3_START + BARREL_POSITION_3_COUNT - BARREL_POSITION_1_COUNT + this->barrelOffset && barrel.getPosition() <= BARREL_POSITION_3_END)) {
-  //Serial.println("..launch failed 0");
-                  launch = false;
-                }
-                break;
+  //               if ((barrel.getPosition() < this->barrelOffset) ||
+  //                   (barrel.getPosition() >= BARREL_POSITION_2_START + BARREL_POSITION_2_COUNT - BARREL_POSITION_1_COUNT + this->barrelOffset && barrel.getPosition() <= BARREL_POSITION_2_END) ||
+  //                   (barrel.getPosition() >= BARREL_POSITION_3_START + BARREL_POSITION_3_COUNT - BARREL_POSITION_1_COUNT + this->barrelOffset && barrel.getPosition() <= BARREL_POSITION_3_END)) {
+  // //Serial.println("..launch failed 0");
+  //                 launch = false;
+  //               }
+  //               break;
 
-              case 1:
+  //             case 1:
 
-                if ((barrel.getPosition() >= BARREL_POSITION_1_START && barrel.getPosition() <= BARREL_POSITION_1_END) ||
-                    (barrel.getPosition() >= BARREL_POSITION_2_START && barrel.getPosition() <= BARREL_POSITION_2_START + this->barrelOffset) ||
-                    (barrel.getPosition() >= BARREL_POSITION_3_START + BARREL_POSITION_3_COUNT - BARREL_POSITION_2_COUNT && barrel.getPosition() <= BARREL_POSITION_3_START + BARREL_POSITION_3_COUNT - BARREL_POSITION_2_COUNT + this->barrelOffset)) {
-  //Serial.println("..launch failed 1");
-                    launch = false;
-                  }
-                  break;
+  //               if ((barrel.getPosition() >= BARREL_POSITION_1_START && barrel.getPosition() <= BARREL_POSITION_1_END) ||
+  //                   (barrel.getPosition() >= BARREL_POSITION_2_START && barrel.getPosition() <= BARREL_POSITION_2_START + this->barrelOffset) ||
+  //                   (barrel.getPosition() >= BARREL_POSITION_3_START + BARREL_POSITION_3_COUNT - BARREL_POSITION_2_COUNT && barrel.getPosition() <= BARREL_POSITION_3_START + BARREL_POSITION_3_COUNT - BARREL_POSITION_2_COUNT + this->barrelOffset)) {
+  // //Serial.println("..launch failed 1");
+  //                   launch = false;
+  //                 }
+  //                 break;
 
-              case 2:
+  //             case 2:
 
-                if ((barrel.getPosition() >= BARREL_POSITION_1_START && barrel.getPosition() <= BARREL_POSITION_1_END) ||
-                    (barrel.getPosition() >= BARREL_POSITION_2_START && barrel.getPosition() <= BARREL_POSITION_3_COUNT - BARREL_POSITION_2_START + this->barrelOffset) ||
-                    (barrel.getPosition() <= BARREL_POSITION_3_START + this->barrelOffset)) {
-  //Serial.println("..launch failed 2");
-                    launch = false;
-                  }
-                  break;
+  //               if ((barrel.getPosition() >= BARREL_POSITION_1_START && barrel.getPosition() <= BARREL_POSITION_1_END) ||
+  //                   (barrel.getPosition() >= BARREL_POSITION_2_START && barrel.getPosition() <= BARREL_POSITION_3_COUNT - BARREL_POSITION_2_START + this->barrelOffset) ||
+  //                   (barrel.getPosition() <= BARREL_POSITION_3_START + this->barrelOffset)) {
+  // //Serial.println("..launch failed 2");
+  //                   launch = false;
+  //                 }
+  //                 break;
 
-            }
+  //           }
 
           }
 
@@ -345,16 +346,16 @@ void PlayGameState::update(StateMachine & machine) {
 
       // Are we able to launch a barrel?
 
-//  for (uint8_t x=0; x<5; x++) {
-//           auto &barrel = this->barrels[x];
-//           // Serial.print(barrel.getXPosition());
-//           // Serial.print(",");
-//           // Serial.print(barrel.getYPosition(0));
-//           // Serial.print(",");
-//           Serial.print(barrel.getPosition());
-//           Serial.print("=");
-//         }
-//   Serial.println(".");
+ for (uint8_t x=0; x<this->numberOfBarrelsInPlay; x++) {
+          auto &barrel = this->barrels[x];
+          // Serial.print(barrel.getXPosition());
+          // Serial.print(",");
+          // Serial.print(barrel.getYPosition(0));
+          // Serial.print(",");
+          Serial.print(barrel.getPosition());
+          Serial.print("=");
+        }
+  Serial.println(".");
 
 
       if (launch) {

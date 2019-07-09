@@ -2,8 +2,8 @@
 
 #include "Arduboy2Ext.h"
 
-#define NO_USB
-#define _DEBUG
+#define _NO_USB
+#define DEBUG
 
 // Comment out IGNORE_BARREL_COLLISIONS to include colllision detection ..
 #define _IGNORE_BARREL_COLLISIONS
@@ -11,7 +11,7 @@
 
 // - Game play stuff ---------------------
  
-#define NUMBER_OF_BARRELS_MIN 5
+#define NUMBER_OF_BARRELS_MIN 6
 #define NUMBER_OF_BARRELS_MAX 9
 #define FRAME_RATE_MIN 67
 #define FRAME_RATE_MAX 80
