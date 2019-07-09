@@ -6,7 +6,7 @@
 #define _DEBUG
 
 // Replace BAREELS with _BARRELS to include colllision detection ..
-#define BARRELS
+#define _BARRELS
 
 
 // - Game play stuff ---------------------

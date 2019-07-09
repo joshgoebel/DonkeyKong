@@ -42,16 +42,18 @@ uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
           
           case static_cast<uint8_t>(Components::Girder):
             imageSelfMasked = Images::Girder;
+//            Sprites::drawSelfMasked(x, y, Images::Girder, 0);
             break;
           
           case static_cast<uint8_t>(Components::Girder_OverHead):
             imageSelfMasked = Images::Girder_OverHead;
+//            Sprites::drawSelfMasked(x, y, Images::Girder_OverHead, 0);
             break;
           
           case static_cast<uint8_t>(Components::Girder_Small):
             imageSelfMasked = Images::Girder_Small;
+//            Sprites::drawSelfMasked(x, y, Images::Girder_Small, 0);
             break;
-
           
           // case static_cast<uint8_t>(Components::Plate1) ... static_cast<uint8_t>(Components::Plate3):
           //   {
@@ -81,15 +83,19 @@ uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
               const uint8_t yOffset = this-> plates[0].getYOffset();
               imageIndex = this-> plates[0].getImage();
               imageSelfMasked = Images::Plate;
+//              Sprites::drawSelfMasked(x + xOffset, y + yOffset, Images::Plate, image);
+
             }
             break;
-
+          
           case static_cast<uint8_t>(Components::Plate2):
             {
               const int8_t xOffset = this-> plates[1].getXOffset();
               const uint8_t yOffset = this-> plates[1].getYOffset();
               imageIndex = this-> plates[1].getImage();
               imageSelfMasked = Images::Plate;
+//              Sprites::drawSelfMasked(x - xOffset, y + yOffset, Images::Plate, image);
+
             }
             break;
           
@@ -99,6 +105,7 @@ uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
               const uint8_t yOffset = this-> plates[2].getYOffset();
               imageIndex = this-> plates[2].getImage();
               imageSelfMasked = Images::Plate;
+//              Sprites::drawSelfMasked(x + xOffset, y + yOffset, Images::Plate, image);
             }
             break;
           
@@ -109,6 +116,7 @@ uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
           case static_cast<uint8_t>(Components::Lever):
             imageSelfMasked = Images::Lever;
             imageIndex = static_cast<uint8_t>(this->lever.getPosition());
+//            Sprites::drawSelfMasked(x, y, Images::Lever, static_cast<uint8_t>(this->lever.getPosition()));
             break;
           
           case static_cast<uint8_t>(Components::Cable1):
@@ -122,22 +130,24 @@ uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
           case static_cast<uint8_t>(Components::Crane):
             imageSelfMasked = Images::Crane;
             imageIndex = this->crane.getImage();
+//            Sprites::drawSelfMasked(x, y, Images::Crane, this->crane.getImage());
             break;
           
           case static_cast<uint8_t>(Components::Hook):
             imageSelfMasked = Images::Hook;
             imageIndex = this->hook.getCounter();
+//            Sprites::drawSelfMasked(x, y, Images::Hook, this->hook.getCounter());
             break;
           
           case static_cast<uint8_t>(Components::Fire):
-            imageSelfMasked = Images::Fire;
-            imageIndex = this->fire.getCounter();
+            Sprites::drawSelfMasked(x, y, Images::Fire, this->fire.getCounter());
             break;
           
           case static_cast<uint8_t>(Components::Spaghetti):
             if (this->spaghetti.isVisible()) {
               imageSelfMasked = Images::Spaghetti;
               imageIndex = this->spaghetti.getCounter();
+              //Sprites::drawSelfMasked(x, y, Images::Spaghetti, this->spaghetti.getCounter());
             }
             break;
           
@@ -151,19 +161,19 @@ uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
           
           case static_cast<uint8_t>(Components::LivesLeft1):
             if (gameStats.numberOfLivesLeft >= 1) {
-              imageSelfMasked = Images::LivesLeft;
+              Sprites::drawSelfMasked(x, y, Images::LivesLeft, 0);
             }
             break;
           
           case static_cast<uint8_t>(Components::LivesLeft2):
             if (gameStats.numberOfLivesLeft >= 2) {
-              imageSelfMasked = Images::LivesLeft;
+              Sprites::drawSelfMasked(x, y, Images::LivesLeft, 0);
             }
             break;
           
           case static_cast<uint8_t>(Components::LivesLeft3):
             if (gameStats.numberOfLivesLeft >= 3) {
-              imageSelfMasked = Images::LivesLeft;
+              Sprites::drawSelfMasked(x, y, Images::LivesLeft, 0);
             }
             break;
             
