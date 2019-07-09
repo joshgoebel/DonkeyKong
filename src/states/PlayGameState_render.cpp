@@ -41,24 +41,35 @@ void PlayGameState::render(StateMachine & machine) {
 
   if (this->playing || flash) {
 
+    uint8_t const *imageName = nullptr;
+    uint8_t const *mask = nullptr;
+
     uint8_t image = this->player.getImage();
 
     switch (image) {
 
       case static_cast<uint8_t>(Stance::Normal) ... static_cast<uint8_t>(Stance::OnCrane_RHS):
-        Sprites::drawExternalMask(this->player.getXPosition(true), this->player.getYPosition(), Images::Mario, Images::Mario_Mask, image, image);
+        imageName = Images::Mario;
+        mask = Images::Mario_Mask;
         break;
 
       case static_cast<uint8_t>(Stance::Dead_01) ... static_cast<uint8_t>(Stance::Dead_03):
+        imageName = Images::Mario_Dying;
         image = image - static_cast<uint8_t>(Stance::Dead_01);
-        Sprites::drawSelfMasked(this->player.getXPosition(true), this->player.getYPosition(), Images::Mario_Dying, image);
         break;
 
       case static_cast<uint8_t>(Stance::OnCrane_EmptyHand) ... static_cast<uint8_t>(Stance::OnCrane_HoldingHook):
+        imageName = Images::Mario_Leaping;
         image = image - static_cast<uint8_t>(Stance::OnCrane_EmptyHand);
-        Sprites::drawSelfMasked(this->player.getXPosition(true), this->player.getYPosition(), Images::Mario_Leaping, image);
         break;
 
+    }
+
+    if (mask == nullptr) {
+      Sprites::drawSelfMasked(this->player.getXPosition(true), this->player.getYPosition(), imageName, image);
+    }
+    else {
+      Sprites::drawExternalMask(this->player.getXPosition(true), this->player.getYPosition(), imageName, mask, image, image);
     }
 
   }

@@ -37,7 +37,8 @@ uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
 
       if ((gameStats.mode == GameMode::Hard) || !(mode & static_cast<uint8_t>(GameMode::Hard))) {
 
-        uint8_t const *imageSelfMasked = nullptr;
+        uint8_t const *imageName = nullptr;
+        uint8_t const *mask = nullptr;
         uint8_t imageIndex = 0;
         int8_t xOffset = 0;
         int8_t yOffset = 0;
@@ -45,33 +46,31 @@ uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
         switch (image) {
           
           case static_cast<uint8_t>(Components::Girder):
-            imageSelfMasked = Images::Girder;
+            imageName = Images::Girder;
             break;
           
           case static_cast<uint8_t>(Components::Girder_OverHead):
-            imageSelfMasked = Images::Girder_OverHead;
+            imageName = Images::Girder_OverHead;
             break;
           
           case static_cast<uint8_t>(Components::Girder_Small):
-            imageSelfMasked = Images::Girder_Small;
+            imageName = Images::Girder_Small;
             break;
-
           
           case static_cast<uint8_t>(Components::Plate1):
             {
               xOffset = this-> plates[0].getXOffset();
               yOffset = this-> plates[0].getYOffset();
               imageIndex = this-> plates[0].getImage();
-              imageSelfMasked = Images::Plate;
+              imageName = Images::Plate;
             }
             break;
 
           case static_cast<uint8_t>(Components::Plate2):
             {
-              //xOffset = this->plates[1].getXOffset();
               yOffset = this->plates[1].getYOffset();
               imageIndex = this->plates[1].getImage();
-              imageSelfMasked = Images::Plate;
+              imageName = Images::Plate;
             }
             break;
           
@@ -80,79 +79,92 @@ uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
               xOffset = this-> plates[2].getXOffset();
               yOffset = this->plates[2].getYOffset();
               imageIndex = this->plates[2].getImage();
-              imageSelfMasked = Images::Plate;
+              imageName = Images::Plate;
             }
             break;
           
           case static_cast<uint8_t>(Components::Ladder):
-            Sprites::drawExternalMask(x, y, Images::Ladder, Images::Ladder_Mask, 0, 0);
+            imageName = Images::Ladder;
+            mask = Images::Ladder_Mask;
             break;
           
           case static_cast<uint8_t>(Components::Lever):
-            imageSelfMasked = Images::Lever;
+            imageName = Images::Lever;
             imageIndex = static_cast<uint8_t>(this->lever.getPosition());
             break;
           
           case static_cast<uint8_t>(Components::Cable1):
-            Sprites::drawExternalMask(x, y, Images::Cable_1, Images::Cable_1_Mask, 0, 0);
+            imageName = Images::Cable_1;
+            mask = Images::Cable_1_Mask;
             break;
           
           case static_cast<uint8_t>(Components::Cable2):
-            Sprites::drawExternalMask(x, y, Images::Cable_2, Images::Cable_2_Mask, 0, 0);
+            imageName = Images::Cable_2;
+            mask = Images::Cable_2_Mask;
             break;
           
           case static_cast<uint8_t>(Components::Crane):
-            imageSelfMasked = Images::Crane;
+            imageName = Images::Crane;
             imageIndex = this->crane.getImage();
             break;
           
           case static_cast<uint8_t>(Components::Hook):
-            imageSelfMasked = Images::Hook;
+            imageName = Images::Hook;
             imageIndex = this->hook.getCounter();
             break;
           
           case static_cast<uint8_t>(Components::Fire):
-            imageSelfMasked = Images::Fire;
+            imageName = Images::Fire;
             imageIndex = this->fire.getCounter();
             break;
           
           case static_cast<uint8_t>(Components::Spaghetti):
             if (this->spaghetti.isVisible()) {
-              imageSelfMasked = Images::Spaghetti;
+              imageName = Images::Spaghetti;
               imageIndex = this->spaghetti.getCounter();
             }
             break;
           
           case static_cast<uint8_t>(Components::Fire_Foreground):
-            Sprites::drawExternalMask(x, y, Images::Fire_Foreground, Images::Fire_Foreground_Mask, 0, 0);
+            imageName = Images::Fire_Foreground;
+            mask = Images::Fire_Foreground_Mask;
             break;
           
           case static_cast<uint8_t>(Components::EasyHard):
-            Sprites::drawExternalMask(x, y, Images::Mode, Images::Mode_Mask, static_cast<uint8_t>(gameStats.mode), 0);
+            imageName = Images::Mode;
+            mask = Images::Mode_Mask;
+            imageIndex = static_cast<uint8_t>(gameStats.mode);
             break;
           
           case static_cast<uint8_t>(Components::LivesLeft1):
             if (gameStats.numberOfLivesLeft >= 1) {
-              imageSelfMasked = Images::LivesLeft;
+              imageName = Images::LivesLeft;
             }
             break;
           
           case static_cast<uint8_t>(Components::LivesLeft2):
             if (gameStats.numberOfLivesLeft >= 2) {
-              imageSelfMasked = Images::LivesLeft;
+              imageName = Images::LivesLeft;
             }
             break;
           
           case static_cast<uint8_t>(Components::LivesLeft3):
             if (gameStats.numberOfLivesLeft >= 3) {
-              imageSelfMasked = Images::LivesLeft;
+              imageName = Images::LivesLeft;
             }
             break;
             
         }
 
-        if (imageSelfMasked != nullptr) {
-          Sprites::drawSelfMasked(x + xOffset, y + yOffset, imageSelfMasked, imageIndex);
+        if (imageName != nullptr) {
+
+          if (mask == nullptr) {
+            Sprites::drawSelfMasked(x + xOffset, y + yOffset, imageName, imageIndex);
+          }
+          else {
+            Sprites::drawExternalMask(x + xOffset, y + yOffset, imageName, mask, imageIndex, 0);
+          }
+          
         }
 
       }
