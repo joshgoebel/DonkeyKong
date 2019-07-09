@@ -5,8 +5,8 @@
 #define NO_USB
 #define _DEBUG
 
-// Replace BAREELS with _BARRELS to include colllision detection ..
-#define BARRELS
+// Replace BARRELS with _BARRELS to include colllision detection ..
+#define _BARRELS
 
 
 // - Game play stuff ---------------------

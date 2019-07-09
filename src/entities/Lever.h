@@ -4,8 +4,9 @@
 #include "../Utils/Enums.h"
 #include "../map/Coordinates.h"
 #include "Crane.h"
+#include "Base.h"
 
-class Lever {
+class Lever : public Base {
 
   public:
 
@@ -14,10 +15,8 @@ class Lever {
     // Properties ..
 
     LeverPosition getPosition();
-    uint8_t getCounter();
 
     void setPosition(LeverPosition position);
-    void setCounter(uint8_t counter);
     void setCrane(Crane *crane);
 
 
@@ -30,7 +29,6 @@ class Lever {
 
     LeverPosition position = LeverPosition::Off;
     Crane *crane;
-    uint8_t counter = 0;
 
 };
 

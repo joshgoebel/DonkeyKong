@@ -38,6 +38,7 @@ class PlayGameState : public BaseState { //GameState<GameContext, GameStateType>
     uint8_t drawScenery(StateMachine & machine, uint8_t paintMode);
     void killPlayer(StateMachine & machine);
     void incPlateCounters();
+    void updatePlayerAndCrane(CranePosition position);
 
     void resetLevel(uint8_t introDelay = 200);
     void resetGorillaAndPlates();

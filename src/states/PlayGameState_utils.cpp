@@ -283,3 +283,10 @@ void PlayGameState::resetGorillaAndPlates() {
   this->hook.setCounter(4); //SJH
 
 }
+
+void PlayGameState::updatePlayerAndCrane(CranePosition position) {
+
+    this->player.incPlayerPosition();
+    this->crane.setPosition(position);
+
+}

@@ -47,7 +47,7 @@ void PlayGameState::activate(StateMachine & machine) {
         if (x!=y) {
 
           auto &barrel2 = this->barrels[y];
-          uint8_t diff = (randomPos > barrel2.getPosition() ? randomPos - barrel2.getPosition() : barrel2.getPosition() - randomPos);
+          uint8_t diff = Diff(randomPos, barrel2.getPosition());
 
           if (diff < INITIAL_BARREL_OFFSET) {
             valid = false;

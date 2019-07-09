@@ -1,31 +1,21 @@
 #pragma once
 
 #include "../utils/Arduboy2Ext.h"
-
 #include "../Utils/Enums.h"
+#include "Base.h"
 
-class Fire {
+class Fire : public Base {
 
   public:
 
     Fire();
  
-
-    // Properties ..
-
-    uint8_t getCounter();
-
-    void setCounter(uint8_t counter);
-
-
     // Methods
 
     void update();
 
 
   protected:
-
-    uint8_t counter = 0;
 
 };
 

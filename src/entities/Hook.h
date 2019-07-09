@@ -2,25 +2,20 @@
 
 #include "../utils/Arduboy2Ext.h"
 #include "../Utils/Enums.h"
+#include "Base.h"
 
-class Hook {
+class Hook : public Base {
 
   public:
 
     Hook();
- 
-    // Properties ..
 
-    uint8_t getCounter();
-    void setCounter(uint8_t counter);
 
     // Methods ..
 
     void decCounter();
 
   protected:
-
-    uint8_t counter = 0;
 
 };
 

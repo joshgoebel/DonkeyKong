@@ -3,17 +3,11 @@
 #include "../utils/Enums.h"
 #include "../map/Coordinates.h"
 
-Crane::Crane() { }
+Crane::Crane() : Base() { }
 
 CranePosition Crane::getPosition() {
 
   return this->position;
-
-}
-
-uint8_t Crane::getCounter() {
-
-  return this->counter;
 
 }
 
@@ -26,12 +20,6 @@ bool Crane::getLiftPlayer() {
 void Crane::setPosition(CranePosition position) {
 
   this->position = position;
-
-}
-
-void Crane::setCounter(uint8_t counter) {
-
-  this->counter = counter;
 
 }
 

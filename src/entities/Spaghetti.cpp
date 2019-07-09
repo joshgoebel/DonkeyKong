@@ -5,23 +5,12 @@
 
 #define LEVER_ON 140
 
-Spaghetti::Spaghetti() { }
+Spaghetti::Spaghetti() : Base() { }
 
-uint8_t Spaghetti::getCounter() {
-
-  return this->counter;
-
-}
 
 bool Spaghetti::isVisible() {
 
   return this->visible;
-
-}
-
-void Spaghetti::setCounter(uint8_t counter) {
-
-  this->counter = counter;
 
 }
 

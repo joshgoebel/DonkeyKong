@@ -1,16 +1,6 @@
 #include "Plate.h"
 #include "../utils/Enums.h"
 
-// const uint8_t PROGMEM Offsets[] = {
-
-//   0, 0, 0, 0, 0, 0, // Flat
-//   3, 3, 0, 7, 3, 3, // Incline 1
-//   5, 5, 0, 14, 5, 5, // Incline 2
-//   6, 7, 0, 20, 6, 7, // Incline 3
-
-// };
-
-
 enum class PlateStance : uint8_t {
   Normal,
   Normal_RHS,
@@ -88,7 +78,7 @@ const uint8_t PROGMEM Offset_2[] = {
 
 };
 
-Plate::Plate() { 
+Plate::Plate() : Base() { 
 
   this->counter = 0;
 
@@ -100,21 +90,9 @@ uint8_t Plate::getPlateNumber() {
 
 }
 
-uint8_t Plate::getCounter() {
-
-  return this->counter;
-
-}
-
 void Plate::setPlateNumber(uint8_t plateNumber) {
 
   this->plateNumber = plateNumber;
-
-}
-
-void Plate::setCounter(uint8_t counter) {
-
-  this->counter = counter;
 
 }
 

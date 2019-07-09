@@ -169,37 +169,31 @@ void PlayGameState::update(StateMachine & machine) {
                 this->player.setPosition(PLAYER_DIE_START);
               }
               else {
-                this->crane.setPosition(CranePosition::Inclined_02);
+                this->updatePlayerAndCrane(CranePosition::Inclined_02);
                 this->crane.setLiftPlayer(true);
-                this->player.incPlayerPosition();
               }
               break;
 
             case PLAYER_CRANE_LIFT_01 - 1:
-              this->player.incPlayerPosition();
-              this->crane.setPosition(CranePosition::Upright_01);
+              this->updatePlayerAndCrane(CranePosition::Upright_01);
               this->gorilla.moveToCentre();
               break;
 
             case PLAYER_CRANE_LIFT_02 - 1:
-              this->player.incPlayerPosition();
-              this->crane.setPosition(CranePosition::Upright_02);
+              this->updatePlayerAndCrane(CranePosition::Upright_02);
               this->hook.decCounter();
               break;
 
             case PLAYER_CRANE_LIFT_03 - 1:
-              this->player.incPlayerPosition();
-              this->crane.setPosition(CranePosition::Upright_03);
+              this->updatePlayerAndCrane(CranePosition::Upright_03);
               break;
 
             case PLAYER_CRANE_LIFT_04 - 1:
-              this->player.incPlayerPosition();
-              this->crane.setPosition(CranePosition::Inclined_03);
+              this->updatePlayerAndCrane(CranePosition::Inclined_03);
               break;
 
             case PLAYER_CRANE_LIFT_05 - 1:
-              this->player.incPlayerPosition();
-              this->crane.setPosition(CranePosition::Flat);
+              this->updatePlayerAndCrane(CranePosition::Flat);
               break;
 
             // Is the gorilla about to drop?  Should we do the victory run?
@@ -214,8 +208,7 @@ void PlayGameState::update(StateMachine & machine) {
               break;
 
             case PLAYER_CRANE_LIFT_06 - 1:
-              this->player.incPlayerPosition();
-              this->crane.setPosition(CranePosition::Declined);
+              this->updatePlayerAndCrane(CranePosition::Declined);
               break;
 
             case PLAYER_CRANE_POINTS - 1:
@@ -224,6 +217,7 @@ void PlayGameState::update(StateMachine & machine) {
               break;
 
             case PLAYER_CRANE_END:
+            case PLAYER_VICTORY_RUN_END - 1:
               this->resetLevel();             
               break;
 
@@ -244,11 +238,6 @@ void PlayGameState::update(StateMachine & machine) {
               if (this->frameRate < FRAME_RATE_MAX) {
                 arduboy.setFrameRate(++this->frameRate);
               }
-             
-              break;
-
-            case PLAYER_VICTORY_RUN_END - 1:
-              this->resetLevel();             
               break;
 
             case PLAYER_DIE_END: // end of death sequence.
@@ -300,7 +289,7 @@ void PlayGameState::update(StateMachine & machine) {
 
               case 0:
 
-                if ((barrel.getPosition()< this->barrelOffset) ||
+                if ((barrel.getPosition() < this->barrelOffset) ||
                     (barrel.getPosition() >= BARREL_POSITION_2_START + BARREL_POSITION_2_COUNT - BARREL_POSITION_1_COUNT + this->barrelOffset && barrel.getPosition() <= BARREL_POSITION_2_END) ||
                     (barrel.getPosition() >= BARREL_POSITION_3_START + BARREL_POSITION_3_COUNT - BARREL_POSITION_1_COUNT + this->barrelOffset && barrel.getPosition() <= BARREL_POSITION_3_END)) {
   //Serial.println("..launch failed 0");

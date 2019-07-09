@@ -4,8 +4,9 @@
 
 #include "../Utils/Enums.h"
 #include "../map/Coordinates.h"
+#include "Base.h"
 
-class Crane {
+class Crane : public Base {
 
   public:
 
@@ -14,11 +15,9 @@ class Crane {
     // Properties ..
 
     CranePosition getPosition();
-    uint8_t getCounter();
     bool getLiftPlayer();
 
     void setPosition(CranePosition position);
-    void setCounter(uint8_t counter);
     void setLiftPlayer(bool liftPlayer);
 
 
@@ -39,7 +38,6 @@ class Crane {
     CraneState state = CraneState::Dormant;
     Movements hookDirection = Movements::Right;
     uint8_t hook = 2;
-    uint8_t counter = 0;
     bool liftPlayer;
 
 };

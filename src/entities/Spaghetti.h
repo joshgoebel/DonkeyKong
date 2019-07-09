@@ -2,8 +2,9 @@
 
 #include "../utils/Arduboy2Ext.h"
 #include "../Utils/Enums.h"
+#include "Base.h"
 
-class Spaghetti {
+class Spaghetti : public Base {
 
   public:
 
@@ -12,10 +13,7 @@ class Spaghetti {
 
     // Properties ..
 
-    uint8_t getCounter();
     bool isVisible();
-
-    void setCounter(uint8_t counter);
     void setVisible(bool visible);
 
 
@@ -26,7 +24,6 @@ class Spaghetti {
 
   protected:
 
-    uint8_t counter = 0;
     bool visible = true;
 
 };

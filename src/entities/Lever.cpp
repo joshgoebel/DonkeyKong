@@ -5,17 +5,11 @@
 
 #define LEVER_ON 140
 
-Lever::Lever() { }
+Lever::Lever() : Base() { }
 
 LeverPosition Lever::getPosition() {
 
   return this->position;
-
-}
-
-uint8_t Lever::getCounter() {
-
-  return this->counter;
 
 }
 
@@ -30,12 +24,6 @@ void Lever::setPosition(LeverPosition position) {
     this->counter = 0;
     this->crane->turnOff();
   }
-
-}
-
-void Lever::setCounter(uint8_t counter) {
-
-  this->counter = counter;
 
 }
 

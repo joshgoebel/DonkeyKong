@@ -5,19 +5,7 @@
 
 #define LEVER_ON 140
 
-Fire::Fire() { }
-
-uint8_t Fire::getCounter() {
-
-  return this->counter;
-
-}
-
-void Fire::setCounter(uint8_t counter) {
-
-  this->counter = counter;
-
-}
+Fire::Fire() : Base() { }
 
 void Fire::update() {
 
