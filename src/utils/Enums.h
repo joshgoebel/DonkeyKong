@@ -110,9 +110,9 @@ enum class Movements : uint8_t {
 };
 
 enum class Rotation : uint8_t {
-  Left,
-  Right,
-  None
+  Left = 1,
+  Right = 2,
+  None = 4
 };
 
 enum class CranePosition : uint8_t {
@@ -164,7 +164,7 @@ struct GameStats {
 
     void resetGame() {
 
-      this->numberOfLivesLeft = 1; // 3; //SJH
+      this->numberOfLivesLeft = 3; //SJH
       this->score = 0; 
       this->gameOver = false;
 
