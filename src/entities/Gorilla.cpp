@@ -270,6 +270,9 @@ uint8_t Gorilla::isInPosition() {
 void Gorilla::moveToCentre() {
 
   this->moveCentre = true;
+  this->pauseAtPosition = 100;
+  this->launchBarrel = 0;
+  this->launchBarrelDelay = 0;
 
 }
 

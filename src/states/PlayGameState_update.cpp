@@ -279,7 +279,24 @@ void PlayGameState::update(StateMachine & machine) {
       uint8_t gorillaPosition = this->gorilla.isInPosition();
       bool launch = this->gorilla.readyToLaunchNewBarrel();
 
+// Serial.print("GP: ");
+// Serial.print(gorillaPosition);
+// Serial.print(", launch: ");
+// Serial.println(launch);
+
       if (launch) {
+
+//  for (uint8_t x=0; x<5; x++) {
+//           auto &barrel = this->barrels[x];
+//           // Serial.print(barrel.getXPosition());
+//           // Serial.print(",");
+//           // Serial.print(barrel.getYPosition(0));
+//           // Serial.print(",");
+//           Serial.print(barrel.getPosition());
+//           Serial.print("=");
+//         }
+//  Serial.println(".");
+
 
         for (auto &barrel : this->barrels) {
           
@@ -396,7 +413,7 @@ void PlayGameState::update(StateMachine & machine) {
 
             if (this->playing && arduboy.collide(this->player.getRect(), barrel.getRect(yOffset)) ) {
 
-#ifndef BARRELS
+#ifndef IGNORE_BARREL_COLLISIONS
               this->killPlayer(machine);
 #endif
             }
@@ -511,7 +528,12 @@ void PlayGameState::update(StateMachine & machine) {
       if (gameStats.numberOfLivesLeft > 0) {
         this->player.setPosition(0);
         this->removeLowerBarrels();
-        if (this->hook.getCounter() == 0) this->resetGorillaAndPlates();
+        if (this->hook.getCounter() == 0) {
+          this->resetGorillaAndPlates();
+        }
+        else {
+          this->gorilla.reset();
+        }
       }
       this->introDelay--;
       break;

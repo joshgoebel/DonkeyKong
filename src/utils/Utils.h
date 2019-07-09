@@ -58,7 +58,7 @@ template<typename T> T absT(const T & v) {
 // ----------------------------------------------------------------------------
 //  Get the difference between two values as a positive nubmer .. 
 //
-template<typename T> bool Diff(const T &x, const T &y) {
+template<typename T> T Diff(const T &x, const T &y) {
   
   return (x < y) ? y - x : x - y;
 

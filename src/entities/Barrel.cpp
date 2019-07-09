@@ -92,6 +92,7 @@ void Barrel::updatePosition() {
 
     this->position = 0;
     this->enabled = false;
+    //Serial.println("Enabled = false");
 
   }
 

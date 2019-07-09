@@ -5,8 +5,8 @@
 #define NO_USB
 #define _DEBUG
 
-// Replace BARRELS with _BARRELS to include colllision detection ..
-#define _BARRELS
+// Comment out IGNORE_BARREL_COLLISIONS to include colllision detection ..
+#define _IGNORE_BARREL_COLLISIONS
 
 
 // - Game play stuff ---------------------
@@ -31,7 +31,6 @@
 #define HS_CHAR_V_SPACING 9
 #define HS_PRESS_A_DELAY 100
 #define NO_WINNER 255
-
 
 #define FLASH_FRAME_COUNT 40
 
