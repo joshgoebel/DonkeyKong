@@ -82,7 +82,7 @@ void Barrel::updatePosition() {
 
   // Retrieve sjip value from current position (if it exists) ..
 
-  uint8_t skip = pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMBER_OF_ELEMENTS)+ 2]) >> 3;
+  uint8_t skip = pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMBER_OF_ELEMENTS)+ 3]);
   this->position = this->position + 1 + skip;
 
   uint8_t x = pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMBER_OF_ELEMENTS)]);
@@ -95,7 +95,7 @@ void Barrel::updatePosition() {
 
   }
 
-  this->rotationDirection = static_cast<Rotation>(pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMBER_OF_ELEMENTS) + 2]) & 0x07);
+  this->rotationDirection = static_cast<Rotation>(pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMBER_OF_ELEMENTS) + 2]));
 
 }
 
