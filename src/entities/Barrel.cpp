@@ -66,14 +66,14 @@ void Barrel::setEnabled(bool enabled) {
 
 int8_t Barrel::getXPosition() {
 
-  int8_t x = pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMER_OF_ELEMENTS)]);
+  int8_t x = pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMBER_OF_ELEMENTS)]);
   return x;
 
 }
 
 int8_t Barrel::getYPosition(uint8_t yOffset) {
 
-  int8_t y = pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMER_OF_ELEMENTS) + 1]) - yOffset;
+  int8_t y = pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMBER_OF_ELEMENTS) + 1]) - yOffset;
   return y;
 
 }
@@ -82,11 +82,11 @@ void Barrel::updatePosition() {
 
   // Retrieve sjip value from current position (if it exists) ..
 
-  uint8_t skip = pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMER_OF_ELEMENTS)+ 3]);
+  uint8_t skip = pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMBER_OF_ELEMENTS)+ 3]);
   this->position = this->position + 1 + skip;
 
-  uint8_t x = pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMER_OF_ELEMENTS)]);
-  uint8_t y = pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMER_OF_ELEMENTS) + 1]);
+  uint8_t x = pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMBER_OF_ELEMENTS)]);
+  uint8_t y = pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMBER_OF_ELEMENTS) + 1]);
 
   if (x == 0 && y == 0) {
 
@@ -95,7 +95,7 @@ void Barrel::updatePosition() {
 
   }
 
-  this->rotationDirection = static_cast<Rotation>(pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMER_OF_ELEMENTS) + 2]));
+  this->rotationDirection = static_cast<Rotation>(pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMBER_OF_ELEMENTS) + 2]));
 
 }
 
@@ -141,8 +141,8 @@ void Barrel::decEnabledCountdown() {
 
 Rect Barrel::getRect(uint8_t yOffset) {
 
-  int8_t x = pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMER_OF_ELEMENTS)]);
-  int8_t y = pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMER_OF_ELEMENTS) + 1]) - yOffset;
+  int8_t x = pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMBER_OF_ELEMENTS)]);
+  int8_t y = pgm_read_byte(&Coordinates::Barrel[(this->position * BARREL_NUMBER_OF_ELEMENTS) + 1]) - yOffset;
 
   return Rect{x + 1, y + 1, 7, 7 };
 

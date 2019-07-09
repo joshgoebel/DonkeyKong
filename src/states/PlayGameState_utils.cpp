@@ -8,9 +8,10 @@ void PlayGameState::incPlateCounters() {
 
   if (this->hook.getCounter() == 0) {
 
-    this->plates[0].incCounter();
-    this->plates[1].incCounter();
-    this->plates[2].incCounter();
+    for (uint8_t x=0;x<3;x++) {
+      this->plates[x].incCounter();
+    }
+
     this->gorilla.incFallingIndex();
 
   }
@@ -47,6 +48,17 @@ uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
           case static_cast<uint8_t>(Components::Girder_Small):
             Sprites::drawSelfMasked(x, y, Images::Girder_Small, 0);
             break;
+          
+          // case static_cast<uint8_t>(Components::Plate1) ... static_cast<uint8_t>(Components::Plate3):
+          //   {
+          //     const uint8_t idx = image - static_cast<uint8_t>(Components::Plate1);
+          //     const int8_t xOffset = this-> plates[idx].getXOffset();
+          //     const uint8_t yOffset = this-> plates[idx].getYOffset();
+          //     const uint8_t image = this-> plates[idx].getImage();
+          //     Sprites::drawSelfMasked(x + xOffset, y + yOffset, Images::Plate, image);
+
+          //   }
+          //   break;
           
           case static_cast<uint8_t>(Components::Plate1):
             {
@@ -150,19 +162,7 @@ uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
 
 uint8_t PlayGameState::getActiveGirderCount() {
 
-  uint8_t girderCount = 0;
-
-  for (auto &girder : this->girders) {
-
-      if (girder.isEnabled()) {
-
-        girderCount++;
-
-      }
-  
-  }
-
-  return girderCount;
+  return (this->girders[0].isEnabled() ? 1 : 0) + (this->girders[1].isEnabled() ? 1 : 0);
 
 }
 

@@ -11,6 +11,14 @@
 class HighScoreState : public BaseState {
 
   private:
+    
+    uint8_t barrel1 = 0;
+    uint8_t barrel2 = 47;
+    uint8_t barrel3 = 94;
+
+    uint8_t barrel1_rot = 0;
+    uint8_t barrel2_rot = 0;
+    uint8_t barrel3_rot = 0;
 
     uint8_t winnerIdx = 0;
     uint8_t charIdx = 0;
@@ -23,12 +31,15 @@ class HighScoreState : public BaseState {
     SaveEntry hardEntries[EEPROM_Utils::saveEntriesCount];
 
     void renderHighScore(uint8_t y, const SaveEntry & saveEntry);
+    void renderBarrel(StateMachine & machine, uint8_t barrelNumber, uint8_t & barrelRot);
 
   public:	
   
     void activate(StateMachine & machine) override;
     void update(StateMachine & machine) override;
     void render(StateMachine & machine) override;
+
+  
 
 };
 

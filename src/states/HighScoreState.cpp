@@ -1,6 +1,8 @@
 #include "HighScoreState.h"
+#include "../map/Coordinates.h"
 #include "../images/Images.h"
 #include "../fonts/Font4x6.h"
+#include "../utils/Enums.h"
 #include "../utils/Utils.h"
 
 // ----------------------------------------------------------------------------
@@ -180,6 +182,31 @@ void HighScoreState::render(StateMachine & machine) {
 
 	const bool flash = arduboy.getFrameCountHalf(FLASH_FRAME_COUNT);
 
+  for (int x=3, y=10; x < 105; x = x + 10, y++) {
+
+    Sprites::drawSelfMasked(x, y, Images::Girder, 0);
+  }
+
+  for (int x=15, y=54 ; x < 120; x = x + 10, y--) {
+
+    Sprites::drawSelfMasked(x, y, Images::Girder, 0);
+  }
+
+
+  // Barrels
+  
+  this->renderBarrel(machine, this->barrel1, barrel1_rot);
+  this->renderBarrel(machine, this->barrel2, barrel2_rot);
+  this->renderBarrel(machine, this->barrel3, barrel3_rot);
+
+  if (arduboy.everyXFrames(5)) {
+
+    this->barrel1++;      if (this->barrel1 == BARREL_POSITION_SPLASH_END) this->barrel1 = 0;
+    this->barrel2++;      if (this->barrel2 == BARREL_POSITION_SPLASH_END) this->barrel2 = 0;
+    this->barrel3++;      if (this->barrel3 == BARREL_POSITION_SPLASH_END) this->barrel3 = 0;
+
+  }
+
   Sprites::drawExternalMask(29, 18, Images::HighscorePanel, Images::HighscorePanel_Mask, 0, 0);
   Sprites::drawExternalMask(22, 3, Images::HighscoreText, Images::HighscoreText_Mask, 0, 0);
 
@@ -218,5 +245,38 @@ void HighScoreState::render(StateMachine & machine) {
   Sprites::drawExternalMask(2, 27, Images::DifficultyPanel, Images::DifficultyPanel_Mask, panelIndex, 0);
 
   arduboy.display(true);
+
+}
+
+void HighScoreState::renderBarrel(StateMachine & machine, uint8_t barrelPosition, uint8_t &barrelRot) {
+
+	auto & arduboy = machine.getContext().arduboy;
+
+  uint8_t x = pgm_read_byte(&Coordinates::Barrel_Splash[(barrelPosition * 3)]);
+  int8_t y = pgm_read_byte(&Coordinates::Barrel_Splash[(barrelPosition * 3) + 1]);
+  Rotation r = static_cast<Rotation>(pgm_read_byte(&Coordinates::Barrel_Splash[(barrelPosition * 3) + 2]));
+
+  if (arduboy.everyXFrames(5)) {
+
+    switch (r) {
+      
+      case Rotation::None:
+        break;
+      
+      case Rotation::Right:
+        barrelRot++;      
+        if (barrelRot == 3) barrelRot = 0;
+        break;
+      
+      case Rotation::Left:
+        if (barrelRot == 0) barrelRot = 3;    
+        barrelRot--;
+        break;
+
+    }
+
+  }
+
+  Sprites::drawExternalMask(x, y, Images::BarrelImg, Images::Barrel_Mask, (r == Rotation::None ? 0 : barrelRot), 0);
 
 }
