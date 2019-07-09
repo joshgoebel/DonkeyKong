@@ -26,12 +26,14 @@ uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
 
   for (uint8_t i = 0; i < SCENERY_COUNT; i++) {
 
-    int8_t x = pgm_read_byte(&Coordinates::Scenery[(i * 4)]);
-    int8_t y = pgm_read_byte(&Coordinates::Scenery[(i * 4) + 1]) - yOffset;
-    uint8_t image = pgm_read_byte(&Coordinates::Scenery[(i * 4) + 2]);
-    uint8_t mode = pgm_read_byte(&Coordinates::Scenery[(i * 4) + 3]);
+    int8_t x = pgm_read_byte(&Coordinates::Scenery[(i * 3)]);
+    int8_t y = pgm_read_byte(&Coordinates::Scenery[(i * 3) + 1]) - yOffset;
+    uint8_t image = pgm_read_byte(&Coordinates::Scenery[(i * 3) + 2]) & 0x1F;
+    uint8_t mode = pgm_read_byte(&Coordinates::Scenery[(i * 3) + 2]) >> 7;
 
-    if (paintMode & mode) {
+    if ( ((paintMode == SCENERY_PAINT_FIRST) && (mode | SCENERY_PAINT_FIRST == 0)) || 
+         ((paintMode == SCENERY_PAINT_LAST) && (mode & SCENERY_PAINT_LAST > 0))
+       ) {
 
       if ((gameStats.mode == GameMode::Hard) || !(mode & static_cast<uint8_t>(GameMode::Hard))) {
 
@@ -48,17 +50,6 @@ uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
           case static_cast<uint8_t>(Components::Girder_Small):
             Sprites::drawSelfMasked(x, y, Images::Girder_Small, 0);
             break;
-          
-          // case static_cast<uint8_t>(Components::Plate1) ... static_cast<uint8_t>(Components::Plate3):
-          //   {
-          //     const uint8_t idx = image - static_cast<uint8_t>(Components::Plate1);
-          //     const int8_t xOffset = this-> plates[idx].getXOffset();
-          //     const uint8_t yOffset = this-> plates[idx].getYOffset();
-          //     const uint8_t image = this-> plates[idx].getImage();
-          //     Sprites::drawSelfMasked(x + xOffset, y + yOffset, Images::Plate, image);
-
-          //   }
-          //   break;
           
           case static_cast<uint8_t>(Components::Plate1):
             {

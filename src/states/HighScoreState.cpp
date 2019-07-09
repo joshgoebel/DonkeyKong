@@ -234,11 +234,11 @@ void HighScoreState::render(StateMachine & machine) {
 
   // Display Press A message?
 
-  if (this->winnerIdx == NO_WINNER && this->pressACounter == 0) {
+  // if (this->winnerIdx == NO_WINNER && this->pressACounter == 0) {
 
-    Sprites::drawExternalMask(48, 53, Images::Highscore_PressA, Images::Highscore_PressA_Mask, 0, 0);
+  //   Sprites::drawExternalMask(48, 53, Images::Highscore_PressA, Images::Highscore_PressA_Mask, 0, 0);
 
-  }
+  // }
 
   const size_t panelIndex = static_cast<size_t>(this->selectedMode);
 
