@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../arduboyTones/ArduboyTonesPitches.h"
+#include "../arduboyTones/ArduboyTonesExt.h"
 #include "../utils/Arduboy2Ext.h"
 #include "../Utils/Enums.h"
 #include "Barrel.h"
@@ -26,6 +28,7 @@ class Gorilla {
 
 
     void setFallingIndex(uint8_t fallingIndex);
+    void setSound(ArduboyTonesExt *sound);
 
 
     // Methods ..
@@ -39,7 +42,6 @@ class Gorilla {
     void reset();
     void incFallingIndex();
     bool readyToLaunchNewBarrel();
-
 
   private:
 
@@ -55,6 +57,7 @@ class Gorilla {
     uint8_t fallingIndex = 0;
     Movements movement;
     Barrel *barrel;
+    ArduboyTonesExt *sound;
     bool moveCentre = false;
 
 };

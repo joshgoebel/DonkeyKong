@@ -11,7 +11,5 @@ Fire::Fire() : Base() { }
 void Fire::update() {
 
   this->counter = wrapInc(this->counter, static_cast<uint8_t>(0), static_cast<uint8_t>(3));
-  // this->counter++;
-  // if (this->counter == 4) this->counter = 0;
 
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../arduboyTones/ArduboyTonesPitches.h"
+#include "../arduboyTones/ArduboyTonesExt.h"
 #include "../utils/Arduboy2Ext.h"
 #include "../Utils/Enums.h"
 #include "../map/Coordinates.h"
@@ -11,6 +13,7 @@ class Lever : public Base {
   public:
 
     Lever();
+
  
     // Properties ..
 
@@ -23,10 +26,12 @@ class Lever : public Base {
     // Methods
 
     void update();
+    void setSound(ArduboyTonesExt *sound);
 
 
   protected:
 
+    ArduboyTonesExt *sound;
     LeverPosition position = LeverPosition::Off;
     Crane *crane;
 

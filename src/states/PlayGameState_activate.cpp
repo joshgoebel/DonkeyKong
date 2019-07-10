@@ -15,8 +15,11 @@ void PlayGameState::activate(StateMachine & machine) {
   auto & arduboy = machine.getContext().arduboy;
   auto & sound = machine.getContext().sound;  
 
+  this->lever.setSound(&sound);
+  this->gorilla.setSound(&sound);
   this->lever.setCrane(&crane);
   this->player.reset();
+  this->spaghetti.setVisible(true);
 
   this->frameRate = FRAME_RATE_MIN;
   this->numberOfBarrelsInPlay = NUMBER_OF_BARRELS_MIN;

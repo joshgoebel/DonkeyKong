@@ -57,7 +57,7 @@ namespace Coordinates {
 
     47, 54, static_cast<uint8_t>(Rotation::Left),	
     45, 54, static_cast<uint8_t>(Rotation::Left),	
-    43, 54, static_cast<uint8_t>(Rotation::Left) | (21 << 3),	
+    43, 54, static_cast<uint8_t>(Rotation::Left) | (19 << 3),	
 
 
     // From Position 2 ..
@@ -97,7 +97,7 @@ namespace Coordinates {
 
     25, 56, static_cast<uint8_t>(Rotation::Left),	
     23, 56, static_cast<uint8_t>(Rotation::Left),	
-    21, 57, static_cast<uint8_t>(Rotation::Left) | (21 << 3),	
+    21, 57, static_cast<uint8_t>(Rotation::Left) | (19 << 3),	
 //    19, 57, static_cast<uint8_t>(Rotation::Left),	 //in position 1
 
 

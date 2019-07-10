@@ -105,7 +105,6 @@ void Barrel::updatePosition() {
 
     this->position = 0;
     this->enabled = false;
-    //Serial.println("Enabled = false");
 
   }
 
@@ -119,14 +118,10 @@ void Barrel::rotate() {
 
     case Rotation::Right:
       this->rotation = wrapInc(this->rotation, static_cast<uint8_t>(0), static_cast<uint8_t>(2));
-      // this->rotation++;
-      // if (this->rotation == 3) this->rotation = 0;
       break;
 
     case Rotation::Left:
       this->rotation = wrapDec(this->rotation, static_cast<uint8_t>(0), static_cast<uint8_t>(2));
-      // if (this->rotation == 0) this->rotation = 3;
-      // this->rotation--;
       break;
 
     case Rotation::None:

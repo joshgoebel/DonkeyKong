@@ -2,6 +2,7 @@
 
 #include "../utils/Enums.h"
 #include "../map/Coordinates.h"
+#include "../sounds/Sounds.h"
 
 #define LEVER_ON 140
 
@@ -10,6 +11,12 @@ Lever::Lever() : Base() { }
 LeverPosition Lever::getPosition() {
 
   return this->position;
+
+}
+
+void Lever::setSound(ArduboyTonesExt *sound) {
+
+  this->sound = sound;
 
 }
 
@@ -44,6 +51,9 @@ void Lever::update() {
       this->counter = 0;
       this->position = LeverPosition::Off;
       this->crane->turnOff();
+#ifndef IGNORE_SOUNDS 
+      if (!this->sound->playing()) this->sound->tones(Sounds::lever_off);
+#endif
       break;
 
     default:

@@ -71,6 +71,9 @@ void PlayGameState::update(StateMachine & machine) {
                 if (this->player.getPosition() == END_OF_TOP_LEVEL) {
                   this->player.setFalling(true);
                   this->player.setPosition(PLAYER_RUNOFF_START);
+#ifndef IGNORE_SOUNDS 
+                  sound.tones(Sounds::falling);
+#endif
                 }
                 else {
                   this->player.incPlayerPosition();
@@ -87,8 +90,13 @@ void PlayGameState::update(StateMachine & machine) {
           }
 
           if ((pressed & LEFT_BUTTON) && this->player.canMove(Movements::Lever)) {
-            this->lever.setPosition(LeverPosition::On);
-            this->crane.turnOn();
+            if (this->lever.getPosition() == LeverPosition::Off) {
+              this->lever.setPosition(LeverPosition::On);
+              this->crane.turnOn();
+#ifndef IGNORE_SOUNDS 
+              sound.tones(Sounds::lever_on);
+#endif
+            }
           }
 
         }
@@ -167,6 +175,9 @@ void PlayGameState::update(StateMachine & machine) {
 //SJH              if (false) {
               if (cranePos < cranePosLeft || cranePos > cranePosRight) {
                 this->player.setPosition(PLAYER_DIE_START);
+#ifndef IGNORE_SOUNDS 
+                sound.tones(Sounds::falling);
+#endif
               }
               else {
                 this->updatePlayerAndCrane(CranePosition::Inclined_02);
@@ -201,6 +212,9 @@ void PlayGameState::update(StateMachine & machine) {
             case PLAYER_VICTORY_RUN_DECISION - 1: 
               if (this->hook.getCounter() == 0) {
                 this->player.setPosition(PLAYER_VICTORY_RUN_START);
+#ifndef IGNORE_SOUNDS 
+                sound.tones(Sounds::mission_success);
+#endif                
               }
               else {
                 this->player.incPlayerPosition();
@@ -279,6 +293,20 @@ void PlayGameState::update(StateMachine & machine) {
       uint8_t gorillaPosition = this->gorilla.isInPosition();
       bool launch = this->gorilla.readyToLaunchNewBarrel();
 
+      uint8_t barrelsEnabled = 0;
+
+      for (auto &barrel : this->barrels) {
+        
+        if (barrel.isEnabled()) {
+
+          barrelsEnabled++;
+
+        }
+
+      }
+
+      if (barrelsEnabled >= this->numberOfBarrelsInPlay) launch = false;
+
 // Serial.print("GP: ");
 // Serial.print(gorillaPosition);
 // Serial.print(", launch: ");
@@ -302,7 +330,10 @@ void PlayGameState::update(StateMachine & machine) {
           
           if (barrel.isEnabled()) {
 
-            if (barrel.getPosition() < 78) { launch = false;}
+            if (barrel.getPosition() < 78 && barrel.getAisle() != gorillaPosition) { launch = false;}
+            if (barrel.getPosition() > BARREL_POSITION_1_START && barrel.getPosition() < BARREL_POSITION_1_START + 12 && barrel.getAisle() == gorillaPosition && barrel.getAisle() == 0) { launch = false;}
+            if (barrel.getPosition() > BARREL_POSITION_2_START && barrel.getPosition() < BARREL_POSITION_2_START + 12 && barrel.getAisle() == gorillaPosition && barrel.getAisle() == 1) { launch = false;}
+            if (barrel.getPosition() > BARREL_POSITION_3_START && barrel.getPosition() < BARREL_POSITION_3_START + 12 && barrel.getAisle() == gorillaPosition && barrel.getAisle() == 2) { launch = false;}
   //           switch (gorillaPosition) {
 
   //             case 0:
@@ -345,17 +376,23 @@ void PlayGameState::update(StateMachine & machine) {
 
 
       // Are we able to launch a barrel?
-
- for (uint8_t x=0; x<this->numberOfBarrelsInPlay; x++) {
-          auto &barrel = this->barrels[x];
-          // Serial.print(barrel.getXPosition());
-          // Serial.print(",");
-          // Serial.print(barrel.getYPosition(0));
-          // Serial.print(",");
-          Serial.print(barrel.getPosition());
-          Serial.print("=");
-        }
-  Serial.println(".");
+//   Serial.print("GP:");
+//   Serial.print(gorillaPosition);
+//   Serial.print(") ");
+//  for (uint8_t x=0; x<this->numberOfBarrelsInPlay; x++) {
+//           auto &barrel = this->barrels[x];
+//           if (barrel.isEnabled()) {
+//           // Serial.print(barrel.getXPosition());
+//           // Serial.print(",");
+//           // Serial.print(barrel.getYPosition(0));
+//           // Serial.print(",");
+//           Serial.print(barrel.getPosition());
+//           Serial.print(":");
+//           Serial.print(barrel.getAisle());
+//           Serial.print("=");
+//           }
+//         }
+//   Serial.println(".");
 
 
       if (launch) {
@@ -373,7 +410,7 @@ void PlayGameState::update(StateMachine & machine) {
 
           if (!barrel.isEnabledOrPending()) { 
 
-            uint8_t countdown = random(2, 30);
+            uint8_t countdown = random(5, 40);
             Barrel* ptr_Barrel = &barrel;
             barrel.setEnabledCountdown(countdown);
             this->gorilla.launch(ptr_Barrel, countdown);
@@ -401,9 +438,13 @@ void PlayGameState::update(StateMachine & machine) {
               uint8_t playerX = this->player.getXPosition(false);
               int16_t playerY = static_cast<int16_t>(this->player.getYPosition());
 
-              if ((barrelX == playerX) && (playerY - barrelY <= 8)) {
+              if ((barrelX == playerX) && (playerY - barrelY <= 8) && barrel.getAisle() < 3) {
 
+                barrel.setAisle(255);
                 gameStats.score++;
+#ifndef IGNORE_SOUNDS 
+                sound.tones(Sounds::jump_barrel);
+#endif
 
               }
 
@@ -416,6 +457,9 @@ void PlayGameState::update(StateMachine & machine) {
 
 #ifndef IGNORE_BARREL_COLLISIONS
               this->killPlayer(machine);
+#ifndef IGNORE_SOUNDS              
+              sound.tones(Sounds::crash_into_barrel);
+#endif            
 #endif
             }
 
@@ -551,6 +595,7 @@ void PlayGameState::update(StateMachine & machine) {
       this->introDelay = 0;
       this->showLivesLeft = false;
       this->spaghetti.setVisible(true);
+      this->spaghetti.incFood();
       break;
 
     default:
@@ -567,7 +612,6 @@ void PlayGameState::update(StateMachine & machine) {
 
     if ((justPressed & A_BUTTON) || (justPressed & B_BUTTON)) {
 
-      //sound.tones(Sounds::PackageNotDelivered);
       this->playing = true;
       this->showLivesLeft = false;
       this->introDelay = 0;

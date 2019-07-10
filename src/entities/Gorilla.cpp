@@ -1,7 +1,7 @@
 #include "Gorilla.h"
 #include "../utils/Utils.h"
 #include "../utils/Enums.h"
-
+#include "../sounds/Sounds.h"
 
 const uint8_t PROGMEM Offsets[] = {
 
@@ -141,7 +141,9 @@ void Gorilla::move() {
         if (this->xPosition == GORILLA_X_POSITION_2) lauchPosition = 1;
         if (this->xPosition == GORILLA_X_POSITION_3) lauchPosition = 2;
         this->barrel->launch(lauchPosition);
-
+#ifndef IGNORE_SOUNDS 
+        if (!this->sound->playing()) this->sound->tones(Sounds::drop_barrel);
+#endif
       }
 
     }
@@ -187,7 +189,7 @@ void Gorilla::move() {
     }
 
   }
-  
+
 }
 
 void Gorilla::moveLeftOrRight() {
@@ -228,11 +230,18 @@ void Gorilla::changeDirections() {
   
 }
 
+void Gorilla::setSound(ArduboyTonesExt *sound) {
+
+  this->sound = sound;
+
+}
+
 void Gorilla::launch(Barrel *barrel, uint8_t launchBarrelDelay) {
 
   this->barrel = barrel;
   this->launchBarrel = 0;
   this->launchBarrelDelay = launchBarrelDelay;
+  this->pauseAtPosition = launchBarrelDelay + 50;
 
 }
 
@@ -296,6 +305,6 @@ void Gorilla::reset() {
 
 bool Gorilla::readyToLaunchNewBarrel() {
   
-  return (this->isInPosition() != NOT_IN_A_POSITION && this->pauseAtPosition > 60 && this->launchBarrelDelay == 0 && this->launchBarrel == 0);
+  return (this->isInPosition() != NOT_IN_A_POSITION /* && this->pauseAtPosition > 10 */ && this->launchBarrelDelay == 0 && this->launchBarrel == 0);
 
 }

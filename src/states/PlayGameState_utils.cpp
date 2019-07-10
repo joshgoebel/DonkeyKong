@@ -120,8 +120,9 @@ uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
           
           case static_cast<uint8_t>(Components::Spaghetti):
             if (this->spaghetti.isVisible()) {
+              uint8_t food = this->spaghetti.getFood();
               imageName = Images::Spaghetti;
-              imageIndex = this->spaghetti.getCounter();
+              imageIndex = (food * 3) + (food < 2 ? this->spaghetti.getCounter() : 0);
             }
             break;
           
@@ -280,7 +281,7 @@ void PlayGameState::resetGorillaAndPlates() {
 
   // Reset hook ..
 
-  this->hook.setCounter(4); //SJH
+  this->hook.setCounter(NUMBER_OF_HOOKS); //SJH
 
 }
 

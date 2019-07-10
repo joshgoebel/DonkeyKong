@@ -203,11 +203,7 @@ void HighScoreState::render(StateMachine & machine) {
 
     this->barrel1 = wrapInc(this->barrel1, static_cast<uint8_t>(0), static_cast<uint8_t>(BARREL_POSITION_SPLASH_END - 1));
     this->barrel2 = wrapInc(this->barrel2, static_cast<uint8_t>(0), static_cast<uint8_t>(BARREL_POSITION_SPLASH_END - 1));
-    this->barrel3 = wrapInc(this->barrel2, static_cast<uint8_t>(0), static_cast<uint8_t>(BARREL_POSITION_SPLASH_END - 1));
-
-    // this->barrel1++;      if (this->barrel1 == BARREL_POSITION_SPLASH_END) this->barrel1 = 0;
-    // this->barrel2++;      if (this->barrel2 == BARREL_POSITION_SPLASH_END) this->barrel2 = 0;
-    // this->barrel3++;      if (this->barrel3 == BARREL_POSITION_SPLASH_END) this->barrel3 = 0;
+    this->barrel3 = wrapInc(this->barrel3, static_cast<uint8_t>(0), static_cast<uint8_t>(BARREL_POSITION_SPLASH_END - 1));
 
   }
 
@@ -269,14 +265,10 @@ void HighScoreState::renderBarrel(StateMachine & machine, uint8_t barrelPosition
       
       case Rotation::Right:
         barrelRot = wrapInc(barrelRot, static_cast<uint8_t>(0), static_cast<uint8_t>(2));
-        // barrelRot++;      
-        // if (barrelRot == 3) barrelRot = 0;
         break;
       
       case Rotation::Left:
         barrelRot = wrapDec(barrelRot, static_cast<uint8_t>(0), static_cast<uint8_t>(2));
-        // if (barrelRot == 0) barrelRot = 3;    
-        // barrelRot--;
         break;
 
     }

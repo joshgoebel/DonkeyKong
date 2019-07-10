@@ -28,14 +28,11 @@ void TitleScreenState::activate(StateMachine & machine) {
   gameStats.resetGame();
   sound.setOutputEnabled(arduboy.audio.enabled);
 
-  auto scoreIndex = static_cast<size_t>(random(getSize(Sounds::Scores)));
-  auto score = static_cast<const uint16_t *>(pgm_read_ptr(&Sounds::Scores[scoreIndex]));
-
   this->barrelPos = 4;
   this->barrelRot_LHS = 0;
   this->barrelRot_RHS = 0;
   this->pressACounter = 0;
-  //sound.tones(score);
+  //sound.tones(Sounds::falling);
 
 }
 
@@ -79,14 +76,10 @@ void TitleScreenState::update(StateMachine & machine) {
       if (arduboy.everyXFrames(4)) {
 
         this->barrelRot_RHS = wrapInc(this->barrelRot_RHS, static_cast<uint8_t>(0), static_cast<uint8_t>(2));
-        // this->barrelRot_RHS++;
-        // if (this->barrelRot_RHS == 3) this->barrelRot_RHS = 0;
-
         this->barrelRot_LHS = wrapDec(this->barrelRot_LHS, static_cast<uint8_t>(0), static_cast<uint8_t>(2));
-        // if (this->barrelRot_LHS == 0) this->barrelRot_LHS = 3;
-        // this->barrelRot_LHS--;
 
       }
+
     }
 
   }

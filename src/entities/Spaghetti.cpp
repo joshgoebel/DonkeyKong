@@ -15,16 +15,32 @@ bool Spaghetti::isVisible() {
 
 }
 
+uint8_t Spaghetti::getFood() {
+
+  return this->food;
+
+}
+
 void Spaghetti::setVisible(bool visible) {
 
   this->visible = visible;
 
 }
 
+void Spaghetti::setFood(uint8_t food) {
+
+  this->food = food;
+
+}
+
+void Spaghetti::incFood() {
+
+  this->food = wrapInc(this->food, static_cast<uint8_t>(0), static_cast<uint8_t>(2));
+
+}
+
 void Spaghetti::update() {
 
   this->counter = wrapInc(this->counter, static_cast<uint8_t>(0), static_cast<uint8_t>(2));
-  // this->counter++;
-  // if (this->counter == 3) this->counter = 0;
 
 }
