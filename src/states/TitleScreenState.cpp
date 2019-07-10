@@ -111,7 +111,12 @@ void TitleScreenState::render(StateMachine & machine) {
 
   auto & arduboy = machine.getContext().arduboy;
 
-  Sprites::drawOverwrite(12, 6, Images::Title, 0);
+  Sprites::drawOverwrite(20, 6, Images::Title_Kong, 0);
+
+  for (uint8_t x = 11; x < 115; x = x + 12) {
+    Sprites::drawSelfMasked(x, 50, Images::Girder_Small, 0);
+  }
+
   Sprites::drawExternalMask(51 - this->barrelPos, 41, Images::BarrelImg, Images::Barrel_Mask, this->barrelRot_LHS, 0);
   Sprites::drawExternalMask(51 + this->barrelPos, 41, Images::BarrelImg, Images::Barrel_Mask, this->barrelRot_RHS, 0);
 
