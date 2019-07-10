@@ -78,11 +78,13 @@ void TitleScreenState::update(StateMachine & machine) {
 
       if (arduboy.everyXFrames(4)) {
 
-        this->barrelRot_RHS++;
-        if (this->barrelRot_RHS == 3) this->barrelRot_RHS = 0;
+        this->barrelRot_RHS = wrapInc(this->barrelRot_RHS, static_cast<uint8_t>(0), static_cast<uint8_t>(2));
+        // this->barrelRot_RHS++;
+        // if (this->barrelRot_RHS == 3) this->barrelRot_RHS = 0;
 
-        if (this->barrelRot_LHS == 0) this->barrelRot_LHS = 3;
-        this->barrelRot_LHS--;
+        this->barrelRot_LHS = wrapDec(this->barrelRot_LHS, static_cast<uint8_t>(0), static_cast<uint8_t>(2));
+        // if (this->barrelRot_LHS == 0) this->barrelRot_LHS = 3;
+        // this->barrelRot_LHS--;
 
       }
     }
@@ -94,11 +96,11 @@ void TitleScreenState::update(StateMachine & machine) {
 
 	if (justPressed & A_BUTTON || justPressed & B_BUTTON) {
     gameStats.mode = (justPressed & A_BUTTON ? GameMode::Easy : GameMode::Hard);
-		machine.changeState(GameStateType::PlayGameScreen, GameStateType::None); 
+		machine.changeState(GameStateType::PlayGameScreen); 
 	}
 
 	if (justPressed & UP_BUTTON || justPressed & DOWN_BUTTON || justPressed & LEFT_BUTTON || justPressed & RIGHT_BUTTON) {
-		machine.changeState(GameStateType::HighScoreScreen, GameStateType::None); 
+		machine.changeState(GameStateType::HighScoreScreen); 
 	}
 
 

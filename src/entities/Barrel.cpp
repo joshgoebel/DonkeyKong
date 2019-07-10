@@ -1,5 +1,6 @@
 #include "Barrel.h"
 
+#include "../utils/Utils.h"
 #include "../utils/Enums.h"
 #include "../map/Coordinates.h"
 
@@ -9,6 +10,12 @@ Barrel::Barrel() {
 uint8_t Barrel::getPosition() {
 
   return this->position;
+
+}
+
+uint8_t Barrel::getAisle() {
+
+  return this->aisle;
 
 }
 
@@ -39,6 +46,12 @@ bool Barrel::isEnabledOrPending() {
 void Barrel::setPosition(uint8_t position) {
 
   this->position = position;
+
+}
+
+void Barrel::setAisle(uint8_t aisle) {
+
+  this->aisle = aisle;
 
 }
 
@@ -105,13 +118,15 @@ void Barrel::rotate() {
   switch (this->rotationDirection) {
 
     case Rotation::Right:
-      this->rotation++;
-      if (this->rotation == 3) this->rotation = 0;
+      this->rotation = wrapInc(this->rotation, static_cast<uint8_t>(0), static_cast<uint8_t>(2));
+      // this->rotation++;
+      // if (this->rotation == 3) this->rotation = 0;
       break;
 
     case Rotation::Left:
-      if (this->rotation == 0) this->rotation = 3;
-      this->rotation--;
+      this->rotation = wrapDec(this->rotation, static_cast<uint8_t>(0), static_cast<uint8_t>(2));
+      // if (this->rotation == 0) this->rotation = 3;
+      // this->rotation--;
       break;
 
     case Rotation::None:
@@ -126,6 +141,7 @@ void Barrel::launch(uint8_t startingPosition) {
   const uint8_t startingPositions[3] = { BARREL_POSITION_1_START, BARREL_POSITION_2_START, BARREL_POSITION_3_START };
 
   this->position = startingPositions[startingPosition];
+  this->aisle = startingPosition;
   this->enabled = true;
 
 }

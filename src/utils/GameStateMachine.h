@@ -15,7 +15,6 @@ class GameStateMachine {
 		Context context;
 		StateId savedCurrentState;
 		StateId currentState;
-		StateId nextState;
 
 	public:
 		virtual ~GameStateMachine(void) = default;
@@ -23,7 +22,7 @@ class GameStateMachine {
 		const Context & getContext(void) const { return this->context; }
     const StateId getCurrentState() { return this->currentState; }
 
-    void changeState(StateId stateId, StateId nextId) { 
+    void changeState(StateId stateId) { 
 
       auto &arduboy = this->context.arduboy;
       auto &sound = this->context.sound;
@@ -32,7 +31,6 @@ class GameStateMachine {
       sound.noTone();
       
       this->currentState = stateId; 
-      this->nextState = nextId; 
     }
 		
 };

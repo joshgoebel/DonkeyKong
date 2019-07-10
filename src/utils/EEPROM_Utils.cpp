@@ -90,7 +90,7 @@ namespace EEPROM_Utils {
 
     const uint8_t targetIndex = findScore(newScore, saveEntries);
 
-    if(targetIndex == NO_WINNER) {
+    if (targetIndex == NO_WINNER) {
 
       return NO_WINNER;
 

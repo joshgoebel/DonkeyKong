@@ -44,7 +44,7 @@ void BaseState::handleCommonButtons(StateMachine & machine) {
   if (gameStats.gameOver) {
 
     if (justPressed & A_BUTTON) {
-      machine.changeState(GameStateType::HighScoreScreen, GameStateType::None); 
+      machine.changeState(GameStateType::HighScoreScreen); 
     }
 
   }

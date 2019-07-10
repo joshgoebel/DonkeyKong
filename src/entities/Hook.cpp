@@ -1,5 +1,6 @@
 #include "Hook.h"
 
+#include "../utils/Utils.h"
 #include "../utils/Enums.h"
 
 Hook::Hook() : Base() { 

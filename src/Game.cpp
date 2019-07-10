@@ -54,7 +54,6 @@ void Game::loop(void) {
 
 			if (currentState != savedCurrentState) {
 				this->context.gameState = this->currentState;
-				this->context.nextState = this->nextState;
         this->splashScreenState.activate(*this);
 				this->savedCurrentState = this->currentState;
 			}
@@ -66,7 +65,6 @@ void Game::loop(void) {
 
 			if (currentState != savedCurrentState) {
 				this->context.gameState = this->currentState;
-				this->context.nextState = this->nextState;
 				this->titleScreenState.activate(*this);
 				this->savedCurrentState = this->currentState;
 			}
@@ -78,7 +76,6 @@ void Game::loop(void) {
 
 			if (currentState != savedCurrentState) {
 				this->context.gameState = this->currentState;
-				this->context.nextState = this->nextState;
 				this->playGameState.activate(*this);
 				this->savedCurrentState = this->currentState;
 			}
@@ -90,7 +87,6 @@ void Game::loop(void) {
 
 			if (currentState != savedCurrentState) {
 				this->context.gameState = this->currentState;
-				this->context.nextState = this->nextState;
 				this->highScoreState.activate(*this);
 				this->savedCurrentState = this->currentState;
 			}

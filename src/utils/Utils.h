@@ -64,6 +64,7 @@ template<typename T> T Diff(const T &x, const T &y) {
 
 }
 
+
 // ----------------------------------------------------------------------------
 //  Clamp the value within the range .. 
 //
@@ -74,16 +75,30 @@ template <typename T> inline T clamp(const T& value, const T& low, const T& high
 }
 
 
+
 // ----------------------------------------------------------------------------
-//  Create a new instance of the specified object at the mem address ..
+//  Wrap the range .. 
 //
-inline void * operator new (size_t size, void * pointer) {
-	(void)size;
-	return pointer;
+template <typename T> inline T wrapInc(const T& value, const T& low, const T& high) {
+
+  return (value >= high) ? low : value + 1; 
+
 }
 
+template <typename T> inline T wrapDec(const T& value, const T& low, const T& high) {
 
-constexpr inline const __FlashStringHelper * FlashString(const char * flashString)
-{
-	return reinterpret_cast<const __FlashStringHelper*>(flashString);
+  return (value > low) ? value - 1 : high; 
+
+}
+
+template <typename T> inline void decToZero(T& value) {
+
+  if (value > 0) value--; 
+
+}
+
+template <typename T> inline void incToLimit(T& value, const T& high) {
+
+  if (value < high) value++; 
+
 }

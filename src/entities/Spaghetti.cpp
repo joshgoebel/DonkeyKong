@@ -1,5 +1,6 @@
 #include "Spaghetti.h"
 
+#include "../utils/Utils.h"
 #include "../utils/Enums.h"
 #include "../map/Coordinates.h"
 
@@ -22,7 +23,8 @@ void Spaghetti::setVisible(bool visible) {
 
 void Spaghetti::update() {
 
-  this->counter++;
-  if (this->counter == 3) this->counter = 0;
+  this->counter = wrapInc(this->counter, static_cast<uint8_t>(0), static_cast<uint8_t>(2));
+  // this->counter++;
+  // if (this->counter == 3) this->counter = 0;
 
 }

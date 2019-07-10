@@ -14,10 +14,12 @@ class Barrel {
     // Properties ..
     uint8_t getPosition();
     uint8_t getRotation();
+    uint8_t getAisle();
     uint8_t getEnabledCountdown();
     bool isEnabled();
 
     void setPosition(uint8_t position);
+    void setAisle(uint8_t aisle);
     void setRotation(uint8_t rotation);
     void setEnabledCountdown(uint8_t enabledCountdown);
     void setEnabled(bool enabled);
@@ -37,6 +39,7 @@ class Barrel {
   protected:
 
     uint8_t position;
+    uint8_t aisle;
     uint8_t rotation;
     bool enabled;
     uint8_t enabledCountdown;
