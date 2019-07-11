@@ -29,13 +29,13 @@ uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
     int8_t x = pgm_read_byte(&Coordinates::Scenery[(i * 3)]);
     int8_t y = pgm_read_byte(&Coordinates::Scenery[(i * 3) + 1]) - yOffset;
     uint8_t image = pgm_read_byte(&Coordinates::Scenery[(i * 3) + 2]) & 0x1F;
-    uint8_t mode = pgm_read_byte(&Coordinates::Scenery[(i * 3) + 2]) >> 7;
+    uint8_t mode = pgm_read_byte(&Coordinates::Scenery[(i * 3) + 2]) & 0xC0;
 
-    if ( ((paintMode == SCENERY_PAINT_FIRST) && (mode | SCENERY_PAINT_FIRST == 0)) || 
-         ((paintMode == SCENERY_PAINT_LAST) && (mode & SCENERY_PAINT_LAST > 0))
+    if ( ((paintMode == SCENERY_PAINT_FIRST) && ((mode & SCENERY_PAINT_LAST) == 0)) || 
+         ((paintMode == SCENERY_PAINT_LAST) && ((mode & SCENERY_PAINT_LAST) > 0))
        ) {
 
-      if ((gameStats.mode == GameMode::Hard) || !(mode & static_cast<uint8_t>(GameMode::Hard))) {
+      if ((gameStats.mode == GameMode::Hard) || !(mode & SCENERY_LEVEL_2_ONLY > 0)) {
 
         uint8_t const *imageName = nullptr;
         uint8_t const *mask = nullptr;

@@ -43,7 +43,7 @@ void PlayGameState::activate(StateMachine & machine) {
       while (!valid) {
 
       valid = true;
-      randomPos = random(60, 185);
+      randomPos = random(70, 185);
 
       for (uint8_t y = 0; y < this->numberOfBarrelsInPlay; y++) {
 
@@ -71,7 +71,7 @@ void PlayGameState::activate(StateMachine & machine) {
   this->playing = false;
   BaseState::setPaused(false);
 
-  sound.setOutputEnabled(arduboy.audio.enabled);
+  //sound.setOutputEnabled(arduboy.audio.enabled);
 
 }
   

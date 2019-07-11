@@ -46,7 +46,7 @@ namespace Coordinates {
   111, 73, static_cast<uint8_t>(Components::Girder_OverHead),
   123, 73, static_cast<uint8_t>(Components::Girder_OverHead),
 
-    106, 80, static_cast<uint8_t>(Components::EasyHard),
+    109, 80, static_cast<uint8_t>(Components::EasyHard),
 
 
     87, 63, static_cast<uint8_t>(Components::Girder_OverHead),
@@ -106,7 +106,7 @@ namespace Coordinates {
     120, 73, static_cast<uint8_t>(Components::Cable1) | SCENERY_LEVEL_2_ONLY,
 
 
-    88, 10, static_cast<uint8_t>(Components::Crane),
+    91, 10, static_cast<uint8_t>(Components::Crane),
     85, 0, static_cast<uint8_t>(Components::Hook),
     0, 122, static_cast<uint8_t>(Components::Fire),
     0, 122, static_cast<uint8_t>(Components::Fire_Foreground) | SCENERY_PAINT_LAST,
