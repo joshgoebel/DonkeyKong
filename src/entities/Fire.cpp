@@ -4,8 +4,6 @@
 #include "../utils/Enums.h"
 #include "../map/Coordinates.h"
 
-#define LEVER_ON 140
-
 Fire::Fire() : Base() { }
 
 void Fire::update() {

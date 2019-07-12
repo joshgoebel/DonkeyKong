@@ -16,10 +16,15 @@
 #define NUMBER_OF_BARRELS_MIN 5
 #define NUMBER_OF_BARRELS_MAX 9
 #define FRAME_RATE_MIN 67
-#define FRAME_RATE_MAX 80
+#define FRAME_RATE_MAX 90
 
 #define NOT_IN_A_POSITION 255
 #define INITIAL_BARREL_OFFSET 15
+
+#define GIRDER_COUNT 2
+#define NONE_FOUND 255
+
+#define LEVER_ON_COUNTDOWN 140
 
 
 // - High Scores ---------------------

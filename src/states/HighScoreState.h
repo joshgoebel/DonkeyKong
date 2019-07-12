@@ -39,7 +39,6 @@ class HighScoreState : public BaseState {
     void update(StateMachine & machine) override;
     void render(StateMachine & machine) override;
 
-  
 
 };
 

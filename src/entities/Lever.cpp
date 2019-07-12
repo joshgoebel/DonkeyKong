@@ -4,7 +4,6 @@
 #include "../map/Coordinates.h"
 #include "../sounds/Sounds.h"
 
-#define LEVER_ON 140
 
 Lever::Lever() : Base() { }
 
@@ -25,7 +24,7 @@ void Lever::setPosition(LeverPosition position) {
   this->position = position;
 
   if (position == LeverPosition::On) {
-    this->counter = LEVER_ON;
+    this->counter = LEVER_ON_COUNTDOWN;
   }
   else {
     this->counter = 0;

@@ -201,10 +201,6 @@ uint8_t PlayGameState::getGirderMaxPosition() {
   
 }
 
-
-#define GIRDER_COUNT 2
-#define NONE_FOUND 255
-
 uint8_t PlayGameState::getDisabledGirderIndex() {
 
   for (uint8_t x = 0; x < GIRDER_COUNT; x++) {
