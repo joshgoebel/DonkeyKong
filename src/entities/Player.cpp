@@ -3,7 +3,7 @@
 #include "../utils/Enums.h"
 #include "../map/Coordinates.h"
 
-#define JUMP_POSITIONS 41
+#define JUMP_POSITIONS 35
 
 const uint8_t PROGMEM jumpPositions[JUMP_POSITIONS] = { 
 0, 2, 4, 6,
@@ -12,9 +12,9 @@ const uint8_t PROGMEM jumpPositions[JUMP_POSITIONS] = {
 
 12, 13, 13, 13, 
 13, 13, 13, 13, 
-13, 13, 13, 13, 
+13, 13, //13, 13, 
 
-13, 13, 13, 13, 
+//13, 13, 13, 13, 
 13, 12, 12, 12, 
 11, 11, 10, 9, 
 

@@ -103,34 +103,34 @@ namespace Coordinates {
 
     // From Position 1 ..
 
-    19, 19, static_cast<uint8_t>(Rotation::None),	
-    19, 21, static_cast<uint8_t>(Rotation::None),
+    18, 19, static_cast<uint8_t>(Rotation::None),	
+    18, 21, static_cast<uint8_t>(Rotation::None),
         	
-    19, 23, static_cast<uint8_t>(Rotation::None),	
-    19, 25, static_cast<uint8_t>(Rotation::None),	
-    19, 27, static_cast<uint8_t>(Rotation::None),	
-    19, 29, static_cast<uint8_t>(Rotation::None),
+    18, 23, static_cast<uint8_t>(Rotation::None),	
+    18, 25, static_cast<uint8_t>(Rotation::None),	
+    18, 27, static_cast<uint8_t>(Rotation::None),	
+    18, 29, static_cast<uint8_t>(Rotation::None),
 
-    19, 31, static_cast<uint8_t>(Rotation::None),	
-    19, 33, static_cast<uint8_t>(Rotation::None),	
-    19, 35, static_cast<uint8_t>(Rotation::None),	
-    19, 37, static_cast<uint8_t>(Rotation::None),
+    18, 31, static_cast<uint8_t>(Rotation::None),	
+    18, 33, static_cast<uint8_t>(Rotation::None),	
+    18, 35, static_cast<uint8_t>(Rotation::None),	
+    18, 37, static_cast<uint8_t>(Rotation::None),
 
-    19, 39, static_cast<uint8_t>(Rotation::None),	
-    19, 41, static_cast<uint8_t>(Rotation::None),	
-    19, 43, static_cast<uint8_t>(Rotation::None),	
-    19, 45, static_cast<uint8_t>(Rotation::None),	
+    18, 39, static_cast<uint8_t>(Rotation::None),	
+    18, 41, static_cast<uint8_t>(Rotation::None),	
+    18, 43, static_cast<uint8_t>(Rotation::None),	
+    18, 45, static_cast<uint8_t>(Rotation::None),	
 
-    19, 47, static_cast<uint8_t>(Rotation::None),	
-    19, 49, static_cast<uint8_t>(Rotation::None),	
-    19, 51, static_cast<uint8_t>(Rotation::None),	
-    19, 53, static_cast<uint8_t>(Rotation::None),
+    18, 47, static_cast<uint8_t>(Rotation::None),	
+    18, 49, static_cast<uint8_t>(Rotation::None),	
+    18, 51, static_cast<uint8_t>(Rotation::None),	
+    18, 53, static_cast<uint8_t>(Rotation::None),
 
-    19, 55, static_cast<uint8_t>(Rotation::None),	
+    18, 55, static_cast<uint8_t>(Rotation::None),	
 
     // Common to all ..
 
-    19, 57, static_cast<uint8_t>(Rotation::Left),	// From Position 2
+    18, 57, static_cast<uint8_t>(Rotation::Left),	// From Position 2
     17, 57, static_cast<uint8_t>(Rotation::Left),	
     15, 57, static_cast<uint8_t>(Rotation::Left),	
     13, 57, static_cast<uint8_t>(Rotation::Left),	

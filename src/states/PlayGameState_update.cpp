@@ -249,8 +249,9 @@ void PlayGameState::update(StateMachine & machine) {
               if (this->numberOfBarrelsInPlay < NUMBER_OF_BARRELS_MAX) {
                 this->numberOfBarrelsInPlay++;
               }
-              if (this->frameRate < FRAME_RATE_MAX) {
-                arduboy.setFrameRate(++this->frameRate);
+              if (this->frameRate + 1 < FRAME_RATE_MAX) {
+                this->frameRate = this->frameRate + 2;
+                arduboy.setFrameRate(this->frameRate);
               }
               break;
 

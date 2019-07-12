@@ -35,7 +35,7 @@ uint8_t PlayGameState::drawScenery(StateMachine & machine, uint8_t paintMode) {
          ((paintMode == SCENERY_PAINT_LAST) && ((mode & SCENERY_PAINT_LAST) > 0))
        ) {
 
-      if ((gameStats.mode == GameMode::Hard) || !(mode & SCENERY_LEVEL_2_ONLY > 0)) {
+      if ((gameStats.mode == GameMode::Hard) || !((mode & SCENERY_LEVEL_2_ONLY) > 0)) {
 
         uint8_t const *imageName = nullptr;
         uint8_t const *mask = nullptr;
