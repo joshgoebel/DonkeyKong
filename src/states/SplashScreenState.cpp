@@ -76,6 +76,4 @@ void SplashScreenState::render(StateMachine & machine) {
 
   }
 
-	arduboy.display(true);
-
 }

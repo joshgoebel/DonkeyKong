@@ -98,4 +98,6 @@ void Game::loop(void) {
 
 	}
 
+  arduboy.display(true);
+
 }

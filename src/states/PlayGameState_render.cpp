@@ -132,6 +132,4 @@ void PlayGameState::render(StateMachine & machine) {
 
   BaseState::renderScore(machine, 0);
 
-  arduboy.display(true);
-
 }

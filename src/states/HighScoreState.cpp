@@ -244,8 +244,6 @@ void HighScoreState::render(StateMachine & machine) {
 
   Sprites::drawExternalMask(2, 27, Images::DifficultyPanel, Images::DifficultyPanel_Mask, panelIndex, 0);
 
-  arduboy.display(true);
-
 }
 
 void HighScoreState::renderBarrel(StateMachine & machine, uint8_t barrelPosition, uint8_t &barrelRot) {
